@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Name | Software Engineer</title>
+    <title>Saisrinivas Mamunuru</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap');
         
         * {
             margin: 0;
@@ -14,10 +14,47 @@
         }
         
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: #ffffff;
-            color: #1a1a1a;
+            font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: radial-gradient(1200px 600px at 12% -10%, #f1f7ff 0%, #ffffff 60%),
+                        radial-gradient(900px 500px at 85% 5%, #f5fff0 0%, #ffffff 55%);
+            color: #111111;
             line-height: 1.6;
+            position: relative;
+        }
+
+        ::selection {
+            background: rgba(15, 118, 110, 0.2);
+            color: #0f2a27;
+        }
+
+        :root {
+            --ink: #111111;
+            --muted: #5a5a5a;
+            --line: rgba(0, 0, 0, 0.08);
+            --accent: #0f766e;
+            --accent-warm: #d64545;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(transparent 47px, rgba(0, 0, 0, 0.12) 48px),
+                linear-gradient(90deg, transparent 47px, rgba(0, 0, 0, 0.12) 48px);
+            background-size: 48px 48px;
+            opacity: 0.8;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        #particle-canvas {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
         }
         
         /* Sidebar Navigation */
@@ -26,27 +63,202 @@
             left: 0;
             top: 0;
             bottom: 0;
-            width: 280px;
-            background: #fafafa;
-            border-right: 1px solid #e5e5e5;
-            padding: 3rem 2rem;
+            width: 96px;
+            background: rgba(255, 255, 255, 0.82);
+            -webkit-backdrop-filter: blur(18px) saturate(160%);
+            backdrop-filter: blur(18px) saturate(160%);
+            border-right: 1px solid rgba(0, 0, 0, 0.08);
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08);
+            padding: 1.5rem 1rem;
             display: flex;
             flex-direction: column;
+            gap: 0.75rem;
             z-index: 1000;
+            overflow: hidden;
+            transition: width 0.25s ease;
+        }
+
+        .sidebar:hover,
+        .sidebar:focus-within,
+        .sidebar.active {
+            width: 260px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0 0.25rem;
+        }
+
+        .brand-mark {
+            width: 44px;
+            height: 44px;
+            border-radius: 14px;
+            background: #111111;
+            color: #ffffff;
+            display: grid;
+            place-items: center;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            text-decoration: none;
+        }
+
+        .brand-text {
+            display: flex;
+            flex-direction: column;
+            gap: 0.15rem;
+            max-width: 0;
+            opacity: 0;
+            overflow: hidden;
+            white-space: nowrap;
+            transform: translateX(-6px);
+            transition: max-width 0.25s ease, opacity 0.2s ease, transform 0.2s ease;
+        }
+
+        .brand-text .logo {
+            margin-bottom: 0;
+            font-size: 1.05rem;
+        }
+
+        .brand-text .subtitle {
+            margin-bottom: 0;
+        }
+
+        .nav-label,
+        .social-label {
+            max-width: 0;
+            opacity: 0;
+            overflow: hidden;
+            white-space: nowrap;
+            transform: translateX(-6px);
+            transition: max-width 0.25s ease, opacity 0.2s ease, transform 0.2s ease;
+        }
+
+        .nav-links a {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.6rem 0.75rem;
+            border-radius: 12px;
+            justify-content: center;
+        }
+
+        .nav-links a::before {
+            display: none;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            background: #f1f1f1;
+            color: #111111;
+        }
+
+        .nav-links a svg,
+        .social-links a svg {
+            width: 18px;
+            height: 18px;
+            display: block;
+            flex: 0 0 auto;
+        }
+
+        .nav-links a span,
+        .social-links a span {
+            max-width: 0;
+            opacity: 0;
+            overflow: hidden;
+            white-space: nowrap;
+            transform: translateX(-6px);
+            transition: max-width 0.25s ease, opacity 0.2s ease, transform 0.2s ease;
+        }
+
+        .social-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            padding-top: 0;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.55rem 0.75rem;
+            border-radius: 12px;
+            justify-content: center;
+        }
+
+        .brand:hover .brand-text,
+        .brand:focus-within .brand-text {
+            max-width: 200px;
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .sidebar:hover .nav-label,
+        .sidebar:hover .social-label,
+        .sidebar:focus-within .nav-label,
+        .sidebar:focus-within .social-label,
+        .sidebar.active .nav-label,
+        .sidebar.active .social-label {
+            max-width: 200px;
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .nav-links a:hover,
+        .nav-links a:focus-visible,
+        .social-links a:hover,
+        .social-links a:focus-visible {
+            justify-content: flex-start;
+        }
+
+        .nav-links a:hover span,
+        .nav-links a:focus-visible span,
+        .social-links a:hover span,
+        .social-links a:focus-visible span {
+            max-width: 200px;
+            opacity: 1;
+            transform: translateX(0);
         }
         
         .logo {
-            font-size: 1.5rem;
+            font-size: 1.7rem;
             font-weight: 700;
-            color: #1a1a1a;
+            color: var(--ink);
             margin-bottom: 0.5rem;
             text-decoration: none;
+            letter-spacing: -0.01em;
         }
         
         .subtitle {
-            font-size: 0.9rem;
-            color: #666;
-            margin-bottom: 3rem;
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            color: rgba(90, 90, 90, 0.8);
+            margin-bottom: 2rem;
+        }
+
+        .nav-label,
+        .social-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: rgba(90, 90, 90, 0.7);
+        }
+
+        .nav-label {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--line);
+            margin-bottom: 1rem;
+        }
+
+        .social-label {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--line);
+            margin-bottom: 0.75rem;
         }
         
         .nav-links {
@@ -55,58 +267,113 @@
         }
         
         .nav-links li {
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.25rem;
         }
         
         .nav-links a {
             display: block;
-            padding: 0.75rem 1rem;
-            color: #666;
+            padding: 0.55rem 0.75rem 0.55rem 1.5rem;
+            color: var(--muted);
             text-decoration: none;
             border-radius: 8px;
             transition: all 0.2s ease;
             font-size: 0.95rem;
+            position: relative;
+        }
+
+        .nav-links a::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 50%;
+            width: 12px;
+            height: 1px;
+            background: transparent;
+            transform: translateY(-50%);
+            transition: background 0.2s ease;
         }
         
         .nav-links a:hover,
         .nav-links a.active {
-            background: #ffffff;
-            color: #1a1a1a;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            color: var(--ink);
+        }
+
+        .nav-links a:hover::before,
+        .nav-links a.active::before {
+            background: var(--ink);
         }
         
         .social-links {
             display: flex;
             gap: 1rem;
-            padding-top: 2rem;
-            border-top: 1px solid #e5e5e5;
+            padding-top: 0;
         }
         
         .social-links a {
-            color: #666;
+            color: var(--muted);
             text-decoration: none;
             font-size: 0.9rem;
             transition: color 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            border: 1px solid transparent;
         }
         
         .social-links a:hover {
-            color: #1a1a1a;
+            color: var(--ink);
+            border-color: var(--line);
+        }
+
+        .social-links svg {
+            width: 18px;
+            height: 18px;
+            display: block;
         }
         
         /* Main Content */
         .main-content {
-            margin-left: 280px;
+            margin-left: 120px;
             min-height: 100vh;
+            position: relative;
+            z-index: 2;
+            transition: margin-left 0.25s ease;
+        }
+
+        .sidebar:hover ~ .main-content,
+        .sidebar:focus-within ~ .main-content,
+        .sidebar.active ~ .main-content {
+            margin-left: 300px;
         }
         
         .hero-section {
             padding: 8rem 4rem;
             max-width: 1200px;
+            position: relative;
+        }
+
+        .hero-content > * {
+            opacity: 0;
+            animation: rise 0.7s ease forwards;
+        }
+
+        .hero-content > *:nth-child(1) { animation-delay: 0.05s; }
+        .hero-content > *:nth-child(2) { animation-delay: 0.12s; }
+        .hero-content > *:nth-child(3) { animation-delay: 0.2s; }
+        .hero-content > *:nth-child(4) { animation-delay: 0.28s; }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 720px;
         }
         
         .hero-label {
             font-size: 0.85rem;
-            color: #666;
+            color: var(--muted);
             text-transform: uppercase;
             letter-spacing: 1px;
             margin-bottom: 1rem;
@@ -117,12 +384,12 @@
             font-weight: 700;
             line-height: 1.2;
             margin-bottom: 1.5rem;
-            color: #1a1a1a;
+            color: var(--ink);
         }
         
         .hero-description {
             font-size: 1.25rem;
-            color: #666;
+            color: var(--muted);
             max-width: 600px;
             margin-bottom: 3rem;
             line-height: 1.7;
@@ -145,7 +412,7 @@
         }
         
         .btn-primary {
-            background: #1a1a1a;
+            background: var(--ink);
             color: #ffffff;
         }
         
@@ -157,86 +424,282 @@
         
         .btn-secondary {
             background: #ffffff;
-            color: #1a1a1a;
-            border: 1px solid #e5e5e5;
+            color: var(--ink);
+            border: 1px solid var(--line);
         }
         
         .btn-secondary:hover {
-            border-color: #1a1a1a;
+            border-color: var(--ink);
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
-        
-        /* Stats Section */
-        .stats-section {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+
+
+        /* Highlights Strip */
+        .highlight-strip {
+            display: flex;
+            flex-wrap: wrap;
             gap: 2rem;
-            padding: 4rem;
+            padding: 2rem 4rem;
             max-width: 1200px;
-            margin-top: 2rem;
+            border-top: 1px solid var(--line);
+            border-bottom: 1px solid var(--line);
         }
-        
-        .stat-card {
-            padding: 2rem;
-            background: #fafafa;
-            border-radius: 12px;
-            border: 1px solid #e5e5e5;
+
+        .highlight {
+            min-width: 200px;
+            flex: 1 1 220px;
+            opacity: 0;
+            animation: rise 0.7s ease forwards;
+            animation-delay: calc(0.08s * var(--i));
         }
-        
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: #1a1a1a;
+
+        .highlight-title {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--muted);
             margin-bottom: 0.5rem;
         }
-        
-        .stat-label {
-            font-size: 0.9rem;
-            color: #666;
-        }
-        
-        /* Page Cards */
-        .page-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-            padding: 0 4rem 4rem;
-            max-width: 1200px;
-        }
-        
-        .page-card {
-            padding: 2rem;
-            background: #ffffff;
-            border: 1px solid #e5e5e5;
-            border-radius: 12px;
-            text-decoration: none;
-            transition: all 0.2s ease;
-        }
-        
-        .page-card:hover {
-            border-color: #1a1a1a;
-            transform: translateY(-4px);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-        }
-        
-        .card-icon {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-        }
-        
-        .page-card h2 {
-            font-size: 1.25rem;
+
+        .highlight-value {
+            font-size: 1.05rem;
             font-weight: 600;
-            color: #1a1a1a;
-            margin-bottom: 0.75rem;
+            color: var(--ink);
+            margin-bottom: 0.4rem;
         }
-        
-        .page-card p {
-            color: #666;
+
+        .highlight-note {
             font-size: 0.95rem;
-            line-height: 1.6;
+            color: var(--muted);
         }
+
+        /* Interest Marquee */
+        .interest-marquee {
+            padding: 0.75rem 4rem 1.25rem;
+            max-width: 1200px;
+            border-top: 1px solid var(--line);
+            border-bottom: 1px solid var(--line);
+            overflow: hidden;
+            position: relative;
+            margin-top: -1rem;
+        }
+
+        .interest-marquee::before,
+        .interest-marquee::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 80px;
+            z-index: 2;
+        }
+
+        .interest-marquee::before {
+            left: 0;
+            background: linear-gradient(90deg, #ffffff 0%, rgba(255, 255, 255, 0) 100%);
+        }
+
+        .interest-marquee::after {
+            right: 0;
+            background: linear-gradient(270deg, #ffffff 0%, rgba(255, 255, 255, 0) 100%);
+        }
+
+        .marquee {
+            overflow: hidden;
+        }
+
+        .marquee-track {
+            display: flex;
+            gap: 2.5rem;
+            width: max-content;
+            animation: marquee 28s linear infinite;
+        }
+
+        .marquee-item {
+            font-size: 0.95rem;
+            color: var(--muted);
+            letter-spacing: 0.04em;
+            white-space: nowrap;
+            text-transform: uppercase;
+        }
+
+        @keyframes rise {
+            from { opacity: 0; transform: translateY(14px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+
+        @keyframes marquee {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+        }
+
+        /* Sidebar Override (icon rail -> expand on hover) */
+        .sidebar {
+            width: 72px;
+            padding: 1.5rem 0.75rem;
+            background: rgba(255, 255, 255, 0.9);
+            -webkit-backdrop-filter: blur(16px) saturate(160%);
+            backdrop-filter: blur(16px) saturate(160%);
+            border-right: 1px solid rgba(0, 0, 0, 0.08);
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08);
+            transition: width 0.25s ease;
+        }
+
+        .sidebar:hover,
+        .sidebar:focus-within {
+            width: 260px;
+        }
+
+        .brand {
+            padding: 0.25rem 0.25rem 1rem;
+        }
+
+        .brand-text,
+        .nav-label,
+        .social-label,
+        .nav-links a span,
+        .social-links a span {
+            max-width: 0;
+            opacity: 0;
+            overflow: hidden;
+            white-space: nowrap;
+            transform: translateX(-6px);
+            transition: max-width 0.25s ease, opacity 0.2s ease, transform 0.2s ease;
+        }
+
+        .nav-links a,
+        .social-links a {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            justify-content: center;
+        }
+
+        .nav-links a {
+            padding: 0.6rem 0.75rem;
+            border-radius: 12px;
+        }
+
+        .social-links a {
+            padding: 0.55rem 0.75rem;
+            border-radius: 12px;
+        }
+
+        .nav-links a::before {
+            display: none;
+        }
+
+        .sidebar:hover .social-links,
+        .sidebar:focus-within .social-links {
+            flex-direction: row;
+            gap: 0.75rem;
+        }
+
+        .sidebar:hover .brand-text,
+        .sidebar:hover .nav-label,
+        .sidebar:hover .social-label,
+        .sidebar:hover .nav-links a span,
+        .sidebar:hover .social-links a span,
+        .sidebar:focus-within .brand-text,
+        .sidebar:focus-within .nav-label,
+        .sidebar:focus-within .social-label,
+        .sidebar:focus-within .nav-links a span,
+        .sidebar:focus-within .social-links a span {
+            max-width: 200px;
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .sidebar:hover .nav-links a,
+        .sidebar:hover .social-links a,
+        .sidebar:focus-within .nav-links a,
+        .sidebar:focus-within .social-links a {
+            justify-content: flex-start;
+        }
+
+        .main-content {
+            margin-left: 100px;
+            transition: margin-left 0.25s ease;
+        }
+
+        .sidebar:hover ~ .main-content,
+        .sidebar:focus-within ~ .main-content {
+            margin-left: 300px;
+        }
+
+        /* Compact icon rail -> expands on hover */
+        .sidebar {
+            width: 72px;
+            padding: 1.5rem 0.75rem;
+            background: rgba(255, 255, 255, 0.9);
+            -webkit-backdrop-filter: blur(16px) saturate(160%);
+            backdrop-filter: blur(16px) saturate(160%);
+            border-right: 1px solid rgba(0, 0, 0, 0.08);
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08);
+            transition: width 0.25s ease;
+        }
+
+        .sidebar:hover,
+        .sidebar:focus-within {
+            width: 260px;
+        }
+
+        .brand {
+            padding: 0.25rem 0.25rem 1rem;
+        }
+
+        .brand-text,
+        .nav-label,
+        .social-label,
+        .nav-links a span,
+        .social-links a span {
+            max-width: 0;
+            opacity: 0;
+            overflow: hidden;
+            white-space: nowrap;
+            transform: translateX(-6px);
+            transition: max-width 0.25s ease, opacity 0.2s ease, transform 0.2s ease;
+        }
+
+        .nav-links a,
+        .social-links a {
+            justify-content: center;
+        }
+
+        .sidebar:hover .brand-text,
+        .sidebar:hover .nav-label,
+        .sidebar:hover .social-label,
+        .sidebar:hover .nav-links a span,
+        .sidebar:hover .social-links a span,
+        .sidebar:focus-within .brand-text,
+        .sidebar:focus-within .nav-label,
+        .sidebar:focus-within .social-label,
+        .sidebar:focus-within .nav-links a span,
+        .sidebar:focus-within .social-links a span {
+            max-width: 200px;
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .sidebar:hover .nav-links a,
+        .sidebar:hover .social-links a,
+        .sidebar:focus-within .nav-links a,
+        .sidebar:focus-within .social-links a {
+            justify-content: flex-start;
+        }
+
+        .main-content {
+            margin-left: 100px;
+            transition: margin-left 0.25s ease;
+        }
+
+        .sidebar:hover ~ .main-content,
+        .sidebar:focus-within ~ .main-content {
+            margin-left: 300px;
+        }
+
         
         /* Mobile Menu */
         .mobile-menu-btn {
@@ -269,8 +732,8 @@
             }
             
             .hero-section,
-            .stats-section,
-            .page-cards {
+            .highlight-strip,
+            .interest-marquee {
                 padding-left: 2rem;
                 padding-right: 2rem;
             }
@@ -279,8 +742,8 @@
                 display: block;
             }
             
-            .stats-section {
-                grid-template-columns: repeat(2, 1fr);
+            .hero-content {
+                max-width: 100%;
             }
         }
         
@@ -288,104 +751,273 @@
             .hero-section {
                 padding-top: 6rem;
             }
-            
-            .stats-section {
-                grid-template-columns: 1fr;
-            }
-            
-            .page-cards {
-                grid-template-columns: 1fr;
-            }
+        }
+
+        /* Force compact icon rail (override older sidebar rules) */
+        .sidebar {
+            width: 72px !important;
+            padding: 1.5rem 0.75rem !important;
+            background: rgba(255, 255, 255, 0.9) !important;
+            -webkit-backdrop-filter: blur(16px) saturate(160%) !important;
+            backdrop-filter: blur(16px) saturate(160%) !important;
+            border-right: 1px solid rgba(0, 0, 0, 0.08) !important;
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08) !important;
+            transition: width 0.25s ease !important;
+        }
+
+        .sidebar:hover,
+        .sidebar:focus-within {
+            width: 260px !important;
+        }
+
+        .main-content {
+            margin-left: 100px !important;
+            transition: margin-left 0.25s ease !important;
+        }
+
+        .sidebar:hover ~ .main-content,
+        .sidebar:focus-within ~ .main-content {
+            margin-left: 300px !important;
         }
     </style>
 </head>
 <body>
     <!-- Mobile Menu Button -->
     <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
+
+    <canvas id="particle-canvas" aria-hidden="true"></canvas>
     
     <!-- Sidebar -->
     <nav class="sidebar" id="sidebar">
-        <div>
-            <a href="index.html" class="logo">Your Name</a>
-            <div class="subtitle">Software Engineer</div>
+        <div class="brand">
+            <a href="index.html" class="brand-mark" aria-label="Home">S</a>
+            <div class="brand-text">
+                <a href="index.html" class="logo">Saisrinivas</a>
+                <div class="subtitle">Software Engineer</div>
+            </div>
         </div>
-        
+
         <ul class="nav-links">
-            <li><a href="index.html" class="active">Home</a></li>
-            <li><a href="experience.html">Experience</a></li>
-            <li><a href="projects.html">Projects</a></li>
-            <li><a href="blog.html">Blog</a></li>
-            <li><a href="photography.html">Photography</a></li>
+            <li>
+                <a href="index.html" class="active">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path fill="currentColor" d="M12 3l8 7h-2v9h-5v-6H11v6H6v-9H4l8-7Z"/>
+                    </svg>
+                    <span>Home</span>
+                </a>
+            </li>
+            <li>
+                <a href="experience.html">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path fill="currentColor" d="M7 7V5a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v2h3a1 1 0 0 1 1 1v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a1 1 0 0 1 1-1h3Zm2-2v2h6V5H9Zm-4 7h14v7H5v-7Z"/>
+                    </svg>
+                    <span>Experience</span>
+                </a>
+            </li>
+            <li>
+                <a href="projects.html">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path fill="currentColor" d="M4 6a2 2 0 0 1 2-2h5v4H4V6Zm0 6h7v8H6a2 2 0 0 1-2-2v-6Zm9-8h5a2 2 0 0 1 2 2v6h-7V4Zm0 10h7v4a2 2 0 0 1-2 2h-5v-6Z"/>
+                    </svg>
+                    <span>Projects</span>
+                </a>
+            </li>
+            <li>
+                <a href="blog.html">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path fill="currentColor" d="M4 4h10l4 4v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Zm9 1.5V9h3.5L13 5.5ZM7 12h10v2H7v-2Zm0 4h10v2H7v-2Z"/>
+                    </svg>
+                    <span>Blog</span>
+                </a>
+            </li>
+            <li>
+                <a href="photography.html">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path fill="currentColor" d="M9 4l1.5 2H14l1.5-2H19a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h4Zm3 5a5 5 0 1 0 0 10 5 5 0 0 0 0-10Zm0 2.2A2.8 2.8 0 1 1 12 17a2.8 2.8 0 0 1 0-5.6Z"/>
+                    </svg>
+                    <span>Photography</span>
+                </a>
+            </li>
         </ul>
-        
+
+        <div class="social-label">Connect</div>
         <div class="social-links">
-            <a href="https://github.com/yourusername" target="_blank">GitHub</a>
-            <a href="https://linkedin.com/in/yourusername" target="_blank">LinkedIn</a>
-            <a href="mailto:your.email@example.com">Email</a>
+            <a href="https://github.com/yourusername" target="_blank" aria-label="GitHub">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path fill="currentColor" d="M12 2a10 10 0 0 0-3.16 19.48c.5.09.68-.22.68-.48 0-.24-.01-.87-.01-1.7-2.78.6-3.37-1.17-3.37-1.17-.45-1.15-1.11-1.46-1.11-1.46-.9-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.9 1.53 2.36 1.09 2.94.83.09-.65.35-1.09.63-1.34-2.22-.25-4.56-1.11-4.56-4.95 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02A9.57 9.57 0 0 1 12 6.8c.85 0 1.71.11 2.51.33 1.9-1.29 2.74-1.02 2.74-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.85-2.34 4.7-4.57 4.95.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.8 0 .27.18.58.69.48A10 10 0 0 0 12 2Z"/>
+                </svg>
+                <span>GitHub</span>
+            </a>
+            <a href="https://linkedin.com/in/yourusername" target="_blank" aria-label="LinkedIn">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path fill="currentColor" d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9h4v12H3V9Zm7.5 0H14v1.7h.06c.48-.9 1.64-1.86 3.38-1.86 3.62 0 4.29 2.38 4.29 5.47V21h-4v-5.14c0-1.23-.02-2.81-1.71-2.81-1.72 0-1.98 1.34-1.98 2.72V21h-4V9Z"/>
+                </svg>
+                <span>LinkedIn</span>
+            </a>
+            <a href="mailto:your.email@example.com" aria-label="Email">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path fill="currentColor" d="M4 6h16a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2Zm0 2v.3l8 4.8 8-4.8V8H4Zm16 8V10.6l-7.38 4.43a1.5 1.5 0 0 1-1.24 0L4 10.6V16h16Z"/>
+                </svg>
+                <span>Email</span>
+            </a>
         </div>
     </nav>
     
     <!-- Main Content -->
     <main class="main-content">
         <section class="hero-section">
-            <div class="hero-label">Software Engineer</div>
-            <h1>Building scalable systems & transforming data into insights</h1>
-            <p class="hero-description">
-                Specializing in data engineering, distributed systems, and backend architecture. 
-                Passionate about creating efficient pipelines and solving complex technical challenges.
-            </p>
-            <div class="cta-buttons">
-                <a href="projects.html" class="btn btn-primary">View Projects</a>
-                <a href="mailto:your.email@example.com" class="btn btn-secondary">Get in Touch</a>
+            <div class="hero-content">
+                <div class="hero-label">HEY THERE!</div>
+                <h1>Glad you’re here — I’m Saisrinivas!</h1>
+                <p class="hero-description">
+                    I’m a software engineer focused on data pipelines and scalable systems. I love converting business data into actionable insights. Take a look around to see my work, writing, and photography.
+                </p>
+                <div class="cta-buttons">
+                    <a href="projects.html" class="btn btn-primary">View Projects</a>
+                    <a href="mailto:your.email@example.com" class="btn btn-secondary">Get in Touch</a>
+                </div>
             </div>
         </section>
-        
-        <section class="stats-section">
-            <div class="stat-card">
-                <div class="stat-number">5+</div>
-                <div class="stat-label">Years Experience</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number">20+</div>
-                <div class="stat-label">Projects Delivered</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number">10B+</div>
-                <div class="stat-label">Records Processed</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number">99.9%</div>
-                <div class="stat-label">System Uptime</div>
+
+        <section class="interest-marquee" aria-label="Interests">
+            <div class="marquee">
+                <div class="marquee-track">
+                    <div class="marquee-item">Interested in turning data into insights</div>
+                    <div class="marquee-item">Interested in scaling distributed systems</div>
+                    <div class="marquee-item">Interested in reliable pipelines</div>
+                    <div class="marquee-item">Interested in observability and metrics</div>
+                    <div class="marquee-item">Interested in product-impacting data</div>
+                    <div class="marquee-item">Interested in mentoring and team growth</div>
+                    <div class="marquee-item">Interested in turning data into insights</div>
+                    <div class="marquee-item">Interested in scaling distributed systems</div>
+                    <div class="marquee-item">Interested in reliable pipelines</div>
+                    <div class="marquee-item">Interested in observability and metrics</div>
+                    <div class="marquee-item">Interested in product-impacting data</div>
+                    <div class="marquee-item">Interested in mentoring and team growth</div>
+                </div>
             </div>
         </section>
-        
-        <section class="page-cards">
-            <a href="experience.html" class="page-card">
-                <div class="card-icon">💼</div>
-                <h2>Experience</h2>
-                <p>Career history, roles, and technical achievements across companies</p>
-            </a>
-            
-            <a href="projects.html" class="page-card">
-                <div class="card-icon">🚀</div>
-                <h2>Projects</h2>
-                <p>Featured work, technical implementations, and open source contributions</p>
-            </a>
-            
-            <a href="blog.html" class="page-card">
-                <div class="card-icon">✍️</div>
-                <h2>Blog</h2>
-                <p>Technical writing, insights, and thoughts on software engineering</p>
-            </a>
-            
-            <a href="photography.html" class="page-card">
-                <div class="card-icon">📷</div>
-                <h2>Photography</h2>
-                <p>Visual stories and moments captured through the lens</p>
-            </a>
+
+        <section class="highlight-strip">
+            <div class="highlight" style="--i: 1;">
+                <div class="highlight-title">Focus</div>
+                <div class="highlight-value">Data platforms & distributed systems</div>
+                <div class="highlight-note">Pipelines, reliability, and performance at scale.</div>
+            </div>
+            <div class="highlight" style="--i: 2;">
+                <div class="highlight-title">Strengths</div>
+                <div class="highlight-value">Architecture, observability, mentoring</div>
+                <div class="highlight-note">Turning ambiguity into production-ready systems.</div>
+            </div>
+            <div class="highlight" style="--i: 3;">
+                <div class="highlight-title">Toolbox</div>
+                <div class="highlight-value">Python, Spark, Kafka, AWS</div>
+                <div class="highlight-note">Plus SQL, Terraform, and CI/CD.</div>
+            </div>
+            <div class="highlight" style="--i: 4;">
+                <div class="highlight-title">Availability</div>
+                <div class="highlight-value">Open to full-time roles</div>
+                <div class="highlight-note">Also open to high-impact consulting.</div>
+            </div>
         </section>
     </main>
     
+    <script>
+        const canvas = document.getElementById("particle-canvas");
+        const ctx = canvas.getContext("2d");
+        const dpr = window.devicePixelRatio || 1;
+        const particles = [];
+        const maxParticles = 120;
+        const linkDistance = 150;
+        const mouse = { x: -9999, y: -9999 };
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth * dpr;
+            canvas.height = window.innerHeight * dpr;
+            canvas.style.width = `${window.innerWidth}px`;
+            canvas.style.height = `${window.innerHeight}px`;
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        }
+
+        function createParticles() {
+            particles.length = 0;
+            for (let i = 0; i < maxParticles; i += 1) {
+                particles.push({
+                    x: Math.random() * window.innerWidth,
+                    y: Math.random() * window.innerHeight,
+                    vx: (Math.random() - 0.5) * 0.6,
+                    vy: (Math.random() - 0.5) * 0.6,
+                    r: 1.5 + Math.random() * 2
+                });
+            }
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+
+            for (let i = 0; i < particles.length; i += 1) {
+                const p = particles[i];
+
+                p.x += p.vx;
+                p.y += p.vy;
+
+                if (p.x < 0 || p.x > window.innerWidth) p.vx *= -1;
+                if (p.y < 0 || p.y > window.innerHeight) p.vy *= -1;
+
+                // Subtle repel on hover
+                const dx = p.x - mouse.x;
+                const dy = p.y - mouse.y;
+                const dist = Math.hypot(dx, dy);
+                if (dist < 140) {
+                    p.x += (dx / dist) * 0.4;
+                    p.y += (dy / dist) * 0.4;
+                }
+
+                ctx.beginPath();
+                ctx.fillStyle = "rgba(214, 69, 69, 0.85)";
+                ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                ctx.fill();
+
+                for (let j = i + 1; j < particles.length; j += 1) {
+                    const q = particles[j];
+                    const dx2 = p.x - q.x;
+                    const dy2 = p.y - q.y;
+                    const dist2 = Math.hypot(dx2, dy2);
+                    if (dist2 < linkDistance) {
+                        const alpha = 1 - dist2 / linkDistance;
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(214, 69, 69, ${0.35 * alpha})`;
+                        ctx.lineWidth = 1;
+                        ctx.moveTo(p.x, p.y);
+                        ctx.lineTo(q.x, q.y);
+                        ctx.stroke();
+                    }
+                }
+            }
+
+            requestAnimationFrame(draw);
+        }
+
+        window.addEventListener("resize", () => {
+            resizeCanvas();
+            createParticles();
+        });
+
+        window.addEventListener("mousemove", (e) => {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+        });
+
+        window.addEventListener("mouseleave", () => {
+            mouse.x = -9999;
+            mouse.y = -9999;
+        });
+
+        resizeCanvas();
+        createParticles();
+        draw();
+    </script>
+
     <script>
         function toggleMenu() {
             document.getElementById('sidebar').classList.toggle('active');

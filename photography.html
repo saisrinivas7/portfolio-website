@@ -3,25 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Photography | Your Name</title>
+    <title>Photography | Saisrinivas</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
         
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; background: #fff; color: #1a1a1a; line-height: 1.6; }
+        body { font-family: 'Inter', sans-serif; background: #fff; color: #1a1a1a; line-height: 1.6; position: relative; }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(transparent 47px, rgba(0, 0, 0, 0.12) 48px),
+                linear-gradient(90deg, transparent 47px, rgba(0, 0, 0, 0.12) 48px);
+            background-size: 48px 48px;
+            opacity: 0.8;
+            pointer-events: none;
+            z-index: 0;
+        }
         
-        .sidebar { position: fixed; left: 0; top: 0; bottom: 0; width: 280px; background: #fafafa; border-right: 1px solid #e5e5e5; padding: 3rem 2rem; display: flex; flex-direction: column; z-index: 1000; }
-        .logo { font-size: 1.5rem; font-weight: 700; color: #1a1a1a; margin-bottom: 0.5rem; text-decoration: none; }
-        .subtitle { font-size: 0.9rem; color: #666; margin-bottom: 3rem; }
+        .sidebar { position: fixed; left: 0; top: 0; bottom: 0; width: 96px; background: rgba(255, 255, 255, 0.82); -webkit-backdrop-filter: blur(18px) saturate(160%); backdrop-filter: blur(18px) saturate(160%); border-right: 1px solid rgba(0, 0, 0, 0.08); box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08); padding: 1.5rem 1rem; display: flex; gap: 0.75rem; z-index: 1000; overflow: hidden; transition: width 0.25s ease; }
+        .sidebar:hover, .sidebar:focus-within { width: 320px; }
+        .sidebar-rail { width: 64px; background: transparent; border: none; padding: 0.5rem 0.25rem 0.5rem 0; display: flex; flex-direction: column; justify-content: space-between; border-right: 1px solid rgba(0, 0, 0, 0.08); }
+        .rail-stack { display: flex; flex-direction: column; gap: 0.75rem; align-items: center; }
+        .rail-logo { width: 44px; height: 44px; border-radius: 14px; background: #111111; color: #ffffff; display: grid; place-items: center; font-weight: 600; letter-spacing: 0.02em; }
+        .rail-item { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; color: #5a5a5a; border: 1px solid transparent; transition: all 0.2s ease; text-decoration: none; }
+        .rail-item:hover, .rail-item.active { background: #f1f1f1; color: #111111; border-color: #e5e5e5; }
+        .rail-item svg { width: 18px; height: 18px; display: block; }
+        .sidebar-main { flex: 1; background: transparent; border: none; border-radius: 0; padding: 0.5rem 0 0.5rem 0.75rem; box-shadow: none; display: flex; flex-direction: column; min-height: 100%; opacity: 0; transform: translateX(-12px); pointer-events: none; transition: opacity 0.2s ease, transform 0.2s ease; }
+        .sidebar:hover .sidebar-main, .sidebar:focus-within .sidebar-main { opacity: 1; transform: translateX(0); pointer-events: auto; }
+        .logo { font-size: 1.7rem; font-weight: 700; color: #1a1a1a; margin-bottom: 0.5rem; text-decoration: none; letter-spacing: -0.01em; }
+        .subtitle { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.3em; color: rgba(102, 102, 102, 0.8); margin-bottom: 2rem; }
+        .nav-label, .social-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.2em; color: rgba(102, 102, 102, 0.7); }
+        .nav-label { margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid #e5e5e5; margin-bottom: 1rem; }
+        .social-label { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid #e5e5e5; margin-bottom: 0.75rem; }
         .nav-links { list-style: none; flex: 1; }
-        .nav-links li { margin-bottom: 0.5rem; }
-        .nav-links a { display: block; padding: 0.75rem 1rem; color: #666; text-decoration: none; border-radius: 8px; transition: all 0.2s ease; font-size: 0.95rem; }
-        .nav-links a:hover, .nav-links a.active { background: #fff; color: #1a1a1a; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
-        .social-links { display: flex; gap: 1rem; padding-top: 2rem; border-top: 1px solid #e5e5e5; }
-        .social-links a { color: #666; text-decoration: none; font-size: 0.9rem; transition: color 0.2s ease; }
-        .social-links a:hover { color: #1a1a1a; }
+        .nav-links li { margin-bottom: 0.25rem; }
+        .nav-links a { display: block; padding: 0.55rem 0.75rem 0.55rem 1.5rem; color: #666; text-decoration: none; border-radius: 8px; transition: all 0.2s ease; font-size: 0.95rem; position: relative; }
+        .nav-links a::before { content: ""; position: absolute; left: 0; top: 50%; width: 12px; height: 1px; background: transparent; transform: translateY(-50%); transition: background 0.2s ease; }
+        .nav-links a:hover, .nav-links a.active { color: #1a1a1a; }
+        .nav-links a:hover::before, .nav-links a.active::before { background: #1a1a1a; }
+        .social-links { display: flex; gap: 1rem; padding-top: 0; }
+        .social-links a { color: #666; text-decoration: none; transition: color 0.2s ease; display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 8px; border: 1px solid transparent; }
+        .social-links a:hover { color: #1a1a1a; border-color: #e5e5e5; }
+        .social-links svg { width: 18px; height: 18px; display: block; }
+
+        .sidebar { position: fixed; left: 0; top: 0; bottom: 0; width: 96px; background: rgba(255, 255, 255, 0.82); -webkit-backdrop-filter: blur(18px) saturate(160%); backdrop-filter: blur(18px) saturate(160%); border-right: 1px solid rgba(0, 0, 0, 0.08); box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08); padding: 1.5rem 1rem; display: flex; flex-direction: column; gap: 0.75rem; z-index: 1000; overflow: hidden; transition: width 0.25s ease; }
+        .sidebar:hover, .sidebar:focus-within, .sidebar.active { width: 260px; }
+        .brand { display: flex; align-items: center; gap: 0.75rem; padding: 0 0.25rem; }
+        .brand-mark { width: 44px; height: 44px; border-radius: 14px; background: #111111; color: #ffffff; display: grid; place-items: center; font-weight: 600; letter-spacing: 0.02em; text-decoration: none; }
+        .brand-text { display: flex; flex-direction: column; gap: 0.15rem; max-width: 0; opacity: 0; overflow: hidden; white-space: nowrap; transform: translateX(-6px); transition: max-width 0.25s ease, opacity 0.2s ease, transform 0.2s ease; }
+        .brand-text .logo { margin-bottom: 0; font-size: 1.05rem; }
+        .brand-text .subtitle { margin-bottom: 0; }
+        .nav-label, .social-label { max-width: 0; opacity: 0; overflow: hidden; white-space: nowrap; transform: translateX(-6px); transition: max-width 0.25s ease, opacity 0.2s ease, transform 0.2s ease; }
+        .nav-links a { display: flex; align-items: center; gap: 0.75rem; padding: 0.6rem 0.75rem; border-radius: 12px; justify-content: center; }
+        .nav-links a::before { display: none; }
+        .nav-links a:hover, .nav-links a.active { background: #f1f1f1; color: #111111; }
+        .nav-links a svg, .social-links a svg { width: 18px; height: 18px; display: block; flex: 0 0 auto; }
+        .nav-links a span, .social-links a span { max-width: 0; opacity: 0; overflow: hidden; white-space: nowrap; transform: translateX(-6px); transition: max-width 0.25s ease, opacity 0.2s ease, transform 0.2s ease; }
+        .social-links { display: flex; flex-direction: column; gap: 0.5rem; padding-top: 0; }
+        .social-links a { display: flex; align-items: center; gap: 0.75rem; padding: 0.55rem 0.75rem; border-radius: 12px; justify-content: center; }
+        .brand:hover .brand-text, .brand:focus-within .brand-text { max-width: 200px; opacity: 1; transform: translateX(0); }
+        .sidebar:hover .nav-label, .sidebar:hover .social-label, .sidebar:focus-within .nav-label, .sidebar:focus-within .social-label, .sidebar.active .nav-label, .sidebar.active .social-label { max-width: 200px; opacity: 1; transform: translateX(0); }
+        .nav-links a:hover, .nav-links a:focus-visible, .social-links a:hover, .social-links a:focus-visible { justify-content: flex-start; }
+        .nav-links a:hover span, .nav-links a:focus-visible span, .social-links a:hover span, .social-links a:focus-visible span { max-width: 200px; opacity: 1; transform: translateX(0); }
+        .main-content { margin-left: 120px; transition: margin-left 0.25s ease; }
+        .sidebar:hover ~ .main-content, .sidebar:focus-within ~ .main-content, .sidebar.active ~ .main-content { margin-left: 300px; }
         
-        .main-content { margin-left: 280px; padding: 4rem; max-width: 1400px; }
+        .main-content { margin-left: 120px; padding: 4rem; max-width: 1400px; position: relative; z-index: 1; transition: margin-left 0.25s ease; }
+        .sidebar:hover ~ .main-content, .sidebar:focus-within ~ .main-content { margin-left: 340px; }
         .page-header { margin-bottom: 4rem; }
         .page-label { font-size: 0.85rem; color: #666; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1rem; }
         h1 { font-size: 3rem; font-weight: 700; margin-bottom: 1rem; }
@@ -35,6 +86,83 @@
         .photo-item:hover .photo-overlay { transform: translateY(0); }
         .photo-title { font-size: 1rem; font-weight: 600; margin-bottom: 0.25rem; color: #fff; }
         .photo-meta { font-size: 0.85rem; color: rgba(255,255,255,0.7); }
+
+        /* Compact icon rail -> expands on hover */
+        .sidebar {
+            width: 72px;
+            padding: 1.5rem 0.75rem;
+            background: rgba(255, 255, 255, 0.9);
+            -webkit-backdrop-filter: blur(16px) saturate(160%);
+            backdrop-filter: blur(16px) saturate(160%);
+            border-right: 1px solid rgba(0, 0, 0, 0.08);
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08);
+            transition: width 0.25s ease;
+        }
+
+        .sidebar:hover,
+        .sidebar:focus-within {
+            width: 260px;
+        }
+
+        .brand {
+            padding: 0.25rem 0.25rem 1rem;
+        }
+
+        .brand-text,
+        .nav-label,
+        .social-label,
+        .nav-links a span,
+        .social-links a span {
+            max-width: 0;
+            opacity: 0;
+            overflow: hidden;
+            white-space: nowrap;
+            transform: translateX(-6px);
+            transition: max-width 0.25s ease, opacity 0.2s ease, transform 0.2s ease;
+        }
+
+        .nav-links a,
+        .social-links a {
+            justify-content: center;
+        }
+
+        .sidebar:hover .social-links,
+        .sidebar:focus-within .social-links {
+            flex-direction: row;
+            gap: 0.75rem;
+        }
+
+        .sidebar:hover .brand-text,
+        .sidebar:hover .nav-label,
+        .sidebar:hover .social-label,
+        .sidebar:hover .nav-links a span,
+        .sidebar:hover .social-links a span,
+        .sidebar:focus-within .brand-text,
+        .sidebar:focus-within .nav-label,
+        .sidebar:focus-within .social-label,
+        .sidebar:focus-within .nav-links a span,
+        .sidebar:focus-within .social-links a span {
+            max-width: 200px;
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .sidebar:hover .nav-links a,
+        .sidebar:hover .social-links a,
+        .sidebar:focus-within .nav-links a,
+        .sidebar:focus-within .social-links a {
+            justify-content: flex-start;
+        }
+
+        .main-content {
+            margin-left: 100px;
+            transition: margin-left 0.25s ease;
+        }
+
+        .sidebar:hover ~ .main-content,
+        .sidebar:focus-within ~ .main-content {
+            margin-left: 300px;
+        }
         
         .mobile-menu-btn { display: none; position: fixed; top: 1.5rem; left: 1.5rem; z-index: 2000; background: #1a1a1a; color: white; border: none; padding: 0.75rem; border-radius: 8px; cursor: pointer; }
         
@@ -51,21 +179,77 @@
     <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
     
     <nav class="sidebar" id="sidebar">
-        <div>
-            <a href="index.html" class="logo">Your Name</a>
-            <div class="subtitle">Software Engineer</div>
+        <div class="brand">
+            <a href="index.html" class="brand-mark" aria-label="Home">S</a>
+            <div class="brand-text">
+                <a href="index.html" class="logo">Saisrinivas</a>
+                <div class="subtitle">Software Engineer</div>
+            </div>
         </div>
+
         <ul class="nav-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="experience.html">Experience</a></li>
-            <li><a href="projects.html">Projects</a></li>
-            <li><a href="blog.html">Blog</a></li>
-            <li><a href="photography.html" class="active">Photography</a></li>
+            <li>
+                <a href="index.html">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path fill="currentColor" d="M12 3l8 7h-2v9h-5v-6H11v6H6v-9H4l8-7Z"/>
+                    </svg>
+                    <span>Home</span>
+                </a>
+            </li>
+            <li>
+                <a href="experience.html">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path fill="currentColor" d="M7 7V5a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v2h3a1 1 0 0 1 1 1v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a1 1 0 0 1 1-1h3Zm2-2v2h6V5H9Zm-4 7h14v7H5v-7Z"/>
+                    </svg>
+                    <span>Experience</span>
+                </a>
+            </li>
+            <li>
+                <a href="projects.html">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path fill="currentColor" d="M4 6a2 2 0 0 1 2-2h5v4H4V6Zm0 6h7v8H6a2 2 0 0 1-2-2v-6Zm9-8h5a2 2 0 0 1 2 2v6h-7V4Zm0 10h7v4a2 2 0 0 1-2 2h-5v-6Z"/>
+                    </svg>
+                    <span>Projects</span>
+                </a>
+            </li>
+            <li>
+                <a href="blog.html">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path fill="currentColor" d="M4 4h10l4 4v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Zm9 1.5V9h3.5L13 5.5ZM7 12h10v2H7v-2Zm0 4h10v2H7v-2Z"/>
+                    </svg>
+                    <span>Blog</span>
+                </a>
+            </li>
+            <li>
+                <a href="photography.html" class="active">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path fill="currentColor" d="M9 4l1.5 2H14l1.5-2H19a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h4Zm3 5a5 5 0 1 0 0 10 5 5 0 0 0 0-10Zm0 2.2A2.8 2.8 0 1 1 12 17a2.8 2.8 0 0 1 0-5.6Z"/>
+                    </svg>
+                    <span>Photography</span>
+                </a>
+            </li>
         </ul>
+
+        <div class="social-label">Connect</div>
         <div class="social-links">
-            <a href="https://github.com/yourusername" target="_blank">GitHub</a>
-            <a href="https://linkedin.com/in/yourusername" target="_blank">LinkedIn</a>
-            <a href="mailto:your.email@example.com">Email</a>
+            <a href="https://github.com/yourusername" target="_blank" aria-label="GitHub">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path fill="currentColor" d="M12 2a10 10 0 0 0-3.16 19.48c.5.09.68-.22.68-.48 0-.24-.01-.87-.01-1.7-2.78.6-3.37-1.17-3.37-1.17-.45-1.15-1.11-1.46-1.11-1.46-.9-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.9 1.53 2.36 1.09 2.94.83.09-.65.35-1.09.63-1.34-2.22-.25-4.56-1.11-4.56-4.95 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02A9.57 9.57 0 0 1 12 6.8c.85 0 1.71.11 2.51.33 1.9-1.29 2.74-1.02 2.74-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.85-2.34 4.7-4.57 4.95.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.8 0 .27.18.58.69.48A10 10 0 0 0 12 2Z"/>
+                </svg>
+                <span>GitHub</span>
+            </a>
+            <a href="https://linkedin.com/in/yourusername" target="_blank" aria-label="LinkedIn">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path fill="currentColor" d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9h4v12H3V9Zm7.5 0H14v1.7h.06c.48-.9 1.64-1.86 3.38-1.86 3.62 0 4.29 2.38 4.29 5.47V21h-4v-5.14c0-1.23-.02-2.81-1.71-2.81-1.72 0-1.98 1.34-1.98 2.72V21h-4V9Z"/>
+                </svg>
+                <span>LinkedIn</span>
+            </a>
+            <a href="mailto:your.email@example.com" aria-label="Email">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path fill="currentColor" d="M4 6h16a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2Zm0 2v.3l8 4.8 8-4.8V8H4Zm16 8V10.6l-7.38 4.43a1.5 1.5 0 0 1-1.24 0L4 10.6V16h16Z"/>
+                </svg>
+                <span>Email</span>
+            </a>
         </div>
     </nav>
     
