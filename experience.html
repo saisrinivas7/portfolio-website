@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Experience | Your Name</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #ffffff;
+            color: #1a1a1a;
+            line-height: 1.6;
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 280px;
+            background: #fafafa;
+            border-right: 1px solid #e5e5e5;
+            padding: 3rem 2rem;
+            display: flex;
+            flex-direction: column;
+            z-index: 1000;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 0.5rem;
+            text-decoration: none;
+        }
+        
+        .subtitle {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 3rem;
+        }
+        
+        .nav-links {
+            list-style: none;
+            flex: 1;
+        }
+        
+        .nav-links li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .nav-links a {
+            display: block;
+            padding: 0.75rem 1rem;
+            color: #666;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            font-size: 0.95rem;
+        }
+        
+        .nav-links a:hover,
+        .nav-links a.active {
+            background: #ffffff;
+            color: #1a1a1a;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            padding-top: 2rem;
+            border-top: 1px solid #e5e5e5;
+        }
+        
+        .social-links a {
+            color: #666;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s ease;
+        }
+        
+        .social-links a:hover {
+            color: #1a1a1a;
+        }
+        
+        /* Main Content */
+        .main-content {
+            margin-left: 280px;
+            padding: 4rem;
+            max-width: 1000px;
+        }
+        
+        .page-header {
+            margin-bottom: 4rem;
+        }
+        
+        .page-label {
+            font-size: 0.85rem;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .page-description {
+            font-size: 1.1rem;
+            color: #666;
+            line-height: 1.7;
+        }
+        
+        /* Timeline */
+        .experience-item {
+            padding: 2rem 0;
+            border-bottom: 1px solid #e5e5e5;
+        }
+        
+        .experience-item:last-child {
+            border-bottom: none;
+        }
+        
+        .experience-date {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 0.75rem;
+        }
+        
+        .experience-item h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .experience-company {
+            font-size: 1rem;
+            color: #666;
+            margin-bottom: 1.5rem;
+        }
+        
+        .experience-description {
+            color: #666;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+        
+        .experience-highlights {
+            list-style: none;
+            margin-bottom: 1.5rem;
+        }
+        
+        .experience-highlights li {
+            padding-left: 1.5rem;
+            position: relative;
+            margin-bottom: 0.75rem;
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        .experience-highlights li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: #1a1a1a;
+        }
+        
+        .tech-stack {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+        
+        .tech-badge {
+            padding: 0.4rem 0.9rem;
+            background: #fafafa;
+            border: 1px solid #e5e5e5;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            color: #666;
+        }
+        
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            display: none;
+            position: fixed;
+            top: 1.5rem;
+            left: 1.5rem;
+            z-index: 2000;
+            background: #1a1a1a;
+            color: white;
+            border: none;
+            padding: 0.75rem;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        
+        @media (max-width: 968px) {
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+            
+            .sidebar.active {
+                transform: translateX(0);
+            }
+            
+            .main-content {
+                margin-left: 0;
+                padding: 2rem;
+                padding-top: 5rem;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
+    
+    <nav class="sidebar" id="sidebar">
+        <div>
+            <a href="index.html" class="logo">Your Name</a>
+            <div class="subtitle">Software Engineer</div>
+        </div>
+        
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="experience.html" class="active">Experience</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="photography.html">Photography</a></li>
+        </ul>
+        
+        <div class="social-links">
+            <a href="https://github.com/yourusername" target="_blank">GitHub</a>
+            <a href="https://linkedin.com/in/yourusername" target="_blank">LinkedIn</a>
+            <a href="mailto:your.email@example.com">Email</a>
+        </div>
+    </nav>
+    
+    <main class="main-content">
+        <div class="page-header">
+            <div class="page-label">Career</div>
+            <h1>Experience</h1>
+            <p class="page-description">
+                5+ years building scalable data systems and distributed infrastructure across various industries
+            </p>
+        </div>
+        
+        <div class="experience-timeline">
+            <div class="experience-item">
+                <div class="experience-date">2023 - Present</div>
+                <h2>Senior Data Engineer</h2>
+                <div class="experience-company">Tech Company · Remote</div>
+                <p class="experience-description">
+                    Leading data infrastructure initiatives and architecting large-scale ETL pipelines. 
+                    Responsible for platform reliability and performance optimization.
+                </p>
+                <ul class="experience-highlights">
+                    <li>Designed and implemented ETL pipelines processing 10M+ daily events with 99.9% uptime</li>
+                    <li>Reduced query latency by 60% through database optimization and caching strategies</li>
+                    <li>Led migration of legacy systems to modern cloud-native architecture</li>
+                    <li>Mentored team of 4 junior engineers on data engineering best practices</li>
+                </ul>
+                <div class="tech-stack">
+                    <span class="tech-badge">Python</span>
+                    <span class="tech-badge">Apache Spark</span>
+                    <span class="tech-badge">Airflow</span>
+                    <span class="tech-badge">PostgreSQL</span>
+                    <span class="tech-badge">AWS</span>
+                </div>
+            </div>
+            
+            <div class="experience-item">
+                <div class="experience-date">2021 - 2023</div>
+                <h2>Software Engineer</h2>
+                <div class="experience-company">Data Analytics Firm · San Francisco, CA</div>
+                <p class="experience-description">
+                    Built real-time analytics platform and distributed systems handling petabyte-scale data.
+                </p>
+                <ul class="experience-highlights">
+                    <li>Implemented real-time streaming pipeline serving 1M+ concurrent users</li>
+                    <li>Designed distributed caching layer reducing API response time by 75%</li>
+                    <li>Established monitoring and alerting infrastructure</li>
+                </ul>
+                <div class="tech-stack">
+                    <span class="tech-badge">Java</span>
+                    <span class="tech-badge">Kafka</span>
+                    <span class="tech-badge">Redis</span>
+                    <span class="tech-badge">Kubernetes</span>
+                </div>
+            </div>
+            
+            <div class="experience-item">
+                <div class="experience-date">2019 - 2021</div>
+                <h2>Backend Developer</h2>
+                <div class="experience-company">Startup Inc · New York, NY</div>
+                <p class="experience-description">
+                    Developed RESTful APIs and microservices for high-traffic applications.
+                </p>
+                <ul class="experience-highlights">
+                    <li>Architected microservices handling 100K+ requests per day</li>
+                    <li>Optimized database queries resulting in 40% performance improvement</li>
+                    <li>Implemented CI/CD pipeline reducing deployment time by 50%</li>
+                </ul>
+                <div class="tech-stack">
+                    <span class="tech-badge">Node.js</span>
+                    <span class="tech-badge">MongoDB</span>
+                    <span class="tech-badge">GraphQL</span>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <script>
+        function toggleMenu() {
+            document.getElementById('sidebar').classList.toggle('active');
+        }
+        
+        document.addEventListener('click', (e) => {
+            const sidebar = document.getElementById('sidebar');
+            const menuBtn = document.querySelector('.mobile-menu-btn');
+            
+            if (window.innerWidth <= 968 && 
+                !sidebar.contains(e.target) && 
+                !menuBtn.contains(e.target) &&
+                sidebar.classList.contains('active')) {
+                sidebar.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog | Your Name</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: #fff; color: #1a1a1a; line-height: 1.6; }
+        
+        .sidebar { position: fixed; left: 0; top: 0; bottom: 0; width: 280px; background: #fafafa; border-right: 1px solid #e5e5e5; padding: 3rem 2rem; display: flex; flex-direction: column; z-index: 1000; }
+        .logo { font-size: 1.5rem; font-weight: 700; color: #1a1a1a; margin-bottom: 0.5rem; text-decoration: none; }
+        .subtitle { font-size: 0.9rem; color: #666; margin-bottom: 3rem; }
+        .nav-links { list-style: none; flex: 1; }
+        .nav-links li { margin-bottom: 0.5rem; }
+        .nav-links a { display: block; padding: 0.75rem 1rem; color: #666; text-decoration: none; border-radius: 8px; transition: all 0.2s ease; font-size: 0.95rem; }
+        .nav-links a:hover, .nav-links a.active { background: #fff; color: #1a1a1a; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+        .social-links { display: flex; gap: 1rem; padding-top: 2rem; border-top: 1px solid #e5e5e5; }
+        .social-links a { color: #666; text-decoration: none; font-size: 0.9rem; transition: color 0.2s ease; }
+        .social-links a:hover { color: #1a1a1a; }
+        
+        .main-content { margin-left: 280px; padding: 4rem; max-width: 900px; }
+        .page-header { margin-bottom: 4rem; }
+        .page-label { font-size: 0.85rem; color: #666; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1rem; }
+        h1 { font-size: 3rem; font-weight: 700; margin-bottom: 1rem; }
+        .page-description { font-size: 1.1rem; color: #666; line-height: 1.7; }
+        
+        .blog-list { display: flex; flex-direction: column; gap: 3rem; }
+        .blog-post { padding-bottom: 3rem; border-bottom: 1px solid #e5e5e5; text-decoration: none; display: block; transition: transform 0.2s ease; }
+        .blog-post:last-child { border-bottom: none; }
+        .blog-post:hover { transform: translateX(8px); }
+        .blog-post:hover h2 { color: #666; }
+        .post-meta { font-size: 0.9rem; color: #999; margin-bottom: 1rem; display: flex; gap: 1rem; align-items: center; }
+        .post-tag { padding: 0.25rem 0.75rem; background: #fafafa; border: 1px solid #e5e5e5; border-radius: 4px; font-size: 0.8rem; }
+        .blog-post h2 { font-size: 1.75rem; font-weight: 600; margin-bottom: 0.75rem; transition: color 0.2s ease; }
+        .blog-post p { color: #666; line-height: 1.7; }
+        
+        .mobile-menu-btn { display: none; position: fixed; top: 1.5rem; left: 1.5rem; z-index: 2000; background: #1a1a1a; color: white; border: none; padding: 0.75rem; border-radius: 8px; cursor: pointer; }
+        
+        @media (max-width: 968px) {
+            .sidebar { transform: translateX(-100%); transition: transform 0.3s ease; }
+            .sidebar.active { transform: translateX(0); }
+            .main-content { margin-left: 0; padding: 2rem; padding-top: 5rem; }
+            .mobile-menu-btn { display: block; }
+        }
+    </style>
+</head>
+<body>
+    <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
+    
+    <nav class="sidebar" id="sidebar">
+        <div>
+            <a href="index.html" class="logo">Your Name</a>
+            <div class="subtitle">Software Engineer</div>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="experience.html">Experience</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="blog.html" class="active">Blog</a></li>
+            <li><a href="photography.html">Photography</a></li>
+        </ul>
+        <div class="social-links">
+            <a href="https://github.com/yourusername" target="_blank">GitHub</a>
+            <a href="https://linkedin.com/in/yourusername" target="_blank">LinkedIn</a>
+            <a href="mailto:your.email@example.com">Email</a>
+        </div>
+    </nav>
+    
+    <main class="main-content">
+        <div class="page-header">
+            <div class="page-label">Writing</div>
+            <h1>Blog</h1>
+            <p class="page-description">Technical writing and thoughts on software engineering, data systems, and technology</p>
+        </div>
+        
+        <div class="blog-list">
+            <a href="#" class="blog-post">
+                <div class="post-meta">
+                    <span>February 5, 2026</span>
+                    <span class="post-tag">Data Engineering</span>
+                    <span>8 min read</span>
+                </div>
+                <h2>Building Fault-Tolerant Data Pipelines at Scale</h2>
+                <p>Lessons learned from processing billions of events daily. How we designed our streaming architecture to handle failures gracefully and maintain data consistency.</p>
+            </a>
+            
+            <a href="#" class="blog-post">
+                <div class="post-meta">
+                    <span>January 28, 2026</span>
+                    <span class="post-tag">Performance</span>
+                    <span>10 min read</span>
+                </div>
+                <h2>Optimizing PostgreSQL for Analytics Workloads</h2>
+                <p>Deep dive into query optimization, indexing strategies, and partitioning techniques that reduced our query times by 70%.</p>
+            </a>
+            
+            <a href="#" class="blog-post">
+                <div class="post-meta">
+                    <span>January 15, 2026</span>
+                    <span class="post-tag">Architecture</span>
+                    <span>12 min read</span>
+                </div>
+                <h2>Designing a Real-Time Feature Store</h2>
+                <p>How we built a centralized feature engineering platform that serves both online and offline ML workloads.</p>
+            </a>
+            
+            <a href="#" class="blog-post">
+                <div class="post-meta">
+                    <span>December 22, 2025</span>
+                    <span class="post-tag">Best Practices</span>
+                    <span>6 min read</span>
+                </div>
+                <h2>Data Quality: The Foundation of Reliable Systems</h2>
+                <p>Why data quality matters and how to implement effective validation strategies in your data pipelines.</p>
+            </a>
+            
+            <a href="#" class="blog-post">
+                <div class="post-meta">
+                    <span>December 8, 2025</span>
+                    <span class="post-tag">Distributed Systems</span>
+                    <span>15 min read</span>
+                </div>
+                <h2>Understanding Consistency in Distributed Databases</h2>
+                <p>Exploring CAP theorem, eventual consistency, and practical implications for system design.</p>
+            </a>
+        </div>
+    </main>
+    
+    <script>
+        function toggleMenu() { document.getElementById('sidebar').classList.toggle('active'); }
+        document.addEventListener('click', (e) => {
+            const sidebar = document.getElementById('sidebar');
+            const menuBtn = document.querySelector('.mobile-menu-btn');
+            if (window.innerWidth <= 968 && !sidebar.contains(e.target) && !menuBtn.contains(e.target) && sidebar.classList.contains('active')) {
+                sidebar.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>

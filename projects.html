@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects | Your Name</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: #fff; color: #1a1a1a; line-height: 1.6; }
+        
+        .sidebar { position: fixed; left: 0; top: 0; bottom: 0; width: 280px; background: #fafafa; border-right: 1px solid #e5e5e5; padding: 3rem 2rem; display: flex; flex-direction: column; z-index: 1000; }
+        .logo { font-size: 1.5rem; font-weight: 700; color: #1a1a1a; margin-bottom: 0.5rem; text-decoration: none; }
+        .subtitle { font-size: 0.9rem; color: #666; margin-bottom: 3rem; }
+        .nav-links { list-style: none; flex: 1; }
+        .nav-links li { margin-bottom: 0.5rem; }
+        .nav-links a { display: block; padding: 0.75rem 1rem; color: #666; text-decoration: none; border-radius: 8px; transition: all 0.2s ease; font-size: 0.95rem; }
+        .nav-links a:hover, .nav-links a.active { background: #fff; color: #1a1a1a; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+        .social-links { display: flex; gap: 1rem; padding-top: 2rem; border-top: 1px solid #e5e5e5; }
+        .social-links a { color: #666; text-decoration: none; font-size: 0.9rem; transition: color 0.2s ease; }
+        .social-links a:hover { color: #1a1a1a; }
+        
+        .main-content { margin-left: 280px; padding: 4rem; max-width: 1200px; }
+        .page-header { margin-bottom: 4rem; }
+        .page-label { font-size: 0.85rem; color: #666; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1rem; }
+        h1 { font-size: 3rem; font-weight: 700; margin-bottom: 1rem; }
+        .page-description { font-size: 1.1rem; color: #666; line-height: 1.7; }
+        
+        .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 2rem; }
+        .project-card { padding: 2rem; background: #fafafa; border: 1px solid #e5e5e5; border-radius: 12px; transition: all 0.2s ease; }
+        .project-card:hover { border-color: #1a1a1a; transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+        .project-card h2 { font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem; }
+        .project-card p { color: #666; line-height: 1.7; margin-bottom: 1.5rem; }
+        .tech-stack { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 1.5rem; }
+        .tech-badge { padding: 0.4rem 0.9rem; background: #fff; border: 1px solid #e5e5e5; border-radius: 6px; font-size: 0.85rem; color: #666; }
+        
+        .mobile-menu-btn { display: none; position: fixed; top: 1.5rem; left: 1.5rem; z-index: 2000; background: #1a1a1a; color: white; border: none; padding: 0.75rem; border-radius: 8px; cursor: pointer; }
+        
+        @media (max-width: 968px) {
+            .sidebar { transform: translateX(-100%); transition: transform 0.3s ease; }
+            .sidebar.active { transform: translateX(0); }
+            .main-content { margin-left: 0; padding: 2rem; padding-top: 5rem; }
+            .mobile-menu-btn { display: block; }
+            .projects-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
+    
+    <nav class="sidebar" id="sidebar">
+        <div>
+            <a href="index.html" class="logo">Your Name</a>
+            <div class="subtitle">Software Engineer</div>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="experience.html">Experience</a></li>
+            <li><a href="projects.html" class="active">Projects</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="photography.html">Photography</a></li>
+        </ul>
+        <div class="social-links">
+            <a href="https://github.com/yourusername" target="_blank">GitHub</a>
+            <a href="https://linkedin.com/in/yourusername" target="_blank">LinkedIn</a>
+            <a href="mailto:your.email@example.com">Email</a>
+        </div>
+    </nav>
+    
+    <main class="main-content">
+        <div class="page-header">
+            <div class="page-label">Portfolio</div>
+            <h1>Projects</h1>
+            <p class="page-description">Featured work showcasing data engineering and distributed systems expertise</p>
+        </div>
+        
+        <div class="projects-grid">
+            <div class="project-card">
+                <h2>Real-Time Analytics Pipeline</h2>
+                <p>Distributed streaming platform processing 100K+ events/second with fault-tolerant architecture and automatic failover.</p>
+                <div class="tech-stack">
+                    <span class="tech-badge">Apache Kafka</span>
+                    <span class="tech-badge">Spark Streaming</span>
+                    <span class="tech-badge">Cassandra</span>
+                    <span class="tech-badge">Python</span>
+                </div>
+            </div>
+            
+            <div class="project-card">
+                <h2>Data Warehouse Optimization</h2>
+                <p>Redesigned ETL processes and implemented partitioning strategies reducing query times by 70%.</p>
+                <div class="tech-stack">
+                    <span class="tech-badge">Snowflake</span>
+                    <span class="tech-badge">dbt</span>
+                    <span class="tech-badge">Airflow</span>
+                    <span class="tech-badge">SQL</span>
+                </div>
+            </div>
+            
+            <div class="project-card">
+                <h2>ML Feature Store</h2>
+                <p>Centralized feature engineering platform supporting online and offline serving, reducing deployment time from weeks to hours.</p>
+                <div class="tech-stack">
+                    <span class="tech-badge">Feast</span>
+                    <span class="tech-badge">Redis</span>
+                    <span class="tech-badge">BigQuery</span>
+                    <span class="tech-badge">FastAPI</span>
+                </div>
+            </div>
+            
+            <div class="project-card">
+                <h2>Distributed Cache System</h2>
+                <p>Multi-tier caching architecture improving API response times by 85%, handling 50K+ requests/second.</p>
+                <div class="tech-stack">
+                    <span class="tech-badge">Redis Cluster</span>
+                    <span class="tech-badge">Go</span>
+                    <span class="tech-badge">gRPC</span>
+                    <span class="tech-badge">Prometheus</span>
+                </div>
+            </div>
+            
+            <div class="project-card">
+                <h2>Log Analysis Framework</h2>
+                <p>Automated log parsing and anomaly detection system processing 500GB+ daily logs with real-time alerting.</p>
+                <div class="tech-stack">
+                    <span class="tech-badge">Elasticsearch</span>
+                    <span class="tech-badge">Logstash</span>
+                    <span class="tech-badge">Kibana</span>
+                    <span class="tech-badge">Python</span>
+                </div>
+            </div>
+            
+            <div class="project-card">
+                <h2>Data Migration Tool</h2>
+                <p>Zero-downtime migration framework for moving 10TB+ data between databases with automated validation.</p>
+                <div class="tech-stack">
+                    <span class="tech-badge">PostgreSQL</span>
+                    <span class="tech-badge">MySQL</span>
+                    <span class="tech-badge">Docker</span>
+                    <span class="tech-badge">Bash</span>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <script>
+        function toggleMenu() { document.getElementById('sidebar').classList.toggle('active'); }
+        document.addEventListener('click', (e) => {
+            const sidebar = document.getElementById('sidebar');
+            const menuBtn = document.querySelector('.mobile-menu-btn');
+            if (window.innerWidth <= 968 && !sidebar.contains(e.target) && !menuBtn.contains(e.target) && sidebar.classList.contains('active')) {
+                sidebar.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>
