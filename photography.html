@@ -10,6 +10,11 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Inter', sans-serif; background: #fff; color: #1a1a1a; line-height: 1.6; position: relative; }
 
+        ::selection {
+            background: rgba(15, 118, 110, 0.2);
+            color: #0f2a27;
+        }
+
         body::before {
             content: "";
             position: fixed;
@@ -64,10 +69,10 @@
         .nav-links a span, .social-links a span { max-width: 0; opacity: 0; overflow: hidden; white-space: nowrap; transform: translateX(-6px); transition: max-width 0.25s ease, opacity 0.2s ease, transform 0.2s ease; }
         .social-links { display: flex; flex-direction: column; gap: 0.5rem; padding-top: 0; }
         .social-links a { display: flex; align-items: center; gap: 0.75rem; padding: 0.55rem 0.75rem; border-radius: 12px; justify-content: center; }
-        .brand:hover .brand-text, .brand:focus-within .brand-text { max-width: 200px; opacity: 1; transform: translateX(0); }
-        .sidebar:hover .nav-label, .sidebar:hover .social-label, .sidebar:focus-within .nav-label, .sidebar:focus-within .social-label, .sidebar.active .nav-label, .sidebar.active .social-label { max-width: 200px; opacity: 1; transform: translateX(0); }
+        .brand:hover .brand-text, .brand:focus-within .brand-text { max-width: 240px; opacity: 1; transform: translateX(0); }
+        .sidebar:hover .nav-label, .sidebar:hover .social-label, .sidebar:focus-within .nav-label, .sidebar:focus-within .social-label, .sidebar.active .nav-label, .sidebar.active .social-label { max-width: 240px; opacity: 1; transform: translateX(0); }
         .nav-links a:hover, .nav-links a:focus-visible, .social-links a:hover, .social-links a:focus-visible { justify-content: flex-start; }
-        .nav-links a:hover span, .nav-links a:focus-visible span, .social-links a:hover span, .social-links a:focus-visible span { max-width: 200px; opacity: 1; transform: translateX(0); }
+        .nav-links a:hover span, .nav-links a:focus-visible span, .social-links a:hover span, .social-links a:focus-visible span { max-width: 240px; opacity: 1; transform: translateX(0); }
         .main-content { margin-left: 120px; transition: margin-left 0.25s ease; }
         .sidebar:hover ~ .main-content, .sidebar:focus-within ~ .main-content, .sidebar.active ~ .main-content { margin-left: 300px; }
         
@@ -142,7 +147,7 @@
         .sidebar:focus-within .social-label,
         .sidebar:focus-within .nav-links a span,
         .sidebar:focus-within .social-links a span {
-            max-width: 200px;
+            max-width: 240px;
             opacity: 1;
             transform: translateX(0);
         }
