@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Saisrinivas Mamunuru</title>
+    <title>Education | Saisrinivas</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
         
         * {
             margin: 0;
@@ -14,10 +14,9 @@
         }
         
         body {
-            font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: radial-gradient(1200px 600px at 12% -10%, #f1f7ff 0%, #ffffff 60%),
-                        radial-gradient(900px 500px at 85% 5%, #f5fff0 0%, #ffffff 55%);
-            color: #111111;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #ffffff;
+            color: #1a1a1a;
             line-height: 1.6;
             position: relative;
         }
@@ -25,14 +24,6 @@
         ::selection {
             background: rgba(15, 118, 110, 0.2);
             color: #0f2a27;
-        }
-
-        :root {
-            --ink: #111111;
-            --muted: #5a5a5a;
-            --line: rgba(0, 0, 0, 0.08);
-            --accent: #0f766e;
-            --accent-warm: #d64545;
         }
 
         body::before {
@@ -47,17 +38,8 @@
             pointer-events: none;
             z-index: 0;
         }
-
-        #particle-canvas {
-            position: fixed;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-            pointer-events: none;
-        }
         
-        /* Sidebar Navigation */
+        /* Sidebar */
         .sidebar {
             position: fixed;
             left: 0;
@@ -225,7 +207,7 @@
         .logo {
             font-size: 1.7rem;
             font-weight: 700;
-            color: var(--ink);
+            color: #1a1a1a;
             margin-bottom: 0.5rem;
             text-decoration: none;
             letter-spacing: -0.01em;
@@ -235,7 +217,7 @@
             font-size: 0.72rem;
             text-transform: uppercase;
             letter-spacing: 0.3em;
-            color: rgba(90, 90, 90, 0.8);
+            color: rgba(102, 102, 102, 0.8);
             margin-bottom: 2rem;
         }
 
@@ -244,20 +226,20 @@
             font-size: 0.7rem;
             text-transform: uppercase;
             letter-spacing: 0.2em;
-            color: rgba(90, 90, 90, 0.7);
+            color: rgba(102, 102, 102, 0.7);
         }
 
         .nav-label {
             margin-top: 1.5rem;
             padding-top: 1.5rem;
-            border-top: 1px solid var(--line);
+            border-top: 1px solid #e5e5e5;
             margin-bottom: 1rem;
         }
 
         .social-label {
             margin-top: 2rem;
             padding-top: 1.5rem;
-            border-top: 1px solid var(--line);
+            border-top: 1px solid #e5e5e5;
             margin-bottom: 0.75rem;
         }
         
@@ -273,7 +255,7 @@
         .nav-links a {
             display: block;
             padding: 0.55rem 0.75rem 0.55rem 1.5rem;
-            color: var(--muted);
+            color: #666;
             text-decoration: none;
             border-radius: 8px;
             transition: all 0.2s ease;
@@ -295,12 +277,12 @@
         
         .nav-links a:hover,
         .nav-links a.active {
-            color: var(--ink);
+            color: #1a1a1a;
         }
 
         .nav-links a:hover::before,
         .nav-links a.active::before {
-            background: var(--ink);
+            background: #1a1a1a;
         }
         
         .social-links {
@@ -310,9 +292,8 @@
         }
         
         .social-links a {
-            color: var(--muted);
+            color: #666;
             text-decoration: none;
-            font-size: 0.9rem;
             transition: color 0.2s ease;
             display: inline-flex;
             align-items: center;
@@ -324,8 +305,8 @@
         }
         
         .social-links a:hover {
-            color: var(--ink);
-            border-color: var(--line);
+            color: #1a1a1a;
+            border-color: #e5e5e5;
         }
 
         .social-links svg {
@@ -337,9 +318,10 @@
         /* Main Content */
         .main-content {
             margin-left: 120px;
-            min-height: 100vh;
+            padding: 4rem;
+            max-width: 1000px;
             position: relative;
-            z-index: 2;
+            z-index: 1;
             transition: margin-left 0.25s ease;
         }
 
@@ -349,219 +331,115 @@
             margin-left: 300px;
         }
         
-        .hero-section {
-            padding: 8rem 4rem;
-            max-width: 1200px;
-            position: relative;
-        }
-
-        .hero-content > * {
-            opacity: 0;
-            animation: rise 0.7s ease forwards;
-        }
-
-        .hero-content > *:nth-child(1) { animation-delay: 0.05s; }
-        .hero-content > *:nth-child(2) { animation-delay: 0.12s; }
-        .hero-content > *:nth-child(3) { animation-delay: 0.2s; }
-        .hero-content > *:nth-child(4) { animation-delay: 0.28s; }
-
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            max-width: 720px;
+        .page-header {
+            margin-bottom: 4rem;
         }
         
-        .hero-label {
+        .page-label {
             font-size: 0.85rem;
-            color: var(--muted);
+            color: #666;
             text-transform: uppercase;
             letter-spacing: 1px;
             margin-bottom: 1rem;
         }
         
         h1 {
-            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-size: 3rem;
             font-weight: 700;
-            line-height: 1.2;
-            margin-bottom: 1.5rem;
-            color: var(--ink);
+            margin-bottom: 1rem;
         }
         
-        .hero-description {
-            font-size: 1.25rem;
-            color: var(--muted);
-            max-width: 600px;
-            margin-bottom: 3rem;
+        .page-description {
+            font-size: 1.1rem;
+            color: #666;
             line-height: 1.7;
         }
         
-        .cta-buttons {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
+        /* Timeline */
+        .experience-item {
+            padding: 2rem 3.5rem 2rem 0;
+            border-bottom: 1px solid #e5e5e5;
+            position: relative;
         }
         
-        .btn {
-            padding: 0.875rem 1.75rem;
-            border-radius: 8px;
-            text-decoration: none;
-            font-size: 0.95rem;
-            font-weight: 500;
-            transition: all 0.2s ease;
-            display: inline-block;
+        .experience-item:last-child {
+            border-bottom: none;
         }
         
-        .btn-primary {
-            background: var(--ink);
-            color: #ffffff;
+        .experience-date {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 0.75rem;
         }
         
-        .btn-primary:hover {
-            background: #333;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-        }
-        
-        .btn-secondary {
-            background: #ffffff;
-            color: var(--ink);
-            border: 1px solid var(--line);
-        }
-        
-        .btn-secondary:hover {
-            border-color: var(--ink);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-
-
-        /* Highlights Strip */
-        .highlight-strip {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 2rem;
-            padding: 2rem 4rem;
-            max-width: 1200px;
-            border-top: 1px solid var(--line);
-            border-bottom: 1px solid var(--line);
-        }
-
-        .highlight {
-            min-width: 200px;
-            flex: 1 1 220px;
-            opacity: 0;
-            animation: rise 0.7s ease forwards;
-            animation-delay: calc(0.08s * var(--i));
-        }
-
-        .highlight-title {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.12em;
-            color: var(--muted);
+        .experience-item h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
             margin-bottom: 0.5rem;
         }
-
-        .highlight-value {
-            font-size: 1.05rem;
-            font-weight: 600;
-            color: var(--ink);
-            margin-bottom: 0.4rem;
+        
+        .experience-company {
+            font-size: 1rem;
+            color: #666;
+            margin-bottom: 1.5rem;
         }
-
-        .highlight-note {
-            font-size: 0.95rem;
-            color: var(--muted);
+        
+        .experience-description {
+            color: #666;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
         }
-
-        /* Interest Marquee */
-        .interest-marquee {
-            padding: 0.75rem 4rem 1.25rem;
-            max-width: 1200px;
-            border-top: 1px solid var(--line);
-            border-bottom: 1px solid var(--line);
-            overflow: hidden;
+        
+        .experience-highlights {
+            list-style: none;
+            margin-bottom: 1.5rem;
+        }
+        
+        .experience-highlights li {
+            padding-left: 1.5rem;
             position: relative;
-            margin-top: -1rem;
+            margin-bottom: 0.75rem;
+            color: #666;
+            line-height: 1.6;
         }
-
-        .interest-marquee::before,
-        .interest-marquee::after {
-            content: "";
+        
+        .experience-highlights li::before {
+            content: '→';
             position: absolute;
-            top: 0;
-            bottom: 0;
-            width: 80px;
-            z-index: 2;
-        }
-
-        .interest-marquee::before {
             left: 0;
-            background: linear-gradient(90deg, #ffffff 0%, rgba(255, 255, 255, 0) 100%);
+            color: #1a1a1a;
         }
 
-        .interest-marquee::after {
+        .education-logo {
+            position: absolute;
             right: 0;
-            background: linear-gradient(270deg, #ffffff 0%, rgba(255, 255, 255, 0) 100%);
+            top: 2rem;
+            width: 72px;
+            height: 72px;
+            display: grid;
+            place-items: center;
+            color: #7a7a7a;
+            opacity: 0.9;
         }
 
-        .marquee {
-            overflow: hidden;
-        }
-
-        .marquee-track {
-            display: flex;
-            gap: 2.5rem;
-            width: max-content;
-            animation: marquee 28s linear infinite;
-        }
-
-        .marquee-item {
-            font-size: 0.95rem;
-            color: var(--muted);
-            letter-spacing: 0.04em;
-            white-space: nowrap;
+        .education-logo-placeholder {
+            width: 100%;
+            height: 100%;
+            border-radius: 16px;
+            background: #f2f2f2;
+            border: 1px dashed rgba(0, 0, 0, 0.18);
+            display: grid;
+            place-items: center;
+            font-size: 0.7rem;
+            letter-spacing: 0.12em;
             text-transform: uppercase;
         }
 
-        /* Codex Banner */
-        .codex-banner {
-            padding: 0 4rem 1.5rem;
-            max-width: 1200px;
-            display: flex;
-            justify-content: center;
-            text-align: center;
-            margin: 0 auto;
+        .education-logo img {
             width: 100%;
-        }
-
-        .codex-banner-card {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0.75rem 0;
-            border-radius: 0;
-            background: transparent;
-            border: none;
-            box-shadow: none;
-            width: 100%;
-        }
-
-        .codex-banner-title {
-            font-size: 0.95rem;
-            font-weight: 500;
-            color: #7a86a2;
-        }
-
-        @keyframes rise {
-            from { opacity: 0; transform: translateY(14px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-
-        @keyframes marquee {
-            from { transform: translateX(0); }
-            to { transform: translateX(-50%); }
+            height: 100%;
+            object-fit: contain;
+            border-radius: 16px;
         }
 
         /* Sidebar Override (icon rail -> expand on hover) */
@@ -728,7 +606,21 @@
         .sidebar:focus-within ~ .main-content {
             margin-left: 300px;
         }
-
+        
+        .tech-stack {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+        
+        .tech-badge {
+            padding: 0.4rem 0.9rem;
+            background: #fafafa;
+            border: 1px solid #e5e5e5;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            color: #666;
+        }
         
         /* Mobile Menu */
         .mobile-menu-btn {
@@ -745,7 +637,6 @@
             cursor: pointer;
         }
         
-        /* Responsive */
         @media (max-width: 968px) {
             .sidebar {
                 transform: translateX(-100%);
@@ -758,32 +649,22 @@
             
             .main-content {
                 margin-left: 0;
-            }
-            
-            .hero-section,
-            .highlight-strip,
-            .interest-marquee,
-            .codex-banner {
-                padding-left: 2rem;
-                padding-right: 2rem;
+                padding: 2rem;
+                padding-top: 5rem;
             }
             
             .mobile-menu-btn {
                 display: block;
             }
-            
-            .hero-content {
-                max-width: 100%;
-            }
-        }
-        
-        @media (max-width: 640px) {
-            .hero-section {
-                padding-top: 6rem;
+
+            .experience-item {
+                padding-right: 0;
             }
 
-            .codex-banner-card {
-                padding: 0.85rem 1.25rem;
+            .education-logo {
+                position: static;
+                margin: 0 0 1rem 0;
+                opacity: 0.6;
             }
         }
 
@@ -816,12 +697,8 @@
     </style>
 </head>
 <body>
-    <!-- Mobile Menu Button -->
     <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
-
-    <canvas id="particle-canvas" aria-hidden="true"></canvas>
     
-    <!-- Sidebar -->
     <nav class="sidebar" id="sidebar">
         <div class="brand">
             <a href="index.html" class="brand-mark" aria-label="Home">S</a>
@@ -833,7 +710,7 @@
 
         <ul class="nav-links">
             <li>
-                <a href="index.html" class="active">
+                <a href="index.html">
                     <svg viewBox="0 0 24 24" aria-hidden="true">
                         <path fill="currentColor" d="M12 3l8 7h-2v9h-5v-6H11v6H6v-9H4l8-7Z"/>
                     </svg>
@@ -857,7 +734,7 @@
                 </a>
             </li>
             <li>
-                <a href="education.html">
+                <a href="education.html" class="active">
                     <svg viewBox="0 0 24 24" aria-hidden="true">
                         <path fill="currentColor" d="M12 3 1 8l11 5 9-4.09V14h2V8L12 3Zm0 8.2L5.5 8 12 4.8 18.5 8 12 11.2ZM6 10.6V14c0 1.66 2.69 3 6 3s6-1.34 6-3v-3.4l-6 2.7-6-2.7Z"/>
                     </svg>
@@ -905,170 +782,61 @@
         </div>
     </nav>
     
-    <!-- Main Content -->
     <main class="main-content">
-        <section class="hero-section">
-            <div class="hero-content">
-                <div class="hero-label">HEY THERE!</div>
-                <h1>Glad you’re here — I’m Saisrinivas!</h1>
-                <p class="hero-description">
-                    I'm a Software Engineer with a strong focus on Data Science and Machine Learning. I enjoy building the systems that move data and extract the insights that drive decisions. I love turning messy, real-world data into scalable pipelines, predictive models, and AI-powered insights. Take a look around to see my work, writing, and photography.
-                </p>
-                <div class="cta-buttons">
-                    <a href="projects.html" class="btn btn-secondary">View Projects</a>
-                    <a href="experience.html" class="btn btn-primary">View Experience</a>
-                    <a href="mailto:your.email@example.com" class="btn btn-secondary">Get in Touch</a>
+        <div class="page-header">
+            <div class="page-label">Academics</div>
+            <h1>Education</h1>
+            <p class="page-description">
+                Academic background, certifications, and continuous learning highlights
+            </p>
+        </div>
+        
+        <div class="experience-timeline">
+            <div class="experience-item">
+                <div class="education-logo" aria-hidden="true">
+                    <img src="ASU-logo.webp" alt="Arizona State University logo">
+                </div>
+                <div class="experience-date">2024 - 2025</div>
+                <h2>Master of Science, Data Science, Analytics and Engineering</h2>
+                <div class="experience-company">Arizona State University · Tempe, AZ · GPA 3.8/4</div>
+
+                <ul class="experience-highlights">
+                     <li>Relevant coursework: Cloud Computing, Data Processing at a Scale, Optimization, Big Data, Data Driven Decision Making</li>
+                    <li>Member of <a href="https://math.asu.edu/datascience/club" target="_blank" rel="noopener">Devils Data Science</a> and <a href="https://thesoda.io" target="_blank" rel="noopener">SoDA</a> (Software Developer's Association)</li>
+                </ul>
+                <div class="tech-stack">
+                    <span class="tech-badge">Machine Learning</span>
+                    <span class="tech-badge">Statistics</span>
+                    <span class="tech-badge">Data Processing</span>
                 </div>
             </div>
-        </section>
-
-        <section class="interest-marquee" aria-label="Interests">
-            <div class="marquee">
-                <div class="marquee-track">
-                    <div class="marquee-item">Interested in turning business data into actionable insights</div>
-                    <div class="marquee-item">Interested in customer behavior analytics</div>
-                    <div class="marquee-item">Interested in building reliable data pipelines</div>
-                    <div class="marquee-item">Let's use AI to solve real-world problems!</div>
-                    <div class="marquee-item">Interested in turning business data into actionable insights</div>
-                    <div class="marquee-item">Interested in customer behavior analytics</div>
-                    <div class="marquee-item">Interested in building reliable data pipelines</div>
-                    <div class="marquee-item">Let's use AI to solve real-world problems!</div>
+            
+            <div class="experience-item">
+                <div class="education-logo" aria-hidden="true">
+                    <img src="BITS_Pilani-Logo.svg.png" alt="BITS Pilani logo">
+                </div>
+                <div class="experience-date">2020 - 2024</div>
+                <h2>Bachelor of Engineering in Computer Science</h2>
+                <div class="experience-company">BITS Pilani· India</div>
+                <ul class="experience-highlights">
+                    <li>Relevant coursework: Operating Systems, Object Oriented Programming, Data Structures and Algorithms, Deep Learning</li>
+                    <li>Researched on computational efficiencies of Deep Neural Networks & Hyperdimensional Computing Lab in the <a href="https://github.com/Confluence-Lab" target="_blank" rel="noopener">Confluence Lab</a>.</li>
+                    <li>Worked with Prof. <a href="https://scholar.google.com/citations?user=y2w9OqcAAAAJ&hl=en" target="_blank" rel="noopener">Snehanshu Saha</a> on using Q-Learning for the Last Mile Delivery Problem.</li>
+                </ul>
+                <div class="tech-stack">
+                    <span class="tech-badge">Neural Networks</span>
+                    <span class="tech-badge">Linear Algebra & Statistics</span>
+                    <span class="tech-badge">Machine Learning</span>
                 </div>
             </div>
-        </section>
-
-        <section class="highlight-strip">
-            <div class="highlight" style="--i: 1;">
-                <div class="highlight-title">Focus</div>
-                <div class="highlight-value">Building scalable data pipelines that power analytics, machine learning, and product decision-making.</div>
-                <div class="highlight-note">also Cloud-native architectures & AI-integration</div>
-            </div>
-            <div class="highlight" style="--i: 2;">
-                <div class="highlight-title">Strengths</div>
-                <div class="highlight-value">Data modeling & Analytics Pipelines, Data-Driven Decision Making</div>
-                <div class="highlight-note">Collaboration with cross-function teams, communicating insights based on stakeholders.</div>
-            </div>
-            <div class="highlight" style="--i: 3;">
-                <div class="highlight-title">Tech Stack</div>
-                <div class="highlight-value">Python, Airflow, Google Cloud, SQL</div>
-                <div class="highlight-note">also pandas, C++(DSA) and A/B Testing</div>
-            </div>
-            <div class="highlight" style="--i: 4;">
-                <div class="highlight-title">Currently Exploring</div>
-                <div class="highlight-value">Customer Behavior Analytics, System Design & Architecture</div>
-                <div class="highlight-note">Also scalable systems and LLM architecture</div>
-            </div>
-        </section>
-
-        <section class="codex-banner" aria-label="Codex footer">
-            <div class="codex-banner-card">
-                <div class="codex-banner-title">Vibe coded using ChatGPT's Codex.</div>
-            </div>
-        </section>
+        </div>
     </main>
     
-    <script>
-        const canvas = document.getElementById("particle-canvas");
-        const ctx = canvas.getContext("2d");
-        const dpr = window.devicePixelRatio || 1;
-        const particles = [];
-        const maxParticles = 120;
-        const linkDistance = 150;
-        const mouse = { x: -9999, y: -9999 };
-
-        function resizeCanvas() {
-            canvas.width = window.innerWidth * dpr;
-            canvas.height = window.innerHeight * dpr;
-            canvas.style.width = `${window.innerWidth}px`;
-            canvas.style.height = `${window.innerHeight}px`;
-            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-        }
-
-        function createParticles() {
-            particles.length = 0;
-            for (let i = 0; i < maxParticles; i += 1) {
-                particles.push({
-                    x: Math.random() * window.innerWidth,
-                    y: Math.random() * window.innerHeight,
-                    vx: (Math.random() - 0.5) * 0.6,
-                    vy: (Math.random() - 0.5) * 0.6,
-                    r: 1.5 + Math.random() * 2
-                });
-            }
-        }
-
-        function draw() {
-            ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-
-            for (let i = 0; i < particles.length; i += 1) {
-                const p = particles[i];
-
-                p.x += p.vx;
-                p.y += p.vy;
-
-                if (p.x < 0 || p.x > window.innerWidth) p.vx *= -1;
-                if (p.y < 0 || p.y > window.innerHeight) p.vy *= -1;
-
-                // Subtle repel on hover
-                const dx = p.x - mouse.x;
-                const dy = p.y - mouse.y;
-                const dist = Math.hypot(dx, dy);
-                if (dist < 140) {
-                    p.x += (dx / dist) * 0.4;
-                    p.y += (dy / dist) * 0.4;
-                }
-
-                ctx.beginPath();
-                ctx.fillStyle = "rgba(214, 69, 69, 0.85)";
-                ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-                ctx.fill();
-
-                for (let j = i + 1; j < particles.length; j += 1) {
-                    const q = particles[j];
-                    const dx2 = p.x - q.x;
-                    const dy2 = p.y - q.y;
-                    const dist2 = Math.hypot(dx2, dy2);
-                    if (dist2 < linkDistance) {
-                        const alpha = 1 - dist2 / linkDistance;
-                        ctx.beginPath();
-                        ctx.strokeStyle = `rgba(214, 69, 69, ${0.35 * alpha})`;
-                        ctx.lineWidth = 1;
-                        ctx.moveTo(p.x, p.y);
-                        ctx.lineTo(q.x, q.y);
-                        ctx.stroke();
-                    }
-                }
-            }
-
-            requestAnimationFrame(draw);
-        }
-
-        window.addEventListener("resize", () => {
-            resizeCanvas();
-            createParticles();
-        });
-
-        window.addEventListener("mousemove", (e) => {
-            mouse.x = e.clientX;
-            mouse.y = e.clientY;
-        });
-
-        window.addEventListener("mouseleave", () => {
-            mouse.x = -9999;
-            mouse.y = -9999;
-        });
-
-        resizeCanvas();
-        createParticles();
-        draw();
-    </script>
-
     <script>
         function toggleMenu() {
             document.getElementById('sidebar').classList.toggle('active');
         }
         
-        // Close menu when clicking outside on mobile
         document.addEventListener('click', (e) => {
             const sidebar = document.getElementById('sidebar');
             const menuBtn = document.querySelector('.mobile-menu-btn');
@@ -1080,7 +848,6 @@
                 sidebar.classList.remove('active');
             }
         });
-
     </script>
 </body>
 </html>
