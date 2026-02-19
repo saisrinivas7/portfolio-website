@@ -208,7 +208,6 @@
             <div class="post-meta">
                 <span>February 19, 2026</span>
                 <span class="post-tag">Machine Learning</span>
-                <span id="recommendation-views-detail">0 views</span>
                 <span>8 min read</span>
             </div>
         </div>
@@ -319,32 +318,6 @@ w1...w6      →  weights Instagram assigns to each signal</pre>
     </main>
     
     <script>
-        const COUNTER_BASE_URL = 'https://api.countapi.xyz';
-        const COUNTER_NAMESPACE = 'saisrinivas-portfolio';
-        const COUNTER_KEY = 'recommendation-system-for-dummies';
-
-        async function requestCount(endpoint) {
-            const response = await fetch(`${COUNTER_BASE_URL}/${endpoint}/${COUNTER_NAMESPACE}/${COUNTER_KEY}`, { cache: 'no-store' });
-            if (!response.ok) return null;
-            const data = await response.json();
-            return typeof data.value === 'number' ? data.value : null;
-        }
-
-        async function updateRecommendationViews() {
-            const viewsEl = document.getElementById('recommendation-views-detail');
-            if (!viewsEl) return;
-
-            try {
-                const count = await requestCount('hit');
-
-                if (typeof count === 'number') {
-                    viewsEl.textContent = `${count.toLocaleString()} views`;
-                }
-            } catch (error) {
-                // Keep fallback text if the counter service is unavailable.
-            }
-        }
-
         function toggleMenu() { document.getElementById('sidebar').classList.toggle('active'); }
         document.addEventListener('click', (e) => {
             const sidebar = document.getElementById('sidebar');
@@ -353,8 +326,6 @@ w1...w6      →  weights Instagram assigns to each signal</pre>
                 sidebar.classList.remove('active');
             }
         });
-
-        updateRecommendationViews();
     </script>
 </body>
 </html>

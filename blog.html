@@ -278,7 +278,6 @@
     <div class="post-meta">
         <span>February 19, 2026</span>
         <span class="post-tag">Machine Learning</span>
-        <span id="recommendation-views-list">0 views</span>
         <span>8 min read</span>
     </div>
     <h2>Recommendation System for Dummies</h2>
@@ -288,26 +287,6 @@
     </main>
     
     <script>
-        const COUNTER_BASE_URL = 'https://api.countapi.xyz';
-        const COUNTER_NAMESPACE = 'saisrinivas-portfolio';
-        const COUNTER_KEY = 'recommendation-system-for-dummies';
-
-        async function loadRecommendationViews() {
-            const viewsEl = document.getElementById('recommendation-views-list');
-            if (!viewsEl) return;
-
-            try {
-                const response = await fetch(`${COUNTER_BASE_URL}/get/${COUNTER_NAMESPACE}/${COUNTER_KEY}`, { cache: 'no-store' });
-                if (!response.ok) return;
-                const data = await response.json();
-                if (typeof data.value === 'number') {
-                    viewsEl.textContent = `${data.value.toLocaleString()} views`;
-                }
-            } catch (error) {
-                // Keep the fallback text if the counter service is unavailable.
-            }
-        }
-
         function toggleMenu() { document.getElementById('sidebar').classList.toggle('active'); }
         document.addEventListener('click', (e) => {
             const sidebar = document.getElementById('sidebar');
@@ -316,8 +295,6 @@
                 sidebar.classList.remove('active');
             }
         });
-
-        loadRecommendationViews();
     </script>
 </body>
 </html>
