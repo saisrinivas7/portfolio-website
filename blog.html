@@ -270,63 +270,43 @@
         <div class="page-header">
             <div class="page-label">Writing</div>
             <h1>Blog</h1>
-            <p class="page-description">Technical writing and thoughts on software engineering, data systems, and technology</p>
+            <p class="page-description">Notes on software engineering, systems, and things I learn while building.</p>
         </div>
-        
+
         <div class="blog-list">
-            <a href="#" class="blog-post">
-                <div class="post-meta">
-                    <span>February 5, 2026</span>
-                    <span class="post-tag">Data Engineering</span>
-                    <span>8 min read</span>
-                </div>
-                <h2>Building Fault-Tolerant Data Pipelines at Scale</h2>
-                <p>Lessons learned from processing billions of events daily. How we designed our streaming architecture to handle failures gracefully and maintain data consistency.</p>
-            </a>
-            
-            <a href="#" class="blog-post">
-                <div class="post-meta">
-                    <span>January 28, 2026</span>
-                    <span class="post-tag">Performance</span>
-                    <span>10 min read</span>
-                </div>
-                <h2>Optimizing PostgreSQL for Analytics Workloads</h2>
-                <p>Deep dive into query optimization, indexing strategies, and partitioning techniques that reduced our query times by 70%.</p>
-            </a>
-            
-            <a href="#" class="blog-post">
-                <div class="post-meta">
-                    <span>January 15, 2026</span>
-                    <span class="post-tag">Architecture</span>
-                    <span>12 min read</span>
-                </div>
-                <h2>Designing a Real-Time Feature Store</h2>
-                <p>How we built a centralized feature engineering platform that serves both online and offline ML workloads.</p>
-            </a>
-            
-            <a href="#" class="blog-post">
-                <div class="post-meta">
-                    <span>December 22, 2025</span>
-                    <span class="post-tag">Best Practices</span>
-                    <span>6 min read</span>
-                </div>
-                <h2>Data Quality: The Foundation of Reliable Systems</h2>
-                <p>Why data quality matters and how to implement effective validation strategies in your data pipelines.</p>
-            </a>
-            
-            <a href="#" class="blog-post">
-                <div class="post-meta">
-                    <span>December 8, 2025</span>
-                    <span class="post-tag">Distributed Systems</span>
-                    <span>15 min read</span>
-                </div>
-                <h2>Understanding Consistency in Distributed Databases</h2>
-                <p>Exploring CAP theorem, eventual consistency, and practical implications for system design.</p>
-            </a>
+            <a href="blog-recommendation-systems.html" class="blog-post">
+    <div class="post-meta">
+        <span>February 19, 2026</span>
+        <span class="post-tag">Machine Learning</span>
+        <span id="recommendation-views-list">0 views</span>
+        <span>8 min read</span>
+    </div>
+    <h2>Recommendation System for Dummies</h2>
+    <p>How Instagram's algorithm actually works — collaborative filtering, engagement scores, and what happens when you accidentally skip a reel and come back to it.</p>
+</a>
         </div>
     </main>
     
     <script>
+        const COUNTER_NAMESPACE = 'saisrinivas-portfolio';
+        const COUNTER_KEY = 'recommendation-system-for-dummies';
+
+        async function loadRecommendationViews() {
+            const viewsEl = document.getElementById('recommendation-views-list');
+            if (!viewsEl) return;
+
+            try {
+                const response = await fetch(`https://api.countapi.xyz/get/${COUNTER_NAMESPACE}/${COUNTER_KEY}`);
+                if (!response.ok) return;
+                const data = await response.json();
+                if (typeof data.value === 'number') {
+                    viewsEl.textContent = `${data.value.toLocaleString()} views`;
+                }
+            } catch (error) {
+                // Keep the fallback text if the counter service is unavailable.
+            }
+        }
+
         function toggleMenu() { document.getElementById('sidebar').classList.toggle('active'); }
         document.addEventListener('click', (e) => {
             const sidebar = document.getElementById('sidebar');
@@ -335,6 +315,8 @@
                 sidebar.classList.remove('active');
             }
         });
+
+        loadRecommendationViews();
     </script>
 </body>
 </html>
