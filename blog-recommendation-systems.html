@@ -28,7 +28,7 @@
             z-index: 0;
         }
         
-        .sidebar { position: fixed; left: 0; top: 0; bottom: 0; width: 96px; background: rgba(255, 255, 255, 0.82); -webkit-backdrop-filter: blur(18px) saturate(160%); backdrop-filter: blur(18px) saturate(160%); border-right: 1px solid rgba(0, 0, 0, 0.08); box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08); padding: 1.5rem 1rem; display: flex; gap: 0.75rem; z-index: 1000; overflow: hidden; transition: width 0.25s ease; }
+        .sidebar { position: fixed; left: 0; top: 0; bottom: 0; width: 96px; background: rgba(255, 255, 255, 0.82); -webkit-backdrop-filter: blur(18px) saturate(160%); backdrop-filter: blur(18px) saturate(160%); border-right: 1px solid rgba(0, 0, 0, 0.08); box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08); padding: 1.5rem 1rem; display: flex; gap: 0.75rem; z-index: 1000; overflow: hidden; transition: width 0.42s ease; }
         .sidebar:hover, .sidebar:focus-within { width: 320px; }
         .sidebar-rail { width: 64px; background: transparent; border: none; padding: 0.5rem 0.25rem 0.5rem 0; display: flex; flex-direction: column; justify-content: space-between; border-right: 1px solid rgba(0, 0, 0, 0.08); }
         .rail-stack { display: flex; flex-direction: column; gap: 0.75rem; align-items: center; }
@@ -54,7 +54,7 @@
         .social-links a:hover { color: #1a1a1a; border-color: #e5e5e5; }
         .social-links svg { width: 18px; height: 18px; display: block; }
 
-        .sidebar { position: fixed; left: 0; top: 0; bottom: 0; width: 96px; background: rgba(255, 255, 255, 0.82); -webkit-backdrop-filter: blur(18px) saturate(160%); backdrop-filter: blur(18px) saturate(160%); border-right: 1px solid rgba(0, 0, 0, 0.08); box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08); padding: 1.5rem 1rem; display: flex; flex-direction: column; gap: 0.75rem; z-index: 1000; overflow: hidden; transition: width 0.25s ease; }
+        .sidebar { position: fixed; left: 0; top: 0; bottom: 0; width: 96px; background: rgba(255, 255, 255, 0.82); -webkit-backdrop-filter: blur(18px) saturate(160%); backdrop-filter: blur(18px) saturate(160%); border-right: 1px solid rgba(0, 0, 0, 0.08); box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08); padding: 1.5rem 1rem; display: flex; flex-direction: column; gap: 0.75rem; z-index: 1000; overflow: hidden; transition: width 0.42s ease; }
         .sidebar:hover, .sidebar:focus-within, .sidebar.active { width: 260px; }
         .brand { display: flex; align-items: center; gap: 0.75rem; padding: 0 0.25rem; }
         .brand-mark { width: 44px; height: 44px; border-radius: 14px; background: #111111; color: #ffffff; display: grid; place-items: center; font-weight: 600; letter-spacing: 0.02em; text-decoration: none; }
@@ -73,10 +73,10 @@
         .sidebar:hover .nav-label, .sidebar:hover .social-label, .sidebar:focus-within .nav-label, .sidebar:focus-within .social-label, .sidebar.active .nav-label, .sidebar.active .social-label { max-width: 240px; opacity: 1; transform: translateX(0); }
         .nav-links a:hover, .nav-links a:focus-visible, .social-links a:hover, .social-links a:focus-visible { justify-content: flex-start; }
         .nav-links a:hover span, .nav-links a:focus-visible span, .social-links a:hover span, .social-links a:focus-visible span { max-width: 240px; opacity: 1; transform: translateX(0); }
-        .main-content { margin-left: 120px; transition: margin-left 0.25s ease; }
+        .main-content { margin-left: 120px; transition: margin-left 0.42s ease; }
         .sidebar:hover ~ .main-content, .sidebar:focus-within ~ .main-content, .sidebar.active ~ .main-content { margin-left: 300px; }
         
-        .main-content { margin-left: 120px; padding: 4rem; max-width: 900px; position: relative; z-index: 1; transition: margin-left 0.25s ease; }
+        .main-content { margin-left: 120px; padding: 4rem; max-width: 900px; position: relative; z-index: 1; transition: margin-left 0.42s ease; }
         .sidebar:hover ~ .main-content, .sidebar:focus-within ~ .main-content { margin-left: 340px; }
         .page-header { margin-bottom: 4rem; }
         .page-label { font-size: 0.85rem; color: #666; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1rem; }
@@ -111,7 +111,7 @@
         .loop-step { background: #fff; border: 1px solid #e5e5e5; border-radius: 6px; padding: 0.5rem 1rem; font-size: 0.85rem; font-weight: 500; color: #1a1a1a; }
         .loop-arrow { color: #999; font-size: 1rem; }
 
-        .sidebar { width: 72px; padding: 1.5rem 0.75rem; background: rgba(255, 255, 255, 0.9); -webkit-backdrop-filter: blur(16px) saturate(160%); backdrop-filter: blur(16px) saturate(160%); border-right: 1px solid rgba(0, 0, 0, 0.08); box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08); transition: width 0.25s ease; }
+        .sidebar { width: 72px; padding: 1.5rem 0.75rem; background: rgba(255, 255, 255, 0.9); -webkit-backdrop-filter: blur(16px) saturate(160%); backdrop-filter: blur(16px) saturate(160%); border-right: 1px solid rgba(0, 0, 0, 0.08); box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08); transition: width 0.42s ease; }
         .sidebar:hover, .sidebar:focus-within { width: 260px; }
         .brand { padding: 0.25rem 0.25rem 1rem; }
         .brand-text, .nav-label, .social-label, .nav-links a span, .social-links a span { max-width: 0; opacity: 0; overflow: hidden; white-space: nowrap; transform: translateX(-6px); transition: max-width 0.25s ease, opacity 0.2s ease, transform 0.2s ease; }
@@ -119,7 +119,7 @@
         .sidebar:hover .social-links, .sidebar:focus-within .social-links { flex-direction: row; gap: 0.75rem; }
         .sidebar:hover .brand-text, .sidebar:hover .nav-label, .sidebar:hover .social-label, .sidebar:hover .nav-links a span, .sidebar:hover .social-links a span, .sidebar:focus-within .brand-text, .sidebar:focus-within .nav-label, .sidebar:focus-within .social-label, .sidebar:focus-within .nav-links a span, .sidebar:focus-within .social-links a span { max-width: 240px; opacity: 1; transform: translateX(0); }
         .sidebar:hover .nav-links a, .sidebar:hover .social-links a, .sidebar:focus-within .nav-links a, .sidebar:focus-within .social-links a { justify-content: flex-start; }
-        .main-content { margin-left: 100px; transition: margin-left 0.25s ease; }
+        .main-content { margin-left: 100px; transition: margin-left 0.42s ease; }
         .sidebar:hover ~ .main-content, .sidebar:focus-within ~ .main-content { margin-left: 300px; }
         
         .mobile-menu-btn { display: none; position: fixed; top: 1.5rem; left: 1.5rem; z-index: 2000; background: #1a1a1a; color: white; border: none; padding: 0.75rem; border-radius: 8px; cursor: pointer; }
