@@ -288,6 +288,7 @@
     </main>
     
     <script>
+        const COUNTER_BASE_URL = 'https://api.countapi.xyz';
         const COUNTER_NAMESPACE = 'saisrinivas-portfolio';
         const COUNTER_KEY = 'recommendation-system-for-dummies';
 
@@ -296,7 +297,7 @@
             if (!viewsEl) return;
 
             try {
-                const response = await fetch(`https://api.countapi.xyz/get/${COUNTER_NAMESPACE}/${COUNTER_KEY}`);
+                const response = await fetch(`${COUNTER_BASE_URL}/get/${COUNTER_NAMESPACE}/${COUNTER_KEY}`, { cache: 'no-store' });
                 if (!response.ok) return;
                 const data = await response.json();
                 if (typeof data.value === 'number') {

@@ -319,13 +319,12 @@ w1...w6      →  weights Instagram assigns to each signal</pre>
     </main>
     
     <script>
+        const COUNTER_BASE_URL = 'https://api.countapi.xyz';
         const COUNTER_NAMESPACE = 'saisrinivas-portfolio';
         const COUNTER_KEY = 'recommendation-system-for-dummies';
-        const VIEW_COOLDOWN_MS = 30 * 60 * 1000;
-        const VIEW_STORAGE_KEY = 'recommendation-system-last-viewed-at';
 
         async function requestCount(endpoint) {
-            const response = await fetch(`https://api.countapi.xyz/${endpoint}/${COUNTER_NAMESPACE}/${COUNTER_KEY}`);
+            const response = await fetch(`${COUNTER_BASE_URL}/${endpoint}/${COUNTER_NAMESPACE}/${COUNTER_KEY}`, { cache: 'no-store' });
             if (!response.ok) return null;
             const data = await response.json();
             return typeof data.value === 'number' ? data.value : null;
@@ -335,19 +334,11 @@ w1...w6      →  weights Instagram assigns to each signal</pre>
             const viewsEl = document.getElementById('recommendation-views-detail');
             if (!viewsEl) return;
 
-            const lastViewedAt = Number(localStorage.getItem(VIEW_STORAGE_KEY) || 0);
-            const withinCooldown = Date.now() - lastViewedAt < VIEW_COOLDOWN_MS;
-
             try {
-                const count = withinCooldown
-                    ? await requestCount('get')
-                    : await requestCount('hit');
+                const count = await requestCount('hit');
 
                 if (typeof count === 'number') {
                     viewsEl.textContent = `${count.toLocaleString()} views`;
-                    if (!withinCooldown) {
-                        localStorage.setItem(VIEW_STORAGE_KEY, String(Date.now()));
-                    }
                 }
             } catch (error) {
                 // Keep fallback text if the counter service is unavailable.
