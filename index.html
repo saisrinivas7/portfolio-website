@@ -365,6 +365,7 @@
         .hero-content > *:nth-child(2) { animation-delay: 0.12s; }
         .hero-content > *:nth-child(3) { animation-delay: 0.2s; }
         .hero-content > *:nth-child(4) { animation-delay: 0.28s; }
+        .hero-content > *:nth-child(5) { animation-delay: 0.36s; }
 
         .hero-content {
             position: relative;
@@ -475,94 +476,19 @@
             color: var(--muted);
         }
 
-        /* Interest Marquee */
-        .interest-marquee {
-            padding: 0.75rem 4rem 1.25rem;
-            max-width: 1200px;
-            border-top: 1px solid var(--line);
-            border-bottom: 1px solid var(--line);
-            overflow: hidden;
-            position: relative;
-            margin-top: -1rem;
+        .highlight-note a {
+            color: var(--accent);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(15, 118, 110, 0.35);
         }
 
-        .interest-marquee::before,
-        .interest-marquee::after {
-            content: "";
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            width: 80px;
-            z-index: 2;
-        }
-
-        .interest-marquee::before {
-            left: 0;
-            background: linear-gradient(90deg, #ffffff 0%, rgba(255, 255, 255, 0) 100%);
-        }
-
-        .interest-marquee::after {
-            right: 0;
-            background: linear-gradient(270deg, #ffffff 0%, rgba(255, 255, 255, 0) 100%);
-        }
-
-        .marquee {
-            overflow: hidden;
-        }
-
-        .marquee-track {
-            display: flex;
-            gap: 2.5rem;
-            width: max-content;
-            animation: marquee 28s linear infinite;
-        }
-
-        .marquee-item {
-            font-size: 0.95rem;
-            color: var(--muted);
-            letter-spacing: 0.04em;
-            white-space: nowrap;
-            text-transform: uppercase;
-        }
-
-        /* Codex Banner */
-        .codex-banner {
-            padding: 0 4rem 1.5rem;
-            max-width: 1200px;
-            display: flex;
-            justify-content: center;
-            text-align: center;
-            margin: 0 auto;
-            width: 100%;
-        }
-
-        .codex-banner-card {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0.75rem 0;
-            border-radius: 0;
-            background: transparent;
-            border: none;
-            box-shadow: none;
-            width: 100%;
-        }
-
-        .codex-banner-title {
-            font-size: 0.95rem;
-            font-weight: 500;
-            color: #7a86a2;
+        .highlight-note a:hover {
+            border-bottom-color: var(--accent);
         }
 
         @keyframes rise {
             from { opacity: 0; transform: translateY(14px); }
             to { opacity: 1; transform: translateY(0); }
-        }
-
-
-        @keyframes marquee {
-            from { transform: translateX(0); }
-            to { transform: translateX(-50%); }
         }
 
         /* Sidebar Override (icon rail -> expand on hover) */
@@ -762,9 +688,7 @@
             }
             
             .hero-section,
-            .highlight-strip,
-            .interest-marquee,
-            .codex-banner {
+            .highlight-strip {
                 padding-left: 2rem;
                 padding-right: 2rem;
             }
@@ -781,10 +705,6 @@
         @media (max-width: 640px) {
             .hero-section {
                 padding-top: 6rem;
-            }
-
-            .codex-banner-card {
-                padding: 0.85rem 1.25rem;
             }
         }
 
@@ -909,60 +829,42 @@
     <main class="main-content">
         <section class="hero-section">
             <div class="hero-content">
-                <div class="hero-label">HEY THERE!</div>
-                <h1>Glad you’re here — I’m Saisrinivas!</h1>
+                <div class="hero-label">Saisrinivas Mamunuru · Software Engineer</div>
+                <h1>I build AI systems on data I actually trust.</h1>
                 <p class="hero-description">
-                    I'm a Software Engineer with a strong focus on Data Science and Machine Learning. I enjoy building the systems that move data and extract the insights that drive decisions. I love turning messy, real-world data into scalable pipelines, predictive models, and AI-powered insights. Take a look around to see my work, writing, and photography.
+                    At CVS Health I own a HIPAA-compliant multi-agent system for claims adjudication on Vertex AI — hybrid BM25 + dense retrieval, an agent harness with LLM-as-judge guardrails, and a golden-dataset eval loop that keeps hallucinations under 2%.
+                </p>
+                <p class="hero-description">
+                    The other half of my job is the part that makes any of that work: ETL on GCP moving a million-plus records a week, and enough time in pandas and regression to know when a dataset is lying to me. I came to AI engineering through data science, and I think it shows in the systems I build.
                 </p>
                 <div class="cta-buttons">
-                    <a href="projects.html" class="btn btn-secondary">View Projects</a>
-                    <a href="experience.html" class="btn btn-primary">View Experience</a>
-                    <a href="mailto:your.email@example.com" class="btn btn-secondary">Get in Touch</a>
-                </div>
-            </div>
-        </section>
-
-        <section class="interest-marquee" aria-label="Interests">
-            <div class="marquee">
-                <div class="marquee-track">
-                    <div class="marquee-item">Interested in turning business data into actionable insights</div>
-                    <div class="marquee-item">Interested in customer behavior analytics</div>
-                    <div class="marquee-item">Interested in building reliable data pipelines</div>
-                    <div class="marquee-item">Let's use AI to solve real-world problems!</div>
-                    <div class="marquee-item">Interested in turning business data into actionable insights</div>
-                    <div class="marquee-item">Interested in customer behavior analytics</div>
-                    <div class="marquee-item">Interested in building reliable data pipelines</div>
-                    <div class="marquee-item">Let's use AI to solve real-world problems!</div>
+                    <a href="experience.html" class="btn btn-primary">What I've built</a>
+                    <a href="projects.html" class="btn btn-secondary">Projects</a>
+                    <a href="mailto:ssmamunuru@gmail.com" class="btn btn-secondary">Email me</a>
                 </div>
             </div>
         </section>
 
         <section class="highlight-strip">
             <div class="highlight" style="--i: 1;">
-                <div class="highlight-title">Focus</div>
-                <div class="highlight-value">Building scalable data pipelines that power analytics, machine learning, and product decision-making.</div>
-                <div class="highlight-note">also Cloud-native architectures & AI-integration</div>
+                <div class="highlight-title">AI Engineering</div>
+                <div class="highlight-value">Multi-agent systems, RAG, evals</div>
+                <div class="highlight-note">Hybrid retrieval, agent harnesses, LLM-as-judge guardrails, OpenTelemetry tracing for grounding rate and token spend.</div>
             </div>
             <div class="highlight" style="--i: 2;">
-                <div class="highlight-title">Strengths</div>
-                <div class="highlight-value">Data modeling & Analytics Pipelines, Data-Driven Decision Making</div>
-                <div class="highlight-note">Collaboration with cross-function teams, communicating insights based on stakeholders.</div>
+                <div class="highlight-title">Data</div>
+                <div class="highlight-value">Pipelines, modeling, analysis</div>
+                <div class="highlight-note">Airflow and Dataflow on GCP at 1M+ records/week; pandas, regression, and A/B testing when the question is "why," not "how fast."</div>
             </div>
             <div class="highlight" style="--i: 3;">
-                <div class="highlight-title">Tech Stack</div>
-                <div class="highlight-value">Python, Airflow, Google Cloud, SQL</div>
-                <div class="highlight-note">also pandas, C++(DSA) and A/B Testing</div>
+                <div class="highlight-title">Stack</div>
+                <div class="highlight-value">Python, SQL, GCP, LangGraph</div>
+                <div class="highlight-note">Vertex AI, pgvector, Composer, Dataflow, BigQuery, scikit-learn, PyTorch, AWS Lambda, Grafana.</div>
             </div>
             <div class="highlight" style="--i: 4;">
-                <div class="highlight-title">Currently Exploring</div>
-                <div class="highlight-value">Customer Behavior Analytics, System Design & Architecture</div>
-                <div class="highlight-note">Also scalable systems and LLM architecture</div>
-            </div>
-        </section>
-
-        <section class="codex-banner" aria-label="Codex footer">
-            <div class="codex-banner-card">
-                <div class="codex-banner-title">Vibe coded using ChatGPT's Codex.</div>
+                <div class="highlight-title">Looking for</div>
+                <div class="highlight-value">Early-stage teams shipping AI products</div>
+                <div class="highlight-note">Somewhere the data work and the model work are the same job. <a href="mailto:ssmamunuru@gmail.com">Say hello</a>.</div>
             </div>
         </section>
     </main>

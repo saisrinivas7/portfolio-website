@@ -272,7 +272,7 @@
         <div class="page-header">
             <div class="page-label">Portfolio</div>
             <h1>Projects</h1>
-            <p class="page-description">Some of my favorite projects where I learnt the most.</p>
+            <p class="page-description">Things I built to answer a question I couldn't answer any other way.</p>
         </div>
         
         <div class="projects-grid">
@@ -285,10 +285,10 @@
                         </svg>
                     </a>
                 </div>
-                <p>Conducted an end-to-end data science investigation on 911K+ Chicago traffic crash records spanning data wrangling, geospatial hotspot clustering, socioeconomic regression analysis, and accident severity prediction using machine learning models.</p>
+                <p>911K Chicago traffic crash records, start to finish: wrangling the raw data, clustering geospatial hotspots, running socioeconomic regressions against them, and training severity prediction models. The interesting part wasn't the model — it was finding which neighborhood-level factors survived controlling for traffic volume.</p>
                 <div class="tech-stack">
                     <span class="tech-badge">Pandas, scikit-learn</span>
-                    <span class="tech-badge">Light GBM</span>
+                    <span class="tech-badge">LightGBM</span>
                     <span class="tech-badge">Plotly</span>
                     <span class="tech-badge">A/B Testing</span>
                 </div>
@@ -303,8 +303,7 @@
                         </svg>
                     </a>
                 </div>
-                <p>Traitlytics is an AI-powered Chrome extension that generates DISC personality insights from Linkedin profiles, helping employers make well-rounded decisions.
-                </p>
+                <p>A Chrome extension that reads a LinkedIn profile and generates DISC personality insights from it, running against a local Ollama model so nothing leaves the machine. Selenium handles the scraping; the prompting layer does the rest.</p>
                 <div class="tech-stack">
                     <span class="tech-badge">Ollama</span>
                     <span class="tech-badge">Python</span>
@@ -314,14 +313,14 @@
             
             <div class="project-card">
                 <div class="project-head">
-                    <h2>Hyperdimensional Computing v/s Sparse Neural Networks <h2>
+                    <h2>Hyperdimensional Computing vs. Sparse Neural Networks</h2>
                     <a class="project-link" href="https://github.com/Confluence-Lab/HD-vs-NN" target="_blank" aria-label="GitHub">
                         <svg viewBox="0 0 24 24" aria-hidden="true">
                             <path fill="currentColor" d="M12 2a10 10 0 0 0-3.16 19.48c.5.09.68-.22.68-.48 0-.24-.01-.87-.01-1.7-2.78.6-3.37-1.17-3.37-1.17-.45-1.15-1.11-1.46-1.11-1.46-.9-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.9 1.53 2.36 1.09 2.94.83.09-.65.35-1.09.63-1.34-2.22-.25-4.56-1.11-4.56-4.95 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02A9.57 9.57 0 0 1 12 6.8c.85 0 1.71.11 2.51.33 1.9-1.29 2.74-1.02 2.74-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.85-2.34 4.7-4.57 4.95.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.8 0 .27.18.58.69.48A10 10 0 0 0 12 2Z"/>
                         </svg>
                     </a>
                 </div>
-                <p>Compared the computational efficiency of HDC compared to Sprase Neural Networks using a language dataset.</p>
+                <p>Compared the computational efficiency of HDC against Sparse Neural Networks on a language dataset.</p>
                 <div class="tech-stack">
                     <span class="tech-badge">Neural Networks</span>
                     <span class="tech-badge">Matplotlib</span>
@@ -331,15 +330,14 @@
             </div>
             <div class="project-card">
                 <div class="project-head">
-                    <h2>AutoScaling Face Detection on AWS <h2>
+                    <h2>Autoscaling Face Detection on AWS</h2>
                     <a class="project-link" href="https://github.com/saisrinivas7" target="_blank" aria-label="GitHub">
                         <svg viewBox="0 0 24 24" aria-hidden="true">
                             <path fill="currentColor" d="M12 2a10 10 0 0 0-3.16 19.48c.5.09.68-.22.68-.48 0-.24-.01-.87-.01-1.7-2.78.6-3.37-1.17-3.37-1.17-.45-1.15-1.11-1.46-1.11-1.46-.9-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.9 1.53 2.36 1.09 2.94.83.09-.65.35-1.09.63-1.34-2.22-.25-4.56-1.11-4.56-4.95 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02A9.57 9.57 0 0 1 12 6.8c.85 0 1.71.11 2.51.33 1.9-1.29 2.74-1.02 2.74-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.85-2.34 4.7-4.57 4.95.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.8 0 .27.18.58.69.48A10 10 0 0 0 12 2Z"/>
                         </svg>
                     </a>
                 </div>
-                <p>Architected a scalable face-detection system on AWS with custom Python autoscaler for EC2, then migrated to serverless Lambda architecture achieving 20% performance improvement (1.2s latency) and optimized cost efficiency
-</p>
+                <p>A face-detection system on AWS with a custom Python autoscaler that watched SQS queue depth to spin EC2 instances up and down, holding 1.5s latency under heavy load. I then migrated the whole thing to Lambda — 20% faster (1.2s per request), cheaper, and no autoscaler to maintain. Load-tested with simulated concurrent traffic to verify response time at peak.</p>
                 <div class="tech-stack">
                     <span class="tech-badge">AWS EC2</span>
                     <span class="tech-badge">Lambda Functions</span>
