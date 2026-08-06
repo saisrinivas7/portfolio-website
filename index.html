@@ -1,988 +1,185 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <title>Saisrinivas Mamunuru</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap');
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: radial-gradient(1200px 600px at 12% -10%, #f1f7ff 0%, #ffffff 60%),
-                        radial-gradient(900px 500px at 85% 5%, #f5fff0 0%, #ffffff 55%);
-            color: #111111;
-            line-height: 1.6;
-            position: relative;
-        }
-
-        ::selection {
-            background: rgba(15, 118, 110, 0.2);
-            color: #0f2a27;
-        }
-
-        :root {
-            --ink: #111111;
-            --muted: #4a4a4a;
-            --line: rgba(0, 0, 0, 0.08);
-            --accent: #0f766e;
-            --accent-warm: #d64545;
-        }
-
-        body::before {
-            content: "";
-            position: fixed;
-            inset: 0;
-            background-image:
-                linear-gradient(transparent 47px, rgba(0, 0, 0, 0.06) 48px),
-                linear-gradient(90deg, transparent 47px, rgba(0, 0, 0, 0.06) 48px);
-            background-size: 48px 48px;
-            opacity: 0.45;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        #particle-canvas {
-            position: fixed;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-            pointer-events: none;
-        }
-        
-        /* Sidebar Navigation */
-        .sidebar {
-            position: fixed;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 96px;
-            background: rgba(255, 255, 255, 0.82);
-            -webkit-backdrop-filter: blur(18px) saturate(160%);
-            backdrop-filter: blur(18px) saturate(160%);
-            border-right: 1px solid rgba(0, 0, 0, 0.08);
-            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08);
-            padding: 1.5rem 1rem;
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-            z-index: 1000;
-            overflow: hidden;
-            transition: width 0.42s ease;
-        }
-
-        .sidebar:hover,
-        .sidebar:focus-within,
-        .sidebar.active {
-            width: 260px;
-        }
-
-        .brand {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 0 0.25rem;
-        }
-
-        .brand-mark {
-            width: 44px;
-            height: 44px;
-            border-radius: 14px;
-            background: #111111;
-            color: #ffffff;
-            display: grid;
-            place-items: center;
-            font-weight: 600;
-            letter-spacing: 0.02em;
-            text-decoration: none;
-        }
-
-        .brand-text {
-            display: flex;
-            flex-direction: column;
-            gap: 0.15rem;
-            max-width: 0;
-            opacity: 0;
-            overflow: hidden;
-            white-space: nowrap;
-            transform: translateX(-6px);
-            transition: max-width 0.25s ease, opacity 0.2s ease, transform 0.2s ease;
-        }
-
-        .brand-text .logo {
-            margin-bottom: 0;
-            font-size: 1.05rem;
-        }
-
-        .brand-text .subtitle {
-            margin-bottom: 0;
-        }
-
-        .nav-label,
-        .social-label {
-            max-width: 0;
-            opacity: 0;
-            overflow: hidden;
-            white-space: nowrap;
-            transform: translateX(-6px);
-            transition: max-width 0.25s ease, opacity 0.2s ease, transform 0.2s ease;
-        }
-
-        .nav-links a {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 0.6rem 0.75rem;
-            border-radius: 12px;
-            justify-content: center;
-        }
-
-        .nav-links a::before {
-            display: none;
-        }
-
-        .nav-links a:hover,
-        .nav-links a.active {
-            background: #f1f1f1;
-            color: #111111;
-        }
-
-        .nav-links a svg,
-        .social-links a svg {
-            width: 18px;
-            height: 18px;
-            display: block;
-            flex: 0 0 auto;
-        }
-
-        .nav-links a span,
-        .social-links a span {
-            max-width: 0;
-            opacity: 0;
-            overflow: hidden;
-            white-space: nowrap;
-            transform: translateX(-6px);
-            transition: max-width 0.25s ease, opacity 0.2s ease, transform 0.2s ease;
-        }
-
-        .social-links {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-            padding-top: 0;
-        }
-
-        .social-links a {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 0.55rem 0.75rem;
-            border-radius: 12px;
-            justify-content: center;
-        }
-
-        .brand:hover .brand-text,
-        .brand:focus-within .brand-text {
-            max-width: 240px;
-            opacity: 1;
-            transform: translateX(0);
-        }
-
-        .sidebar:hover .nav-label,
-        .sidebar:hover .social-label,
-        .sidebar:focus-within .nav-label,
-        .sidebar:focus-within .social-label,
-        .sidebar.active .nav-label,
-        .sidebar.active .social-label {
-            max-width: 240px;
-            opacity: 1;
-            transform: translateX(0);
-        }
-
-        .nav-links a:hover,
-        .nav-links a:focus-visible,
-        .social-links a:hover,
-        .social-links a:focus-visible {
-            justify-content: flex-start;
-        }
-
-        .nav-links a:hover span,
-        .nav-links a:focus-visible span,
-        .social-links a:hover span,
-        .social-links a:focus-visible span {
-            max-width: 240px;
-            opacity: 1;
-            transform: translateX(0);
-        }
-        
-        .logo {
-            font-size: 1.7rem;
-            font-weight: 700;
-            color: var(--ink);
-            margin-bottom: 0.5rem;
-            text-decoration: none;
-            letter-spacing: -0.01em;
-        }
-        
-        .subtitle {
-            font-size: 0.72rem;
-            text-transform: uppercase;
-            letter-spacing: 0.3em;
-            color: rgba(90, 90, 90, 0.8);
-            margin-bottom: 2rem;
-        }
-
-        .nav-label,
-        .social-label {
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 0.2em;
-            color: rgba(90, 90, 90, 0.7);
-        }
-
-        .nav-label {
-            margin-top: 1.5rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid var(--line);
-            margin-bottom: 1rem;
-        }
-
-        .social-label {
-            margin-top: 2rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid var(--line);
-            margin-bottom: 0.75rem;
-        }
-        
-        .nav-links {
-            list-style: none;
-            flex: 1;
-        }
-        
-        .nav-links li {
-            margin-bottom: 0.25rem;
-        }
-        
-        .nav-links a {
-            display: block;
-            padding: 0.55rem 0.75rem 0.55rem 1.5rem;
-            color: var(--muted);
-            text-decoration: none;
-            border-radius: 8px;
-            transition: all 0.2s ease;
-            font-size: 0.95rem;
-            position: relative;
-        }
-
-        .nav-links a::before {
-            content: "";
-            position: absolute;
-            left: 0;
-            top: 50%;
-            width: 12px;
-            height: 1px;
-            background: transparent;
-            transform: translateY(-50%);
-            transition: background 0.2s ease;
-        }
-        
-        .nav-links a:hover,
-        .nav-links a.active {
-            color: var(--ink);
-        }
-
-        .nav-links a:hover::before,
-        .nav-links a.active::before {
-            background: var(--ink);
-        }
-        
-        .social-links {
-            display: flex;
-            gap: 1rem;
-            padding-top: 0;
-        }
-        
-        .social-links a {
-            color: var(--muted);
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: color 0.2s ease;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 32px;
-            height: 32px;
-            border-radius: 8px;
-            border: 1px solid transparent;
-        }
-        
-        .social-links a:hover {
-            color: var(--ink);
-            border-color: var(--line);
-        }
-
-        .social-links svg {
-            width: 18px;
-            height: 18px;
-            display: block;
-        }
-        
-        /* Main Content */
-        .main-content {
-            margin-left: 120px;
-            min-height: 100vh;
-            position: relative;
-            z-index: 2;
-            transition: margin-left 0.42s ease;
-        }
-
-        .sidebar:hover ~ .main-content,
-        .sidebar:focus-within ~ .main-content,
-        .sidebar.active ~ .main-content {
-            margin-left: 300px;
-        }
-        
-        .hero-section {
-            padding: 8rem 4rem;
-            max-width: 1200px;
-            position: relative;
-        }
-
-        .hero-content > * {
-            opacity: 0;
-            animation: rise 0.7s ease forwards;
-        }
-
-        .hero-content > *:nth-child(1) { animation-delay: 0.05s; }
-        .hero-content > *:nth-child(2) { animation-delay: 0.12s; }
-        .hero-content > *:nth-child(3) { animation-delay: 0.2s; }
-        .hero-content > *:nth-child(4) { animation-delay: 0.28s; }
-        .hero-content > *:nth-child(5) { animation-delay: 0.36s; }
-
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            max-width: 720px;
-        }
-        
-        .hero-label {
-            font-size: 0.85rem;
-            color: var(--muted);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 1rem;
-        }
-        
-        h1 {
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            font-weight: 700;
-            line-height: 1.2;
-            margin-bottom: 1.5rem;
-            color: var(--ink);
-        }
-        
-        .hero-description {
-            font-size: 1.25rem;
-            color: var(--muted);
-            max-width: 600px;
-            margin-bottom: 3rem;
-            line-height: 1.7;
-        }
-        
-        .cta-buttons {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-        
-        .btn {
-            padding: 0.875rem 1.75rem;
-            border-radius: 8px;
-            text-decoration: none;
-            font-size: 0.95rem;
-            font-weight: 500;
-            transition: all 0.2s ease;
-            display: inline-block;
-        }
-        
-        .btn-primary {
-            background: var(--ink);
-            color: #ffffff;
-        }
-        
-        .btn-primary:hover {
-            background: #333;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-        }
-        
-        .btn-secondary {
-            background: #ffffff;
-            color: var(--ink);
-            border: 1px solid var(--line);
-        }
-        
-        .btn-secondary:hover {
-            border-color: var(--ink);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-
-
-        /* Highlights Strip */
-        .highlight-strip {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 2rem;
-            padding: 2rem 4rem;
-            max-width: 1200px;
-            border-top: 1px solid var(--line);
-            border-bottom: 1px solid var(--line);
-        }
-
-        .highlight {
-            min-width: 200px;
-            flex: 1 1 220px;
-            opacity: 0;
-            animation: rise 0.7s ease forwards;
-            animation-delay: calc(0.08s * var(--i));
-        }
-
-        .highlight-title {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.12em;
-            color: var(--muted);
-            margin-bottom: 0.5rem;
-        }
-
-        .highlight-value {
-            font-size: 1.05rem;
-            font-weight: 600;
-            color: var(--ink);
-            margin-bottom: 0.4rem;
-        }
-
-        .highlight-note {
-            font-size: 0.95rem;
-            color: var(--muted);
-        }
-
-        .highlight-note a {
-            color: var(--accent);
-            text-decoration: none;
-            border-bottom: 1px solid rgba(15, 118, 110, 0.35);
-        }
-
-        .highlight-note a:hover {
-            border-bottom-color: var(--accent);
-        }
-
-        @keyframes rise {
-            from { opacity: 0; transform: translateY(14px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Sidebar Override (icon rail -> expand on hover) */
-        .sidebar {
-            width: 72px;
-            padding: 1.5rem 0.75rem;
-            background: rgba(255, 255, 255, 0.9);
-            -webkit-backdrop-filter: blur(16px) saturate(160%);
-            backdrop-filter: blur(16px) saturate(160%);
-            border-right: 1px solid rgba(0, 0, 0, 0.08);
-            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08);
-            transition: width 0.42s ease;
-        }
-
-        .sidebar:hover,
-        .sidebar:focus-within {
-            width: 260px;
-        }
-
-        .brand {
-            padding: 0.25rem 0.25rem 1rem;
-        }
-
-        .brand-text,
-        .nav-label,
-        .social-label,
-        .nav-links a span,
-        .social-links a span {
-            max-width: 0;
-            opacity: 0;
-            overflow: hidden;
-            white-space: nowrap;
-            transform: translateX(-6px);
-            transition: max-width 0.25s ease, opacity 0.2s ease, transform 0.2s ease;
-        }
-
-        .nav-links a,
-        .social-links a {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            justify-content: center;
-        }
-
-        .nav-links a {
-            padding: 0.6rem 0.75rem;
-            border-radius: 12px;
-        }
-
-        .social-links a {
-            padding: 0.55rem 0.75rem;
-            border-radius: 12px;
-        }
-
-        .nav-links a::before {
-            display: none;
-        }
-
-        .sidebar:hover .social-links,
-        .sidebar:focus-within .social-links {
-            flex-direction: row;
-            gap: 0.75rem;
-        }
-
-        .sidebar:hover .brand-text,
-        .sidebar:hover .nav-label,
-        .sidebar:hover .social-label,
-        .sidebar:hover .nav-links a span,
-        .sidebar:hover .social-links a span,
-        .sidebar:focus-within .brand-text,
-        .sidebar:focus-within .nav-label,
-        .sidebar:focus-within .social-label,
-        .sidebar:focus-within .nav-links a span,
-        .sidebar:focus-within .social-links a span {
-            max-width: 240px;
-            opacity: 1;
-            transform: translateX(0);
-        }
-
-        .sidebar:hover .nav-links a,
-        .sidebar:hover .social-links a,
-        .sidebar:focus-within .nav-links a,
-        .sidebar:focus-within .social-links a {
-            justify-content: flex-start;
-        }
-
-        .main-content {
-            margin-left: 100px;
-            transition: margin-left 0.42s ease;
-        }
-
-        .sidebar:hover ~ .main-content,
-        .sidebar:focus-within ~ .main-content {
-            margin-left: 300px;
-        }
-
-        /* Compact icon rail -> expands on hover */
-        .sidebar {
-            width: 72px;
-            padding: 1.5rem 0.75rem;
-            background: rgba(255, 255, 255, 0.9);
-            -webkit-backdrop-filter: blur(16px) saturate(160%);
-            backdrop-filter: blur(16px) saturate(160%);
-            border-right: 1px solid rgba(0, 0, 0, 0.08);
-            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08);
-            transition: width 0.42s ease;
-        }
-
-        .sidebar:hover,
-        .sidebar:focus-within {
-            width: 260px;
-        }
-
-        .brand {
-            padding: 0.25rem 0.25rem 1rem;
-        }
-
-        .brand-text,
-        .nav-label,
-        .social-label,
-        .nav-links a span,
-        .social-links a span {
-            max-width: 0;
-            opacity: 0;
-            overflow: hidden;
-            white-space: nowrap;
-            transform: translateX(-6px);
-            transition: max-width 0.25s ease, opacity 0.2s ease, transform 0.2s ease;
-        }
-
-        .nav-links a,
-        .social-links a {
-            justify-content: center;
-        }
-
-        .sidebar:hover .brand-text,
-        .sidebar:hover .nav-label,
-        .sidebar:hover .social-label,
-        .sidebar:hover .nav-links a span,
-        .sidebar:hover .social-links a span,
-        .sidebar:focus-within .brand-text,
-        .sidebar:focus-within .nav-label,
-        .sidebar:focus-within .social-label,
-        .sidebar:focus-within .nav-links a span,
-        .sidebar:focus-within .social-links a span {
-            max-width: 240px;
-            opacity: 1;
-            transform: translateX(0);
-        }
-
-        .sidebar:hover .nav-links a,
-        .sidebar:hover .social-links a,
-        .sidebar:focus-within .nav-links a,
-        .sidebar:focus-within .social-links a {
-            justify-content: flex-start;
-        }
-
-        .main-content {
-            margin-left: 100px;
-            transition: margin-left 0.42s ease;
-        }
-
-        .sidebar:hover ~ .main-content,
-        .sidebar:focus-within ~ .main-content {
-            margin-left: 300px;
-        }
-
-        
-        /* Mobile Menu */
-        .mobile-menu-btn {
-            display: none;
-            position: fixed;
-            top: 1.5rem;
-            left: 1.5rem;
-            z-index: 2000;
-            background: #1a1a1a;
-            color: white;
-            border: none;
-            padding: 0.75rem;
-            border-radius: 8px;
-            cursor: pointer;
-        }
-        
-        /* Responsive */
-        @media (max-width: 968px) {
-            .sidebar {
-                transform: translateX(-100%);
-                transition: transform 0.3s ease;
-            }
-            
-            .sidebar.active {
-                transform: translateX(0);
-            }
-            
-            .main-content {
-                margin-left: 0;
-            }
-            
-            .hero-section,
-            .highlight-strip {
-                padding-left: 2rem;
-                padding-right: 2rem;
-            }
-            
-            .mobile-menu-btn {
-                display: block;
-            }
-            
-            .hero-content {
-                max-width: 100%;
-            }
-        }
-        
-        @media (max-width: 640px) {
-            .hero-section {
-                padding-top: 6rem;
-            }
-        }
-
-        /* Force compact icon rail (override older sidebar rules) */
-        .sidebar {
-            width: 72px !important;
-            padding: 1.5rem 0.75rem !important;
-            background: rgba(255, 255, 255, 0.9) !important;
-            -webkit-backdrop-filter: blur(16px) saturate(160%) !important;
-            backdrop-filter: blur(16px) saturate(160%) !important;
-            border-right: 1px solid rgba(0, 0, 0, 0.08) !important;
-            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08) !important;
-            transition: width 0.25s ease !important;
-        }
-
-        .sidebar:hover,
-        .sidebar:focus-within {
-            width: 260px !important;
-        }
-
-        .main-content {
-            margin-left: 100px !important;
-            transition: margin-left 0.25s ease !important;
-        }
-
-        .sidebar:hover ~ .main-content,
-        .sidebar:focus-within ~ .main-content {
-            margin-left: 300px !important;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Saisrinivas Mamunuru</title>
+<meta name="description" content="Software engineer working on AI systems and the data infrastructure behind them.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+:root{--ink:#e9eaf0;--soft:#9598a9;--faint:#5d6073;--accent:#b0a5dc}
+html,body{height:100%}
+body{margin:0;color:var(--ink);
+  font:400 15px/1.6 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;
+  background:
+    radial-gradient(760px 520px at 68% 28%, rgba(88,78,140,.13) 0%, rgba(88,78,140,0) 68%),
+    radial-gradient(1100px 720px at 42% 55%, #16161f 0%, #0c0c12 56%, #08080c 100%);
+  display:grid;place-items:center;overflow:hidden}
+#sky{position:fixed;inset:0;z-index:0;pointer-events:none}
+.stage{position:relative;z-index:1;width:min(740px,93vw);height:min(500px,76vh);
+  display:grid;place-items:center}
+
+/* the sun: an ambient warm wash, plus a small disc above the name.
+   Sits behind everything and never moves -- the planets drift, it doesn't. */
+.sun{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  width:min(560px,78vw);height:min(560px,78vw);border-radius:50%;
+  pointer-events:none;z-index:0;
+  background:radial-gradient(circle,
+    rgba(246,198,124,.115) 0%,
+    rgba(240,180,100,.062) 27%,
+    rgba(228,158,88,.022) 50%,
+    rgba(228,158,88,0) 72%);
+  animation:breathe 14s ease-in-out infinite}
+@keyframes breathe{0%,100%{opacity:.88}50%{opacity:1}}
+
+.disc{width:30px;height:30px;border-radius:50%;margin:0 auto .95rem;
+  background:radial-gradient(circle at 38% 33%, #ffdca6 0%, #f4b862 44%, #dd9840 100%);
+  box-shadow:0 0 20px rgba(242,184,104,.42), 0 0 56px rgba(242,184,104,.16)}
+
+.core{text-align:center;max-width:25rem;z-index:2;position:relative}
+h1{font-size:1.48rem;font-weight:600;letter-spacing:-.02em;margin:0 0 .32rem}
+.role{color:var(--soft);font-size:.94rem;margin:0 0 .8rem}
+.bio{color:var(--soft);font-size:.91rem;margin:0}
+
+.drift{position:absolute;text-decoration:none;color:var(--ink);font-size:1rem;
+  display:inline-flex;align-items:center;gap:.5rem;white-space:nowrap;
+  transition:color .25s ease,text-shadow .25s ease}
+.drift span{border-bottom:1px solid transparent;padding-bottom:1px;
+  transition:border-color .25s ease}
+.drift:hover{color:#fff;text-shadow:0 0 15px rgba(176,165,220,.4)}
+.drift:hover span{border-bottom-color:var(--accent)}
+.drift svg{flex:0 0 auto;opacity:.82;transition:opacity .25s ease,transform .5s ease}
+.drift:hover svg{opacity:1;transform:rotate(12deg) scale(1.08)}
+
+.d1{top:8%;left:11%}
+.d2{top:24%;right:6%}
+.d3{bottom:25%;left:2%}
+.d4{bottom:10%;right:15%}
+.d5{top:51%;right:0}
+.soc{position:absolute;bottom:-2.6rem;left:50%;transform:translateX(-50%);
+  display:flex;gap:1.15rem;font-size:.8rem;white-space:nowrap}
+.soc a{color:var(--faint);text-decoration:none}
+.soc a:hover{color:var(--accent)}
+@media(max-width:660px){
+  body{overflow:auto;display:block}
+  .stage{height:auto;display:flex;flex-direction:column;gap:1.4rem;padding:4rem 1.5rem 3rem;width:100%}
+  .core{order:-1;margin-bottom:1rem}
+  .drift{position:static!important;transform:none!important;font-size:1.05rem}
+  .soc{position:static;transform:none;margin-top:1.5rem}
+}
+</style>
 </head>
 <body>
-    <!-- Mobile Menu Button -->
-    <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
+<canvas id="sky"></canvas>
 
-    <canvas id="particle-canvas" aria-hidden="true"></canvas>
-    
-    <!-- Sidebar -->
-    <nav class="sidebar" id="sidebar">
-        <div class="brand">
-            <a href="index.html" class="brand-mark" aria-label="Home">S</a>
-            <div class="brand-text">
-                <a href="index.html" class="logo">Saisrinivas</a>
-            </div>
-        </div>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="p-ring" viewBox="0 0 26 26">
+      <ellipse cx="13" cy="13" rx="12" ry="3.6" fill="none" stroke="#c9a07e" stroke-opacity=".5" stroke-width="1.3" transform="rotate(-18 13 13)"/>
+      <circle cx="13" cy="13" r="6.6" fill="#c9a07e"/>
+      <circle cx="10.6" cy="10.7" r="2.3" fill="#fff" opacity=".16"/>
+    </symbol>
+    <symbol id="p-band" viewBox="0 0 26 26">
+      <clipPath id="c-band"><circle cx="13" cy="13" r="7"/></clipPath>
+      <circle cx="13" cy="13" r="7" fill="#8ea7bd"/>
+      <g clip-path="url(#c-band)">
+        <rect x="4" y="10.4" width="18" height="1.7" fill="#6f8ba3" opacity=".85"/>
+        <rect x="4" y="14.6" width="18" height="1.2" fill="#6f8ba3" opacity=".7"/>
+      </g>
+      <circle cx="10.6" cy="10.6" r="2.2" fill="#fff" opacity=".15"/>
+    </symbol>
+    <symbol id="p-moon" viewBox="0 0 26 26">
+      <circle cx="13" cy="13" r="6.8" fill="#b2ada4"/>
+      <circle cx="10.4" cy="11.2" r="1.5" fill="#948f86" opacity=".8"/>
+      <circle cx="15.4" cy="15" r="1.1" fill="#948f86" opacity=".7"/>
+      <circle cx="15.2" cy="10.3" r=".8" fill="#948f86" opacity=".6"/>
+    </symbol>
+    <symbol id="p-satellite" viewBox="0 0 26 26">
+      <circle cx="11.5" cy="14" r="6.2" fill="#7fa892"/>
+      <circle cx="9.4" cy="12" r="2" fill="#fff" opacity=".15"/>
+      <circle cx="20.5" cy="6.5" r="2.1" fill="#cfd6cf" opacity=".85"/>
+    </symbol>
+    <symbol id="p-ring2" viewBox="0 0 26 26">
+      <ellipse cx="13" cy="13" rx="11.4" ry="3.2" fill="none" stroke="#a596c6" stroke-opacity=".45" stroke-width="1.2" transform="rotate(22 13 13)"/>
+      <circle cx="13" cy="13" r="6.2" fill="#a596c6"/>
+      <circle cx="10.9" cy="10.9" r="2" fill="#fff" opacity=".16"/>
+    </symbol>
+  </defs>
+</svg>
 
-        <ul class="nav-links">
-            <li>
-                <a href="index.html" class="active">
-                    <svg viewBox="0 0 24 24" aria-hidden="true">
-                        <path fill="currentColor" d="M12 3l8 7h-2v9h-5v-6H11v6H6v-9H4l8-7Z"/>
-                    </svg>
-                    <span>Home</span>
-                </a>
-            </li>
-            <li>
-                <a href="experience.html">
-                    <svg viewBox="0 0 24 24" aria-hidden="true">
-                        <path fill="currentColor" d="M7 7V5a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v2h3a1 1 0 0 1 1 1v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a1 1 0 0 1 1-1h3Zm2-2v2h6V5H9Zm-4 7h14v7H5v-7Z"/>
-                    </svg>
-                    <span>Experience</span>
-                </a>
-            </li>
-            <li>
-                <a href="projects.html">
-                    <svg viewBox="0 0 24 24" aria-hidden="true">
-                        <path fill="currentColor" d="M4 6a2 2 0 0 1 2-2h5v4H4V6Zm0 6h7v8H6a2 2 0 0 1-2-2v-6Zm9-8h5a2 2 0 0 1 2 2v6h-7V4Zm0 10h7v4a2 2 0 0 1-2 2h-5v-6Z"/>
-                    </svg>
-                    <span>Projects</span>
-                </a>
-            </li>
-            <li>
-                <a href="education.html">
-                    <svg viewBox="0 0 24 24" aria-hidden="true">
-                        <path fill="currentColor" d="M12 3 1 8l11 5 9-4.09V14h2V8L12 3Zm0 8.2L5.5 8 12 4.8 18.5 8 12 11.2ZM6 10.6V14c0 1.66 2.69 3 6 3s6-1.34 6-3v-3.4l-6 2.7-6-2.7Z"/>
-                    </svg>
-                    <span>Education</span>
-                </a>
-            </li>
-            <li>
-                <a href="blog.html">
-                    <svg viewBox="0 0 24 24" aria-hidden="true">
-                        <path fill="currentColor" d="M4 4h10l4 4v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Zm9 1.5V9h3.5L13 5.5ZM7 12h10v2H7v-2Zm0 4h10v2H7v-2Z"/>
-                    </svg>
-                    <span>Blog</span>
-                </a>
-            </li>
-            <li>
-                <a href="photography.html">
-                    <svg viewBox="0 0 24 24" aria-hidden="true">
-                        <path fill="currentColor" d="M9 4l1.5 2H14l1.5-2H19a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h4Zm3 5a5 5 0 1 0 0 10 5 5 0 0 0 0-10Zm0 2.2A2.8 2.8 0 1 1 12 17a2.8 2.8 0 0 1 0-5.6Z"/>
-                    </svg>
-                    <span>Photography</span>
-                </a>
-            </li>
-        </ul>
+<div class="stage">
+  <div class="sun"></div>
 
-        <div class="social-label">Connect</div>
-        <div class="social-links">
-            <a href="https://github.com/saisrinivas7" target="_blank" aria-label="GitHub">
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <path fill="currentColor" d="M12 2a10 10 0 0 0-3.16 19.48c.5.09.68-.22.68-.48 0-.24-.01-.87-.01-1.7-2.78.6-3.37-1.17-3.37-1.17-.45-1.15-1.11-1.46-1.11-1.46-.9-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.9 1.53 2.36 1.09 2.94.83.09-.65.35-1.09.63-1.34-2.22-.25-4.56-1.11-4.56-4.95 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02A9.57 9.57 0 0 1 12 6.8c.85 0 1.71.11 2.51.33 1.9-1.29 2.74-1.02 2.74-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.85-2.34 4.7-4.57 4.95.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.8 0 .27.18.58.69.48A10 10 0 0 0 12 2Z"/>
-                </svg>
-                <span>GitHub</span>
-            </a>
-            <a href="https://linkedin.com/in/saisrinivas7" target="_blank" aria-label="LinkedIn">
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <path fill="currentColor" d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9h4v12H3V9Zm7.5 0H14v1.7h.06c.48-.9 1.64-1.86 3.38-1.86 3.62 0 4.29 2.38 4.29 5.47V21h-4v-5.14c0-1.23-.02-2.81-1.71-2.81-1.72 0-1.98 1.34-1.98 2.72V21h-4V9Z"/>
-                </svg>
-                <span>LinkedIn</span>
-            </a>
-            <a href="mailto:ssmamunuru@gmail.com" aria-label="Email">
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <path fill="currentColor" d="M4 6h16a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2Zm0 2v.3l8 4.8 8-4.8V8H4Zm16 8V10.6l-7.38 4.43a1.5 1.5 0 0 1-1.24 0L4 10.6V16h16Z"/>
-                </svg>
-                <span>Email</span>
-            </a>
-        </div>
-    </nav>
-    
-    <!-- Main Content -->
-    <main class="main-content">
-        <section class="hero-section">
-            <div class="hero-content">
-                <div class="hero-label">Saisrinivas Mamunuru · Software Engineer</div>
-                <h1>I build AI systems on data I actually trust.</h1>
-                <p class="hero-description">
-                    At CVS Health I own a HIPAA-compliant multi-agent system for claims adjudication on Vertex AI — hybrid BM25 + dense retrieval, an agent harness with LLM-as-judge guardrails, and a golden-dataset eval loop that keeps hallucinations under 2%.
-                </p>
-                <p class="hero-description">
-                    The other half of my job is the part that makes any of that work: ETL on GCP moving a million-plus records a week, and enough time in pandas and regression to know when a dataset is lying to me. I came to AI engineering through data science, and I think it shows in the systems I build.
-                </p>
-                <div class="cta-buttons">
-                    <a href="experience.html" class="btn btn-primary">What I've built</a>
-                    <a href="projects.html" class="btn btn-secondary">Projects</a>
-                    <a href="mailto:ssmamunuru@gmail.com" class="btn btn-secondary">Email me</a>
-                </div>
-            </div>
-        </section>
+  <a class="drift d1" data-depth="1.7" href="experience.html"><svg width="21" height="21"><use href="#p-ring"/></svg><span>work</span></a>
+  <a class="drift d2" data-depth="1.1" href="projects.html"><svg width="21" height="21"><use href="#p-band"/></svg><span>projects</span></a>
+  <a class="drift d3" data-depth="2.1" href="blog.html"><svg width="21" height="21"><use href="#p-moon"/></svg><span>writing</span></a>
+  <a class="drift d4" data-depth="1.4" href="photography.html"><svg width="21" height="21"><use href="#p-satellite"/></svg><span>photos</span></a>
+  <a class="drift d5" data-depth="0.8" href="education.html"><svg width="21" height="21"><use href="#p-ring2"/></svg><span>education</span></a>
 
-        <section class="highlight-strip">
-            <div class="highlight" style="--i: 1;">
-                <div class="highlight-title">AI Engineering</div>
-                <div class="highlight-value">Multi-agent systems, RAG, evals</div>
-                <div class="highlight-note">Hybrid retrieval, agent harnesses, LLM-as-judge guardrails, OpenTelemetry tracing for grounding rate and token spend.</div>
-            </div>
-            <div class="highlight" style="--i: 2;">
-                <div class="highlight-title">Data</div>
-                <div class="highlight-value">Pipelines, modeling, analysis</div>
-                <div class="highlight-note">Airflow and Dataflow on GCP at 1M+ records/week; pandas, regression, and A/B testing when the question is "why," not "how fast."</div>
-            </div>
-            <div class="highlight" style="--i: 3;">
-                <div class="highlight-title">Stack</div>
-                <div class="highlight-value">Python, SQL, GCP, LangGraph</div>
-                <div class="highlight-note">Vertex AI, pgvector, Composer, Dataflow, BigQuery, scikit-learn, PyTorch, AWS Lambda, Grafana.</div>
-            </div>
-            <div class="highlight" style="--i: 4;">
-                <div class="highlight-title">Looking for</div>
-                <div class="highlight-value">Early-stage teams shipping AI products</div>
-                <div class="highlight-note">Somewhere the data work and the model work are the same job. <a href="mailto:ssmamunuru@gmail.com">Say hello</a>.</div>
-            </div>
-        </section>
-    </main>
-    
-    <script>
-        const canvas = document.getElementById("particle-canvas");
-        const ctx = canvas.getContext("2d");
-        const dpr = window.devicePixelRatio || 1;
-        const particles = [];
-        const maxParticles = 120;
-        const linkDistance = 150;
-        const mouse = { x: -9999, y: -9999 };
+  <div class="core">
+    <div class="disc"></div>
+    <h1>Saisrinivas Mamunuru</h1>
+    <p class="role">software engineer</p>
+    <p class="bio">AI systems and the data infrastructure behind them, currently at CVS Health.</p>
+  </div>
 
-        function resizeCanvas() {
-            canvas.width = window.innerWidth * dpr;
-            canvas.height = window.innerHeight * dpr;
-            canvas.style.width = `${window.innerWidth}px`;
-            canvas.style.height = `${window.innerHeight}px`;
-            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-        }
+  <div class="soc"><a href="https://github.com/saisrinivas7" target="_blank" rel="noopener">github</a><a href="https://linkedin.com/in/saisrinivas7" target="_blank" rel="noopener">linkedin</a><a href="mailto:ssmamunuru@gmail.com">email</a></div>
+</div>
 
-        function createParticles() {
-            particles.length = 0;
-            for (let i = 0; i < maxParticles; i += 1) {
-                particles.push({
-                    x: Math.random() * window.innerWidth,
-                    y: Math.random() * window.innerHeight,
-                    vx: (Math.random() - 0.5) * 0.6,
-                    vy: (Math.random() - 0.5) * 0.6,
-                    r: 1.5 + Math.random() * 2
-                });
-            }
-        }
+<script>
+(function(){
+  const c=document.getElementById('sky'),x=c.getContext('2d');
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const links=[...document.querySelectorAll('.drift')];
+  let w,h,dpr,layers=[],mx=0,my=0,cx=0,cy=0;
 
-        function draw() {
-            ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+  function mk(n,rmin,rmax,amax){
+    return Array.from({length:n},()=>({
+      x:Math.random()*w,y:Math.random()*h,
+      r:rmin+Math.random()*(rmax-rmin),
+      a:amax*(0.55+Math.random()*0.45)
+    }));
+  }
+  function build(){
+    dpr=Math.min(window.devicePixelRatio||1,2);
+    w=innerWidth;h=innerHeight;
+    c.width=w*dpr;c.height=h*dpr;c.style.width=w+'px';c.style.height=h+'px';
+    x.setTransform(dpr,0,0,dpr,0,0);
+    layers=[
+      mk(Math.round(w*h/16000),0.25,0.55,0.14),
+      mk(Math.round(w*h/34000),0.45,0.85,0.26),
+      mk(Math.round(w*h/72000),0.7,1.2,0.42)
+    ];
+  }
+  function paint(ox0,oy0){
+    x.clearRect(0,0,w,h);
+    layers.forEach((layer,i)=>{
+      const k=(i+1)*5,ox=ox0*k,oy=oy0*k;
+      for(const s of layer){
+        x.beginPath();x.fillStyle='rgba(230,234,250,'+s.a+')';
+        x.arc(s.x+ox,s.y+oy,s.r,0,6.283);x.fill();
+      }
+    });
+  }
+  function draw(){
+    cx+=(mx-cx)*0.045;cy+=(my-cy)*0.045;
+    paint(-cx,-cy);
+    links.forEach(a=>{
+      const d=parseFloat(a.dataset.depth)||1;
+      a.style.transform='translate3d('+(-cx*d*14)+'px,'+(-cy*d*14)+'px,0)';
+    });
+    requestAnimationFrame(draw);
+  }
 
-            for (let i = 0; i < particles.length; i += 1) {
-                const p = particles[i];
-
-                p.x += p.vx;
-                p.y += p.vy;
-
-                if (p.x < 0 || p.x > window.innerWidth) p.vx *= -1;
-                if (p.y < 0 || p.y > window.innerHeight) p.vy *= -1;
-
-                // Subtle repel on hover
-                const dx = p.x - mouse.x;
-                const dy = p.y - mouse.y;
-                const dist = Math.hypot(dx, dy);
-                if (dist < 140) {
-                    p.x += (dx / dist) * 0.4;
-                    p.y += (dy / dist) * 0.4;
-                }
-
-                ctx.beginPath();
-                ctx.fillStyle = "rgba(214, 69, 69, 0.85)";
-                ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-                ctx.fill();
-
-                for (let j = i + 1; j < particles.length; j += 1) {
-                    const q = particles[j];
-                    const dx2 = p.x - q.x;
-                    const dy2 = p.y - q.y;
-                    const dist2 = Math.hypot(dx2, dy2);
-                    if (dist2 < linkDistance) {
-                        const alpha = 1 - dist2 / linkDistance;
-                        ctx.beginPath();
-                        ctx.strokeStyle = `rgba(214, 69, 69, ${0.35 * alpha})`;
-                        ctx.lineWidth = 1;
-                        ctx.moveTo(p.x, p.y);
-                        ctx.lineTo(q.x, q.y);
-                        ctx.stroke();
-                    }
-                }
-            }
-
-            requestAnimationFrame(draw);
-        }
-
-        window.addEventListener("resize", () => {
-            resizeCanvas();
-            createParticles();
-        });
-
-        window.addEventListener("mousemove", (e) => {
-            mouse.x = e.clientX;
-            mouse.y = e.clientY;
-        });
-
-        window.addEventListener("mouseleave", () => {
-            mouse.x = -9999;
-            mouse.y = -9999;
-        });
-
-        resizeCanvas();
-        createParticles();
-        draw();
-    </script>
-
-    <script>
-        function toggleMenu() {
-            document.getElementById('sidebar').classList.toggle('active');
-        }
-        
-        // Close menu when clicking outside on mobile
-        document.addEventListener('click', (e) => {
-            const sidebar = document.getElementById('sidebar');
-            const menuBtn = document.querySelector('.mobile-menu-btn');
-            
-            if (window.innerWidth <= 968 && 
-                !sidebar.contains(e.target) && 
-                !menuBtn.contains(e.target) &&
-                sidebar.classList.contains('active')) {
-                sidebar.classList.remove('active');
-            }
-        });
-
-    </script>
+  build();
+  addEventListener('resize',()=>{build();if(reduce)paint(0,0)});
+  if(!reduce){
+    addEventListener('mousemove',e=>{mx=(e.clientX/w-0.5)*2;my=(e.clientY/h-0.5)*2});
+    requestAnimationFrame(draw);
+  }else paint(0,0);
+})();
+</script>
 </body>
 </html>
