@@ -1,0 +1,6 @@
+# local tooling
+.gstack/
+.DS_Store
+
+# design experiments, not part of the published site
+mockups/
