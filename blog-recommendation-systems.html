@@ -1,220 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <title>Recommendation Systems for Dummies | Saisrinivas</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-        
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; background: #fff; color: #111111; line-height: 1.6; position: relative; }
-
-        ::selection {
-            background: rgba(15, 118, 110, 0.2);
-            color: #0f2a27;
-        }
-
-        body::before {
-            content: "";
-            position: fixed;
-            inset: 0;
-            background-image:
-                linear-gradient(transparent 47px, rgba(0, 0, 0, 0.06) 48px),
-                linear-gradient(90deg, transparent 47px, rgba(0, 0, 0, 0.06) 48px);
-            background-size: 48px 48px;
-            opacity: 0.45;
-            pointer-events: none;
-            z-index: 0;
-        }
-        
-        .sidebar { position: fixed; left: 0; top: 0; bottom: 0; width: 96px; background: rgba(255, 255, 255, 0.82); -webkit-backdrop-filter: blur(18px) saturate(160%); backdrop-filter: blur(18px) saturate(160%); border-right: 1px solid rgba(0, 0, 0, 0.08); box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08); padding: 1.5rem 1rem; display: flex; gap: 0.75rem; z-index: 1000; overflow: hidden; transition: width 0.42s ease; }
-        .sidebar:hover, .sidebar:focus-within { width: 320px; }
-        .sidebar-rail { width: 64px; background: transparent; border: none; padding: 0.5rem 0.25rem 0.5rem 0; display: flex; flex-direction: column; justify-content: space-between; border-right: 1px solid rgba(0, 0, 0, 0.08); }
-        .rail-stack { display: flex; flex-direction: column; gap: 0.75rem; align-items: center; }
-        .rail-logo { width: 44px; height: 44px; border-radius: 14px; background: #111111; color: #ffffff; display: grid; place-items: center; font-weight: 600; letter-spacing: 0.02em; }
-        .rail-item { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; color: #4d4d4d; border: 1px solid transparent; transition: all 0.2s ease; text-decoration: none; }
-        .rail-item:hover, .rail-item.active { background: #f1f1f1; color: #111111; border-color: #e5e5e5; }
-        .rail-item svg { width: 18px; height: 18px; display: block; }
-        .sidebar-main { flex: 1; background: transparent; border: none; border-radius: 0; padding: 0.5rem 0 0.5rem 0.75rem; box-shadow: none; display: flex; flex-direction: column; min-height: 100%; opacity: 0; transform: translateX(-12px); pointer-events: none; transition: opacity 0.2s ease, transform 0.2s ease; }
-        .sidebar:hover .sidebar-main, .sidebar:focus-within .sidebar-main { opacity: 1; transform: translateX(0); pointer-events: auto; }
-        .logo { font-size: 1.7rem; font-weight: 700; color: #111111; margin-bottom: 0.5rem; text-decoration: none; letter-spacing: -0.01em; }
-        .subtitle { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.3em; color: rgba(102, 102, 102, 0.8); margin-bottom: 2rem; }
-        .nav-label, .social-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.2em; color: rgba(102, 102, 102, 0.7); }
-        .nav-label { margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid #e5e5e5; margin-bottom: 1rem; }
-        .social-label { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid #e5e5e5; margin-bottom: 0.75rem; }
-        .nav-links { list-style: none; flex: 1; }
-        .nav-links li { margin-bottom: 0.25rem; }
-        .nav-links a { display: block; padding: 0.55rem 0.75rem 0.55rem 1.5rem; color: #555555; text-decoration: none; border-radius: 8px; transition: all 0.2s ease; font-size: 0.95rem; position: relative; }
-        .nav-links a::before { content: ""; position: absolute; left: 0; top: 50%; width: 12px; height: 1px; background: transparent; transform: translateY(-50%); transition: background 0.2s ease; }
-        .nav-links a:hover, .nav-links a.active { color: #111111; }
-        .nav-links a:hover::before, .nav-links a.active::before { background: #1a1a1a; }
-        .social-links { display: flex; gap: 1rem; padding-top: 0; }
-        .social-links a { color: #555555; text-decoration: none; transition: color 0.2s ease; display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 8px; border: 1px solid transparent; }
-        .social-links a:hover { color: #111111; border-color: #e5e5e5; }
-        .social-links svg { width: 18px; height: 18px; display: block; }
-
-        .sidebar { position: fixed; left: 0; top: 0; bottom: 0; width: 96px; background: rgba(255, 255, 255, 0.82); -webkit-backdrop-filter: blur(18px) saturate(160%); backdrop-filter: blur(18px) saturate(160%); border-right: 1px solid rgba(0, 0, 0, 0.08); box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08); padding: 1.5rem 1rem; display: flex; flex-direction: column; gap: 0.75rem; z-index: 1000; overflow: hidden; transition: width 0.42s ease; }
-        .sidebar:hover, .sidebar:focus-within, .sidebar.active { width: 260px; }
-        .brand { display: flex; align-items: center; gap: 0.75rem; padding: 0 0.25rem; }
-        .brand-mark { width: 44px; height: 44px; border-radius: 14px; background: #111111; color: #ffffff; display: grid; place-items: center; font-weight: 600; letter-spacing: 0.02em; text-decoration: none; }
-        .brand-text { display: flex; flex-direction: column; gap: 0.15rem; max-width: 0; opacity: 0; overflow: hidden; white-space: nowrap; transform: translateX(-6px); transition: max-width 0.25s ease, opacity 0.2s ease, transform 0.2s ease; }
-        .brand-text .logo { margin-bottom: 0; font-size: 1.05rem; }
-        .brand-text .subtitle { margin-bottom: 0; }
-        .nav-label, .social-label { max-width: 0; opacity: 0; overflow: hidden; white-space: nowrap; transform: translateX(-6px); transition: max-width 0.25s ease, opacity 0.2s ease, transform 0.2s ease; }
-        .nav-links a { display: flex; align-items: center; gap: 0.75rem; padding: 0.6rem 0.75rem; border-radius: 12px; justify-content: center; }
-        .nav-links a::before { display: none; }
-        .nav-links a:hover, .nav-links a.active { background: #f1f1f1; color: #111111; }
-        .nav-links a svg, .social-links a svg { width: 18px; height: 18px; display: block; flex: 0 0 auto; }
-        .nav-links a span, .social-links a span { max-width: 0; opacity: 0; overflow: hidden; white-space: nowrap; transform: translateX(-6px); transition: max-width 0.25s ease, opacity 0.2s ease, transform 0.2s ease; }
-        .social-links { display: flex; flex-direction: column; gap: 0.5rem; padding-top: 0; }
-        .social-links a { display: flex; align-items: center; gap: 0.75rem; padding: 0.55rem 0.75rem; border-radius: 12px; justify-content: center; }
-        .brand:hover .brand-text, .brand:focus-within .brand-text { max-width: 240px; opacity: 1; transform: translateX(0); }
-        .sidebar:hover .nav-label, .sidebar:hover .social-label, .sidebar:focus-within .nav-label, .sidebar:focus-within .social-label, .sidebar.active .nav-label, .sidebar.active .social-label { max-width: 240px; opacity: 1; transform: translateX(0); }
-        .nav-links a:hover, .nav-links a:focus-visible, .social-links a:hover, .social-links a:focus-visible { justify-content: flex-start; }
-        .nav-links a:hover span, .nav-links a:focus-visible span, .social-links a:hover span, .social-links a:focus-visible span { max-width: 240px; opacity: 1; transform: translateX(0); }
-        .main-content { margin-left: 120px; transition: margin-left 0.42s ease; }
-        .sidebar:hover ~ .main-content, .sidebar:focus-within ~ .main-content, .sidebar.active ~ .main-content { margin-left: 300px; }
-        
-        .main-content { margin-left: 120px; padding: 4rem; max-width: 900px; position: relative; z-index: 1; transition: margin-left 0.42s ease; }
-        .sidebar:hover ~ .main-content, .sidebar:focus-within ~ .main-content { margin-left: 340px; }
-        .page-header { margin-bottom: 4rem; }
-        .page-label { font-size: 0.85rem; color: #555555; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1rem; }
-        h1 { font-size: 3rem; font-weight: 700; margin-bottom: 1rem; }
-        .page-description { font-size: 1.1rem; color: #555555; line-height: 1.7; }
-        
-        .blog-list { display: flex; flex-direction: column; gap: 3rem; }
-        .blog-post { padding-bottom: 3rem; border-bottom: 1px solid #e5e5e5; text-decoration: none; display: block; transition: transform 0.2s ease; }
-        .blog-post:last-child { border-bottom: none; }
-        .blog-post:hover { transform: translateX(8px); }
-        .blog-post:hover h2 { color: #555555; }
-        .post-meta { font-size: 0.9rem; color: #999; margin-bottom: 1rem; display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
-        .post-tag { padding: 0.25rem 0.75rem; background: #fafafa; border: 1px solid #e5e5e5; border-radius: 4px; font-size: 0.8rem; }
-        .blog-post h2 { font-size: 1.75rem; font-weight: 600; margin-bottom: 0.75rem; transition: color 0.2s ease; }
-        .blog-post p { color: #555555; line-height: 1.7; }
-        .back-link { display: inline-flex; align-items: center; gap: 0.4rem; text-decoration: none; color: #555555; font-size: 0.95rem; transition: color 0.2s ease; margin-bottom: 2rem; }
-        .back-link:hover { color: #111111; }
-        .article-content { max-width: 760px; }
-        .article-content h2 { font-size: 1.4rem; font-weight: 600; margin: 2.5rem 0 0.85rem; }
-        .article-content h3 { font-size: 1.1rem; font-weight: 600; margin: 1.75rem 0 0.6rem; color: #333; }
-        .article-content p { color: #333; line-height: 1.85; margin-bottom: 1rem; }
-        .article-content ul { margin: 0.5rem 0 1.25rem 1.25rem; color: #333; }
-        .article-content li { margin-bottom: 0.5rem; line-height: 1.7; }
-        .article-content blockquote { margin: 1.5rem 0; padding-left: 1rem; border-left: 3px solid #d9d9d9; color: #555; font-style: italic; }
-        .article-content pre { background: #f6f6f6; border: 1px solid #e5e5e5; border-left: 3px solid #1a1a1a; border-radius: 6px; padding: 1.25rem 1.5rem; margin: 1.25rem 0 1.75rem; overflow-x: auto; font-family: 'Menlo', 'Monaco', 'Consolas', monospace; font-size: 0.82rem; line-height: 1.7; color: #111111; }
-        .article-content .scenario { background: #fafafa; border: 1px solid #e5e5e5; border-radius: 8px; padding: 1.25rem 1.5rem; margin: 1.25rem 0; }
-        .article-content .scenario h3 { margin-top: 0; color: #111111; }
-        .article-content .verdict { display: inline-block; font-size: 0.82rem; font-weight: 600; padding: 0.2rem 0.65rem; border-radius: 4px; margin-top: 0.5rem; }
-        .article-content .verdict.positive { background: #f0faf4; border: 1px solid #b8e6ca; color: #1a6b3a; }
-        .article-content .verdict.neutral { background: #fffbf0; border: 1px solid #e6d9b8; color: #7a5c1a; }
-        .loop-diagram { display: flex; align-items: center; flex-wrap: wrap; gap: 0.5rem; background: #fafafa; border: 1px solid #e5e5e5; border-radius: 8px; padding: 1.25rem 1.5rem; margin: 1.25rem 0; }
-        .loop-step { background: #fff; border: 1px solid #e5e5e5; border-radius: 6px; padding: 0.5rem 1rem; font-size: 0.85rem; font-weight: 500; color: #111111; }
-        .loop-arrow { color: #999; font-size: 1rem; }
-
-        .sidebar { width: 72px; padding: 1.5rem 0.75rem; background: rgba(255, 255, 255, 0.9); -webkit-backdrop-filter: blur(16px) saturate(160%); backdrop-filter: blur(16px) saturate(160%); border-right: 1px solid rgba(0, 0, 0, 0.08); box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08); transition: width 0.42s ease; }
-        .sidebar:hover, .sidebar:focus-within { width: 260px; }
-        .brand { padding: 0.25rem 0.25rem 1rem; }
-        .brand-text, .nav-label, .social-label, .nav-links a span, .social-links a span { max-width: 0; opacity: 0; overflow: hidden; white-space: nowrap; transform: translateX(-6px); transition: max-width 0.25s ease, opacity 0.2s ease, transform 0.2s ease; }
-        .nav-links a, .social-links a { justify-content: center; }
-        .sidebar:hover .social-links, .sidebar:focus-within .social-links { flex-direction: row; gap: 0.75rem; }
-        .sidebar:hover .brand-text, .sidebar:hover .nav-label, .sidebar:hover .social-label, .sidebar:hover .nav-links a span, .sidebar:hover .social-links a span, .sidebar:focus-within .brand-text, .sidebar:focus-within .nav-label, .sidebar:focus-within .social-label, .sidebar:focus-within .nav-links a span, .sidebar:focus-within .social-links a span { max-width: 240px; opacity: 1; transform: translateX(0); }
-        .sidebar:hover .nav-links a, .sidebar:hover .social-links a, .sidebar:focus-within .nav-links a, .sidebar:focus-within .social-links a { justify-content: flex-start; }
-        .main-content { margin-left: 100px; transition: margin-left 0.42s ease; }
-        .sidebar:hover ~ .main-content, .sidebar:focus-within ~ .main-content { margin-left: 300px; }
-        
-        .mobile-menu-btn { display: none; position: fixed; top: 1.5rem; left: 1.5rem; z-index: 2000; background: #1a1a1a; color: white; border: none; padding: 0.75rem; border-radius: 8px; cursor: pointer; }
-        
-        @media (max-width: 968px) {
-            .sidebar { transform: translateX(-100%); transition: transform 0.3s ease; }
-            .sidebar.active { transform: translateX(0); }
-            .main-content { margin-left: 0; padding: 2rem; padding-top: 5rem; }
-            .mobile-menu-btn { display: block; }
-            .loop-diagram { flex-direction: column; align-items: flex-start; }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Recommendation systems for dummies — Saisrinivas Mamunuru</title>
+<meta name="description" content="How Instagram's algorithm actually works.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
-    
-    <nav class="sidebar" id="sidebar">
-        <div class="brand">
-            <a href="index.html" class="brand-mark" aria-label="Home">S</a>
-            <div class="brand-text">
-                <a href="index.html" class="logo">Saisrinivas</a>
-            </div>
-        </div>
 
-        <ul class="nav-links">
-            <li>
-                <a href="index.html">
-                    <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3l8 7h-2v9h-5v-6H11v6H6v-9H4l8-7Z"/></svg>
-                    <span>Home</span>
-                </a>
-            </li>
-            <li>
-                <a href="experience.html">
-                    <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 7V5a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v2h3a1 1 0 0 1 1 1v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a1 1 0 0 1 1-1h3Zm2-2v2h6V5H9Zm-4 7h14v7H5v-7Z"/></svg>
-                    <span>Experience</span>
-                </a>
-            </li>
-            <li>
-                <a href="projects.html">
-                    <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 6a2 2 0 0 1 2-2h5v4H4V6Zm0 6h7v8H6a2 2 0 0 1-2-2v-6Zm9-8h5a2 2 0 0 1 2 2v6h-7V4Zm0 10h7v4a2 2 0 0 1-2 2h-5v-6Z"/></svg>
-                    <span>Projects</span>
-                </a>
-            </li>
-            <li>
-                <a href="education.html">
-                    <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3 1 8l11 5 9-4.09V14h2V8L12 3Zm0 8.2L5.5 8 12 4.8 18.5 8 12 11.2ZM6 10.6V14c0 1.66 2.69 3 6 3s6-1.34 6-3v-3.4l-6 2.7-6-2.7Z"/></svg>
-                    <span>Education</span>
-                </a>
-            </li>
-            <li>
-                <a href="blog.html" class="active">
-                    <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 4h10l4 4v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Zm9 1.5V9h3.5L13 5.5ZM7 12h10v2H7v-2Zm0 4h10v2H7v-2Z"/></svg>
-                    <span>Blog</span>
-                </a>
-            </li>
-            <li>
-                <a href="photography.html">
-                    <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M9 4l1.5 2H14l1.5-2H19a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h4Zm3 5a5 5 0 1 0 0 10 5 5 0 0 0 0-10Zm0 2.2A2.8 2.8 0 1 1 12 17a2.8 2.8 0 0 1 0-5.6Z"/></svg>
-                    <span>Photography</span>
-                </a>
-            </li>
-        </ul>
-
-        <div class="social-label">Connect</div>
-        <div class="social-links">
-            <a href="https://github.com/saisrinivas7" target="_blank" aria-label="GitHub">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-3.16 19.48c.5.09.68-.22.68-.48 0-.24-.01-.87-.01-1.7-2.78.6-3.37-1.17-3.37-1.17-.45-1.15-1.11-1.46-1.11-1.46-.9-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.9 1.53 2.36 1.09 2.94.83.09-.65.35-1.09.63-1.34-2.22-.25-4.56-1.11-4.56-4.95 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02A9.57 9.57 0 0 1 12 6.8c.85 0 1.71.11 2.51.33 1.9-1.29 2.74-1.02 2.74-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.85-2.34 4.7-4.57 4.95.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.8 0 .27.18.58.69.48A10 10 0 0 0 12 2Z"/></svg>
-                <span>GitHub</span>
-            </a>
-            <a href="https://linkedin.com/in/saisrinivas7" target="_blank" aria-label="LinkedIn">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9h4v12H3V9Zm7.5 0H14v1.7h.06c.48-.9 1.64-1.86 3.38-1.86 3.62 0 4.29 2.38 4.29 5.47V21h-4v-5.14c0-1.23-.02-2.81-1.71-2.81-1.72 0-1.98 1.34-1.98 2.72V21h-4V9Z"/></svg>
-                <span>LinkedIn</span>
-            </a>
-            <a href="mailto:ssmamunuru@gmail.com" aria-label="Email">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 6h16a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2Zm0 2v.3l8 4.8 8-4.8V8H4Zm16 8V10.6l-7.38 4.43a1.5 1.5 0 0 1-1.24 0L4 10.6V16h16Z"/></svg>
-                <span>Email</span>
-            </a>
-        </div>
+<header class="top">
+  <div class="wrap">
+    <a class="home-link" href="index.html">
+      <svg width="19" height="19" viewBox="0 0 26 26" aria-hidden="true">
+        <circle cx="13" cy="13" r="6.5" fill="#f4b862"/>
+        <circle cx="10.8" cy="10.6" r="2.2" fill="#fff" opacity=".28"/>
+      </svg>
+      Sai Mamunuru
+    </a>
+    <nav>
+      <a href="experience.html">work</a>
+      <a href="projects.html">projects</a>
+      <a href="blog.html" aria-current="page">writing</a>
+      <a href="education.html">education</a>
+      <a href="photography.html">photos</a>
     </nav>
-    
-    <main class="main-content">
-        <div class="page-header">
-            <a href="blog.html" class="back-link">← Back to Blog</a>
-            <h1>Recommendation Systems for Dummies</h1>
-            <div class="post-meta">
-                <span>February 19, 2026</span>
-                <span class="post-tag">Machine Learning</span>
-                <span>8 min read</span>
-            </div>
-        </div>
+  </div>
+</header>
 
-        <article class="article-content">
-
-            <p>Every time you open Instagram and the first reel makes you laugh, stop, and watch till the end and that is not luck. That is a recommendation system doing its job quietly in the background.</p>
+<main>
+  <div class="wrap">
+    <a class="back" href="blog.html">&larr; writing</a>
+    <h1>Recommendation systems for dummies</h1>
+    <p class="post-meta">February 2026 &middot; 8 min read</p>
+    <div class="article">
+<p>Every time you open Instagram and the first reel makes you laugh, stop, and watch till the end and that is not luck. That is a recommendation system doing its job quietly in the background.</p>
             <p>A recommendation system is an algorithm that predicts what you will like based on what you (and people like you) have done before. Netflix uses it to suggest shows. Spotify uses it for your Discover Weekly. Instagram uses it to keep you scrolling for "just five more minutes" at 1am.</p>
 
             <blockquote>At its core, the system is asking one question: "Given everything I know about this user, what content should I show them next?"</blockquote>
@@ -313,19 +137,21 @@ w1...w6      →  weights Instagram assigns to each signal</pre>
             <p>For new users, Instagram falls back on trending content in your region, accounts you followed first, and broad signals like age and language. For new creators, the system runs a small experiment. It shows your reel to a tiny test audience of a few hundred people. If that group engages well above average, distribution widens. If not, the reel gets throttled. This is why early engagement on a new post matters so much.</p>
 
             <blockquote>Recommendation systems are not magic. They are math wearing a clever disguise. Next time you go back to a reel you accidentally skipped, the algorithm already noticed.</blockquote>
+    </div>
+    </div>
+  </div>
+</main>
 
-        </article>
-    </main>
-    
-    <script>
-        function toggleMenu() { document.getElementById('sidebar').classList.toggle('active'); }
-        document.addEventListener('click', (e) => {
-            const sidebar = document.getElementById('sidebar');
-            const menuBtn = document.querySelector('.mobile-menu-btn');
-            if (window.innerWidth <= 968 && !sidebar.contains(e.target) && !menuBtn.contains(e.target) && sidebar.classList.contains('active')) {
-                sidebar.classList.remove('active');
-            }
-        });
-    </script>
+<footer class="foot">
+  <div class="wrap">
+    <span>&copy; 2026 Saisrinivas Mamunuru</span>
+    <nav>
+      <a href="https://github.com/saisrinivas7" target="_blank" rel="noopener">github</a>
+      <a href="https://linkedin.com/in/saisrinivas7" target="_blank" rel="noopener">linkedin</a>
+      <a href="mailto:ssmamunuru@gmail.com">email</a>
+    </nav>
+  </div>
+</footer>
+
 </body>
 </html>
