@@ -35,70 +35,65 @@
 <main>
   <div class="wrap">
     <h1>Work</h1>
-    <p class="lede">AI systems and the data infrastructure underneath them.</p>
 
     <section class="job" id="cvs">
-      <div class="badge">CVS</div>
+      <div class="badge"><img src="logos/cvs-health.png" alt="CVS Health"></div>
       <div>
         <div class="job-head">
           <h2 class="job-title">Software Development Engineer</h2>
           <span class="job-when">Jan 2026 &mdash; present</span>
         </div>
         <p class="job-at">CVS Health &middot; Scottsdale, AZ</p>
-        <p>A multi-agent system for claims adjudication on Vertex AI, in a HIPAA
-          environment. My part is retrieval and evaluation.</p>
+        <p>Clinical Data Interoperability Team</p>
         <ul>
-          <li>Built the retrieval pipeline &mdash; OCR preprocessing, semantic
-            chunking, embeddings into pgvector, hybrid BM25 and dense search.
-            Context assembly is page-aware: when a chunk matches, we pull the rest
-            of its page and order by reading order rather than relevance.</li>
-          <li>Built the eval harness &mdash; a golden dataset and LLM-as-judge
-            checks that run before changes ship. Hallucination rate sits under 2%.</li>
-          <li>Added OpenTelemetry tracing for latency, token usage, retrieval
-            quality and grounding rate, so regressions are visible rather than
-            anecdotal.</li>
-          <li>Built a natural-language query agent on Google ADK against MongoDB
-            and BigQuery, answering in plain English with citations back to source.</li>
-          <li>Work on the ETL underneath it &mdash; Airflow and Dataflow on GCP,
-            around a million records a week.</li>
+          <li>End-to-end development and deployment of an Agentic RAG system which helps clinicians speed up document review process.</li>
+          <li>Established an end-to-end ingestion and retrieval pipeline with Mistral OCR preprocessing, semantic chunking,
+          BM25 + dense retrieval, backed by HNSW indexes for low-latency vector search. </li>
+          <li>Engineered agent harness: tool definitions, context assembly, memory management, multi-turn conversations and
+          guardrails using LLM-as-a-judge and golden dataset evaluation.</li> 
+          <li>Implemented an agent observability layer using OpenTelemetry and Grafana.</li>
+          <li>Built an NL->Query AI Agent which connects to different data sources and answers busines questions.</li>
+          <li>Made the agent self-improving by capturing user feedback on generated queries, and cut cost and latency via
+complexity-based model routing, query caching, and configurable schema registries.</li>
+      
         </ul>
       </div>
     </section>
 
     <section class="job" id="cvs-intern">
-      <div class="badge">CVS</div>
+      <div class="badge"><img src="logos/cvs-health.png" alt="CVS Health"></div>
       <div>
         <div class="job-head">
           <h2 class="job-title">Software Engineering Intern</h2>
           <span class="job-when">Jun &mdash; Dec 2025</span>
         </div>
         <p class="job-at">CVS Health &middot; Scottsdale, AZ</p>
-        <p>Joined the same team as an intern and converted to full-time. Started
-          on the data pipelines and moved into the agent work.</p>
+        <p>Built and maintained GCP ETL pipelines processing 1M+ weekly transactional
+records to support upstream ingestion and downstream ML modeling and analytics workflows. </p>
       </div>
     </section>
 
     <section class="job" id="asu">
-      <div class="badge">ASU</div>
+      <div class="badge"><img src="logos/asu.png" alt="Arizona State University"></div>
       <div>
         <div class="job-head">
           <h2 class="job-title">Research Assistant</h2>
           <span class="job-when">Jan &mdash; May 2025</span>
         </div>
         <p class="job-at">W. P. Carey School of Business, ASU &middot; Tempe, AZ</p>
-        <p>A semester on one question: what actually drives innovation in
-          universities? Merged heterogeneous institutional datasets in pandas,
+        <p>Answered the question: &ldquo;What drives innovation in
+          universities?&rdquo; Merged heterogeneous institutional datasets in pandas,
           then applied machine learning to isolate which factors predicted
-          innovation output rather than merely correlating with it. Built into
-          Tableau so non-technical faculty could interrogate it themselves. The
-          work led to a publication.</p>
+          innovation output. The work led to a
+          <a href="https://jise.org/Volume37/n3/JISE2026v37n3pp360-396.html" target="_blank" rel="noopener">publication</a>
+          in the Journal of Information Systems Education.</p>
         <p>With <a href="https://search.asu.edu/profile/301569" target="_blank" rel="noopener">Joseph Cazier</a>
           and <a href="https://search.asu.edu/profile/3171618" target="_blank" rel="noopener">Andres Diaz Lopez</a>.</p>
       </div>
     </section>
 
     <section class="job" id="dell">
-      <div class="badge">Dell</div>
+      <div class="badge"><img src="logos/dell-technologies.png" alt="Dell Technologies"></div>
       <div>
         <div class="job-head">
           <h2 class="job-title">Software Engineering Intern</h2>
@@ -107,8 +102,8 @@
         <p class="job-at">Dell Technologies &middot; Bengaluru, India</p>
         <p>On the Enterprise Infrastructure Planning Tool team. Proposed and built
           an email classifier using BERT and NLTK to route customer queries
-          automatically, reaching 90% accuracy &mdash; it was picked to present at
-          Dell&rsquo;s internal hackathon. Also automated MongoDB extraction,
+          automatically, reaching 90% accuracy. It was picked to present at
+          Dell's internal hackathon. Also automated MongoDB extraction,
           parsing and serialization workflows in C# and Python.</p>
       </div>
     </section>
