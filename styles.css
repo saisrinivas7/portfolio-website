@@ -11,9 +11,33 @@
   --accent: #b0a5dc;
   --card: #14141b;
   --rule: #26262f;
+  --panel: rgba(20, 20, 27, 0.55);
+  --page-base: #08080c;
+  --page-bg:
+    radial-gradient(760px 520px at 68% 8%, rgba(88, 78, 140, 0.11) 0%, rgba(88, 78, 140, 0) 68%),
+    radial-gradient(1200px 800px at 42% 30%, #16161f 0%, #0c0c12 56%, #08080c 100%);
+  --photo-dim: 0.94;
+  --photo-dim-hover: 1.04;
   --sans: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI",
     Helvetica, sans-serif;
   --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
+}
+
+/* Morning: bright, toggled via the header button, held in localStorage. */
+:root[data-theme="day"] {
+  --ink: #2c2a3d;
+  --soft: #5e5c74;
+  --faint: #8d8ba3;
+  --accent: #6f5aa8;
+  --card: #fbf4ea;
+  --rule: #e6ddf0;
+  --panel: rgba(255, 250, 240, 0.6);
+  --page-base: #fdf1e4;
+  --page-bg:
+    radial-gradient(900px 620px at 65% 4%, rgba(255, 214, 150, 0.5) 0%, rgba(255, 214, 150, 0) 62%),
+    linear-gradient(180deg, #cfe4f7 0%, #eaf3fb 30%, #fdf1e4 68%, #ffe6cf 100%);
+  --photo-dim: 1;
+  --photo-dim-hover: 1.03;
 }
 
 *,
@@ -26,7 +50,7 @@ html {
   -webkit-text-size-adjust: 100%;
   /* The body gradient is viewport-fixed, so anything past one screen height
      would fall through to white without a base colour here. */
-  background: #08080c;
+  background: var(--page-base);
 }
 
 body {
@@ -34,11 +58,10 @@ body {
   color: var(--ink);
   font: 400 15px/1.65 var(--sans);
   -webkit-font-smoothing: antialiased;
-  background:
-    radial-gradient(760px 520px at 68% 8%, rgba(88, 78, 140, 0.11) 0%, rgba(88, 78, 140, 0) 68%),
-    radial-gradient(1200px 800px at 42% 30%, #16161f 0%, #0c0c12 56%, #08080c 100%);
+  background: var(--page-bg);
   background-attachment: fixed;
   min-height: 100vh;
+  transition: background 0.6s ease, color 0.4s ease;
 }
 
 a {
@@ -53,6 +76,7 @@ a {
 
 .top {
   border-bottom: 1px solid var(--rule);
+  transition: border-color 0.4s ease;
 }
 
 .top .wrap {
@@ -61,6 +85,13 @@ a {
   justify-content: space-between;
   gap: 1rem;
   min-height: 58px;
+  flex-wrap: wrap;
+}
+
+.top-right {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
   flex-wrap: wrap;
 }
 
@@ -115,6 +146,54 @@ a {
   border-bottom-color: var(--accent);
 }
 
+/* ---------- theme toggle ---------- */
+
+.theme-toggle {
+  position: relative;
+  flex: 0 0 auto;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid var(--rule);
+  background: transparent;
+  color: var(--soft);
+  padding: 0;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: border-color 0.4s ease, color 0.25s ease;
+}
+
+.theme-toggle:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.theme-toggle svg {
+  position: absolute;
+  transition: opacity 0.35s ease, transform 0.45s ease;
+}
+
+.theme-toggle .moon {
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
+}
+
+.theme-toggle .sun-i {
+  opacity: 0;
+  transform: rotate(-90deg) scale(0.6);
+}
+
+:root[data-theme="day"] .theme-toggle .moon {
+  opacity: 0;
+  transform: rotate(90deg) scale(0.6);
+}
+
+:root[data-theme="day"] .theme-toggle .sun-i {
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
+}
+
 main {
   padding: 3.5rem 0 6rem;
 }
@@ -161,6 +240,7 @@ h2.sec {
   gap: 1.1rem;
   padding: 1.5rem 0;
   border-bottom: 1px solid var(--rule);
+  transition: border-color 0.4s ease;
 }
 
 .job:last-child {
@@ -262,7 +342,7 @@ h2.sec {
   border-radius: 13px;
   background: var(--card);
   overflow: hidden;
-  transition: border-color 0.2s ease, transform 0.2s ease;
+  transition: border-color 0.2s ease, transform 0.2s ease, background-color 0.4s ease;
 }
 
 .card:hover {
@@ -336,6 +416,7 @@ h2.sec {
   border: 1px solid var(--rule);
   border-radius: 5px;
   padding: 0.06rem 0.42rem;
+  transition: border-color 0.4s ease;
 }
 
 .btns {
@@ -363,6 +444,7 @@ h2.sec {
 .entry {
   padding: 1.5rem 0;
   border-bottom: 1px solid var(--rule);
+  transition: border-color 0.4s ease;
 }
 
 .entry:has(.badge) {
@@ -446,12 +528,12 @@ h2.sec {
   border-radius: 8px;
   border: 1px solid var(--rule);
   background: var(--card);
-  filter: brightness(0.94);
-  transition: filter 0.3s ease;
+  filter: brightness(var(--photo-dim));
+  transition: filter 0.3s ease, border-color 0.4s ease;
 }
 
 .photos figure:hover img {
-  filter: brightness(1.04);
+  filter: brightness(var(--photo-dim-hover));
 }
 
 .photos figcaption {
@@ -543,7 +625,8 @@ h2.sec {
   border-radius: 9px;
   padding: 0.9rem 1.1rem;
   margin: 0 0 1.3rem;
-  background: rgba(20, 20, 27, 0.55);
+  background: var(--panel);
+  transition: background-color 0.4s ease, border-color 0.4s ease;
 }
 
 .scenario h3 {
@@ -597,6 +680,7 @@ h2.sec {
   padding: 1.5rem 0 3rem;
   font-size: 0.8rem;
   color: var(--faint);
+  transition: border-color 0.4s ease;
 }
 
 .foot .wrap {

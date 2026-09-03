@@ -6,18 +6,43 @@
 <title>Saisrinivas Mamunuru</title>
 <meta name="description" content="Software engineer working on AI systems and the data infrastructure behind them.">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
+<script src="theme.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box}
-:root{--ink:#e9eaf0;--soft:#9598a9;--faint:#5d6073;--accent:#b0a5dc}
+:root{
+  --ink:#e9eaf0;--soft:#9598a9;--faint:#5d6073;--accent:#b0a5dc;
+  --page-bg:
+    radial-gradient(760px 520px at 68% 28%, rgba(88,78,140,.13) 0%, rgba(88,78,140,0) 68%),
+    radial-gradient(1100px 720px at 42% 55%, #16161f 0%, #0c0c12 56%, #08080c 100%);
+  --sun-wash:
+    radial-gradient(circle, rgba(246,198,124,.115) 0%, rgba(240,180,100,.062) 27%, rgba(228,158,88,.022) 50%, rgba(228,158,88,0) 72%);
+  --disc-grad: radial-gradient(circle at 38% 33%, #ffdca6 0%, #f4b862 44%, #dd9840 100%);
+  --disc-shadow: 0 0 20px rgba(242,184,104,.42), 0 0 56px rgba(242,184,104,.16);
+  --star-opacity:1;
+  --toggle-bg:rgba(255,255,255,.06);--toggle-border:rgba(255,255,255,.14);
+  --hover-ink:#fff;
+}
+:root[data-theme="day"]{
+  --ink:#2c2a3d;--soft:#5e5c74;--faint:#8d8ba3;--accent:#6f5aa8;
+  --page-bg:
+    radial-gradient(900px 640px at 60% 18%, rgba(255,214,150,.55) 0%, rgba(255,214,150,0) 62%),
+    linear-gradient(180deg, #cfe4f7 0%, #eaf3fb 38%, #fdf1e4 78%, #ffe6cf 100%);
+  --sun-wash:
+    radial-gradient(circle, rgba(255,206,120,.55) 0%, rgba(255,190,110,.28) 30%, rgba(255,180,110,.08) 55%, rgba(255,180,110,0) 74%);
+  --disc-grad: radial-gradient(circle at 38% 33%, #fff2cf 0%, #ffcf6e 45%, #f0a428 100%);
+  --disc-shadow: 0 0 34px rgba(255,196,90,.65), 0 0 90px rgba(255,196,90,.32);
+  --star-opacity:0;
+  --toggle-bg:rgba(30,20,10,.05);--toggle-border:rgba(30,20,10,.14);
+  --hover-ink:#17151f;
+}
 html,body{height:100%}
 body{margin:0;color:var(--ink);
   font:400 15px/1.6 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;
-  background:
-    radial-gradient(760px 520px at 68% 28%, rgba(88,78,140,.13) 0%, rgba(88,78,140,0) 68%),
-    radial-gradient(1100px 720px at 42% 55%, #16161f 0%, #0c0c12 56%, #08080c 100%);
+  background:var(--page-bg);
+  transition:background 1.1s ease,color .6s ease;
   display:grid;place-items:center;overflow:hidden}
-#sky{position:fixed;inset:0;z-index:0;pointer-events:none}
+#sky{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:var(--star-opacity);transition:opacity 1.1s ease}
 .stage{position:relative;z-index:1;width:min(740px,93vw);height:min(500px,76vh);
   display:grid;place-items:center}
 
@@ -25,18 +50,14 @@ body{margin:0;color:var(--ink);
    Sits behind everything and never moves -- the planets drift, it doesn't. */
 .sun{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
   width:min(560px,78vw);height:min(560px,78vw);border-radius:50%;
-  pointer-events:none;z-index:0;
-  background:radial-gradient(circle,
-    rgba(246,198,124,.115) 0%,
-    rgba(240,180,100,.062) 27%,
-    rgba(228,158,88,.022) 50%,
-    rgba(228,158,88,0) 72%);
+  pointer-events:none;z-index:0;background:var(--sun-wash);
+  transition:background 1.1s ease;
   animation:breathe 14s ease-in-out infinite}
 @keyframes breathe{0%,100%{opacity:.88}50%{opacity:1}}
 
 .disc{width:30px;height:30px;border-radius:50%;margin:0 auto .95rem;
-  background:radial-gradient(circle at 38% 33%, #ffdca6 0%, #f4b862 44%, #dd9840 100%);
-  box-shadow:0 0 20px rgba(242,184,104,.42), 0 0 56px rgba(242,184,104,.16)}
+  background:var(--disc-grad);box-shadow:var(--disc-shadow);
+  transition:background 1.1s ease,box-shadow 1.1s ease}
 
 .core{text-align:center;max-width:25rem;z-index:2;position:relative}
 h1{font-size:1.48rem;font-weight:600;letter-spacing:-.02em;margin:0 0 .32rem}
@@ -48,7 +69,7 @@ h1{font-size:1.48rem;font-weight:600;letter-spacing:-.02em;margin:0 0 .32rem}
   transition:color .25s ease,text-shadow .25s ease}
 .drift span{border-bottom:1px solid transparent;padding-bottom:1px;
   transition:border-color .25s ease}
-.drift:hover{color:#fff;text-shadow:0 0 15px rgba(176,165,220,.4)}
+.drift:hover{color:var(--hover-ink);text-shadow:0 0 15px rgba(176,165,220,.4)}
 .drift:hover span{border-bottom-color:var(--accent)}
 .drift svg{flex:0 0 auto;opacity:.82;transition:opacity .25s ease,transform .5s ease}
 .drift:hover svg{opacity:1;transform:rotate(12deg) scale(1.08)}
@@ -62,6 +83,18 @@ h1{font-size:1.48rem;font-weight:600;letter-spacing:-.02em;margin:0 0 .32rem}
   display:flex;gap:1.15rem;font-size:.8rem;white-space:nowrap}
 .soc a{color:var(--faint);text-decoration:none}
 .soc a:hover{color:var(--accent)}
+
+.theme-toggle{position:fixed;top:1.4rem;right:1.4rem;z-index:5;width:42px;height:42px;border-radius:50%;
+  background:var(--toggle-bg);border:1px solid var(--toggle-border);color:var(--ink);padding:0;
+  display:grid;place-items:center;cursor:pointer;backdrop-filter:blur(6px);
+  transition:background .3s ease,border-color .3s ease,color .4s ease,transform .3s ease}
+.theme-toggle:hover{transform:scale(1.06)}
+.theme-toggle svg{position:absolute;transition:opacity .4s ease,transform .5s ease}
+.theme-toggle .moon{opacity:1;transform:rotate(0deg) scale(1)}
+.theme-toggle .sun-i{opacity:0;transform:rotate(-90deg) scale(.6)}
+:root[data-theme="day"] .theme-toggle .moon{opacity:0;transform:rotate(90deg) scale(.6)}
+:root[data-theme="day"] .theme-toggle .sun-i{opacity:1;transform:rotate(0deg) scale(1)}
+
 @media(max-width:660px){
   body{overflow:auto;display:block}
   .stage{height:auto;display:flex;flex-direction:column;gap:1.4rem;padding:4rem 1.5rem 3rem;width:100%}
@@ -73,6 +106,11 @@ h1{font-size:1.48rem;font-weight:600;letter-spacing:-.02em;margin:0 0 .32rem}
 </head>
 <body>
 <canvas id="sky"></canvas>
+
+<button class="theme-toggle" type="button" aria-label="Toggle day and night theme" title="Toggle theme">
+  <svg class="moon" width="19" height="19" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z" fill="currentColor"/></svg>
+  <svg class="sun-i" width="19" height="19" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="4.6" fill="currentColor"/><g stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M12 2.5v2.4M12 19.1v2.4M21.5 12h-2.4M4.9 12H2.5M18.4 5.6l-1.7 1.7M7.3 16.7l-1.7 1.7M18.4 18.4l-1.7-1.7M7.3 7.3 5.6 5.6"/></g></svg>
+</button>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
