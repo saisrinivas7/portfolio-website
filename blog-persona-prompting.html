@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Persona Prompting — Saisrinivas Mamunuru</title>
+<meta name="description" content="Why telling an LLM to act like an expert doesn't make it more accurate, and what actually moves the needle instead.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<script src="theme.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="home-link" href="index.html">
+      <svg width="19" height="19" viewBox="0 0 26 26" aria-hidden="true">
+        <circle cx="13" cy="13" r="6.5" fill="#f4b862"/>
+        <circle cx="10.8" cy="10.6" r="2.2" fill="#fff" opacity=".28"/>
+      </svg>
+      Sai Mamunuru
+    </a>
+    <div class="top-right">
+      <nav>
+        <a href="experience.html">work</a>
+        <a href="projects.html">projects</a>
+        <a href="blog.html" aria-current="page">writing</a>
+        <a href="education.html">education</a>
+        <a href="photography.html">photos</a>
+      </nav>
+      <button class="theme-toggle" type="button" aria-label="Toggle day and night theme" title="Toggle theme">
+        <svg class="moon" width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z" fill="currentColor"/></svg>
+        <svg class="sun-i" width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="4.6" fill="currentColor"/><g stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M12 2.5v2.4M12 19.1v2.4M21.5 12h-2.4M4.9 12H2.5M18.4 5.6l-1.7 1.7M7.3 16.7l-1.7 1.7M18.4 18.4l-1.7-1.7M7.3 7.3 5.6 5.6"/></g></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <a class="back" href="blog.html">&larr; writing</a>
+    <h1>Persona Prompting</h1>
+    <p class="post-meta">September 2026 &middot; 3 min read</p>
+    <div class="article">
+      <p>&ldquo;You are a legal document analyst.&rdquo; &ldquo;You are a technical documentation specialist.&rdquo; &ldquo;You are a helpful assistant.&rdquo;</p>
+      <p>This is how most of our system prompts start. Which got me thinking: if the model&rsquo;s weights are already fixed, training is done, so how does one line of natural language at the top of a prompt actually change anything?</p>
+
+      <h2>One token at a time</h2>
+      <p>LLMs generate one token at a time, conditioned on everything in the context window. So &ldquo;you are a senior software engineer&rdquo; doesn&rsquo;t flip a switch or activate some &ldquo;expert mode.&rdquo; It shifts the probability distribution, nudging generation toward the phrasing, structure, and reasoning patterns statistically associated with how senior engineers write, based on what the model was trained on.</p>
+      <p>That&rsquo;s the theory. But the real question is: does shifting style buy you better substance &mdash; more correct, reliable answers on hard questions &mdash; in practice?</p>
+
+      <h2>Turns out, no</h2>
+      <p>Wharton Generative AI Labs stress-tested this in <em>&ldquo;Playing Pretend: Expert Personas Don&rsquo;t Improve Factual Accuracy,&rdquo;</em> using PhD-level questions. Three findings stood out.</p>
+
+      <div class="scenario">
+        <h3>Expert personas didn&rsquo;t move the needle</h3>
+        <p>Telling the model &ldquo;you are a world-class physics expert&rdquo; produced no statistically significant accuracy gain over a plain, persona-free prompt, across nearly every model tested.</p>
+        <span class="verdict">No measurable accuracy gain</span>
+      </div>
+
+      <div class="scenario">
+        <h3>Low-knowledge personas actively hurt</h3>
+        <p>Personas like &ldquo;young child&rdquo; or &ldquo;layperson&rdquo; measurably reduced accuracy.</p>
+        <span class="verdict">Accuracy drop</span>
+      </div>
+
+      <div class="scenario">
+        <h3>Mismatched personas can backfire</h3>
+        <p>Given an expert persona from an unrelated field, Gemini 2.5 Flash frequently refused to answer outright, claiming it lacked the relevant expertise.</p>
+        <span class="verdict">Outright refusal</span>
+      </div>
+
+      <p>Prompt-engineering folklore keeps failing the same test.</p>
+
+      <h2>So what actually works?</h2>
+      <p>This points toward a different paradigm: specification, not magic charms.</p>
+      <ul>
+        <li><strong>Task-specific instructions</strong> &mdash; being concrete about the exact task, format, and constraints (dos and don&rsquo;ts).</li>
+        <li><strong>Few-shot examples</strong> &mdash; showing the model what &ldquo;good&rdquo; output looks like, rather than telling it who to pretend to be.</li>
+        <li><strong>Actual evaluation loops</strong> &mdash; testing prompt variations against real outcomes on your specific task.</li>
+      </ul>
+      <p>DSPy takes this idea somewhere interesting: instead of hand-writing prompt strings, you declare the task signature and a metric, and let an optimizer compile the prompt and examples against your own data.</p>
+
+      <blockquote>The fanciest prompt isn&rsquo;t a magic trick. That doesn&rsquo;t mean personas are outright useless &mdash; they&rsquo;re still worth using to shape tone, voice, or framing. What they don&rsquo;t do is make the model &ldquo;more right.&rdquo; If accuracy is what you&rsquo;re optimizing for, effort is better spent writing a clearer spec than a better character.</blockquote>
+    </div>
+  </div>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <span>&copy; 2026 Saisrinivas Mamunuru</span>
+    <nav>
+      <a href="https://github.com/saisrinivas7" target="_blank" rel="noopener">github</a>
+      <a href="https://linkedin.com/in/saisrinivas7" target="_blank" rel="noopener">linkedin</a>
+      <a href="mailto:ssmamunuru@gmail.com">email</a>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
